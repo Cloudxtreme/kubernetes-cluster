@@ -16,5 +16,21 @@ coreos:
       command: start
     - name: fleet.service
       command: start
+    - name:  systemd-networkd.service
+      command: restart
+    - name: flanneld.service
+      drop-ins:
+        - name: 50-network-config.conf
+          content: |
+            [Service]
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.1.0.0/16" }'
+      command: start
   etcd2:
+    advertise-client-urls: http://coreos1:2379
+    initial-advertise-peer-urls: http://coreos1:2380
+    listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
+    listen-peer-urls: http://0.0.0.0:2380
     discovery: https://discovery.etcd.io/e702d485e7610918f35fd4b24636f2c3
+  fleet:
+    public-ip: coreos1
+   
