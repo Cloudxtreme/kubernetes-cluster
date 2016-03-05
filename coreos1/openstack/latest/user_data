@@ -24,3 +24,5 @@ coreos:
         DNS=192.168.178.1
     - name: etcd2.service
       command: start
+    - name: fleet.service
+      command: start
