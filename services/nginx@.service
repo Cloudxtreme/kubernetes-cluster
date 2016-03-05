@@ -1,12 +1,12 @@
 [Unit]
-Description=Nginx web front-end
+Description=Nginx web front-end on port %i
 After=docker.service
 Requires=docker.service
  
 [Service]
 TimeoutStartSec=0
 ExecStartPre=/usr/bin/docker pull nginx
-ExecStart=/usr/bin/docker run --rm --name nginx-01 -p 80:80 nginx
+ExecStart=/usr/bin/docker run --rm --name nginx-01 -p %i:80 nginx
 ExecStop=/usr/bin/docker stop nginx-01
  
 [X-Fleet]
