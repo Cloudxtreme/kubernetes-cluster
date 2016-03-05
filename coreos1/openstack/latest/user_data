@@ -27,3 +27,5 @@ coreos:
       command: start
     - name: fleet.service
       command: start
+    - name:  systemd-networkd.service
+      command: restart
