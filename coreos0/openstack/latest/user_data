@@ -10,8 +10,8 @@ coreos:
     initial-cluster-state: "new"
     initial-advertise-peer-urls: "http://192.168.178.136:2380"
     advertise-client-urls: "http://192.168.178.136:2379"
-    listen-client-urls: "http://0.0.0.0:2379"
-    listen-peer-urls: "http://0.0.0.0:2380"
+    listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
+    listen-peer-urls: http://0.0.0.0:2380
   units:
     - name: 10-ens3.network
       content: |
