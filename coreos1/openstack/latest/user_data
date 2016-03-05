@@ -4,8 +4,8 @@ ssh_authorized_keys:
 hostname: coreos1
 coreos:
   etcd2:
-    name: "a6ac07e0f5b2ee8374fadf55bb607c88"
-    initial-cluster: "a6ac07e0f5b2ee8374fadf55bb607c88=http://192.168.178.137:2380,c395eb01784c0a569fa4cf6834a3bc53=http://192.168.178.138:2380,75042b044057e63ec4d4c8176b96865b=http://192.168.178.136:2380"
+    name: "coreos1"
+    initial-cluster: "coreos0=http://192.168.178.136:2380,coreos1=http://192.168.178.137:2380"
     initial-cluster-state: "existing"
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # discovery: "https://discovery.etcd.io/9c8e4fb28ea4db03e8c16e39269972ad"
