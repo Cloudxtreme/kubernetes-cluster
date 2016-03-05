@@ -5,7 +5,7 @@ hostname: coreos1
 coreos:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-    discovery: "https://discovery.etcd.io/d1bd00d587a50a0a7051b8b434207461"
+    discovery: "https://discovery.etcd.io/ccdd22781f3939f60bfbd7154e140289"
     # multi-region and multi-cloud deployments need to use $public_ipv4
     advertise-client-urls: "http://192.168.178.137:2379"
     initial-advertise-peer-urls: "http://192.168.178.136:2380,http://192.168.178.137:2380"
