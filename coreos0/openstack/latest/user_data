@@ -1,0 +1,20 @@
+#cloud-config
+ssh_authorized_keys:
+ - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCOw/yh7+j3ygZp2aZRdZDWUh0Dkj5N9/USdiLSoS+0CHJta+mtSxxmI/yv1nOk7xnuA6qtjpxdMlWn5obtC9xyS6T++tlTK9gaPwU7a/PObtoZdfQ7znAJDpX0IPI06/OH1tFE9kEutHQPzhCwRaIQ402BHIrUMWzzP7Ige8Oa0HwXH4sHUG5h/V/svzi9T0CKJjF8dTx4iUfKX959hT8wQnKYPULewkNBFv6pNfWIr8EzvIEQcPmmm3tP+dQPKg5QKVi6jPdRla+t5HXfhXu0W3WCDa2s0VGmJjBdMMowr5MLNYI79MKziSV1w1IWL17Z58Lop0zEHqP7Ba0Aooqd
+hostname: coreos0
+coreos:
+  units:
+    - name: 10-ens3.network
+      content: |
+        [Match]
+        MACAddress=00:16:3e:1f:3d:a9
+        [Network]
+        Address=192.168.178.136/24
+        Gateway=192.168.178.1
+        DNS=192.168.178.1
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
+  etcd2:
+    discovery: https://discovery.etcd.io/e702d485e7610918f35fd4b24636f2c3
