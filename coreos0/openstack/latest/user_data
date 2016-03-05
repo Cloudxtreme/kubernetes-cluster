@@ -17,4 +17,4 @@ coreos:
     - name: fleet.service
       command: start
   etcd2:
-    discovery: https://discovery.etcd.io/e702d485e7610918f35fd4b24636f2c3
+    discovery: https://discovery.etcd.io/c8529d825cbddb2a205229167efddd40
