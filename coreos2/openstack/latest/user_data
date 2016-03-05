@@ -6,14 +6,9 @@ coreos:
   etcd2:
     name: "coreos2"
     initial-cluster: "coreos0=http://192.168.178.136:2380,coreos1=http://192.168.178.137:2380,coreos2=http://192.168.178.138:2380"
-    initial-cluster-state: "existing"
-    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
-    # discovery: "https://discovery.etcd.io/65fdfed1d44b8466c25badbb331baa29"
-    # multi-region and multi-cloud deployments need to use $public_ipv4
+    initial-advertise-peer-urls: "http://192.168.178.136:2380,http://192.168.178.137:2380,http://192.168.178.138:2380"
+    initial-cluster-state: "new"
     advertise-client-urls: "http://192.168.178.138:2379"
-    initial-advertise-peer-urls: "http://192.168.178.138:2380"
-    # listen on both the official ports and the legacy ports
-    # legacy ports can be omitted if your application doesn't depend on them
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://192.168.178.138:2380,http://192.168.178.138:7001"
   units:
