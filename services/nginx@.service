@@ -6,8 +6,8 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=0
 ExecStartPre=/usr/bin/docker pull nginx
-ExecStart=/usr/bin/docker run --rm --name nginx-01 -p %i:80 nginx
-ExecStop=/usr/bin/docker stop nginx-01
+ExecStart=/usr/bin/docker run --rm --name nginx-%i -p %i:80 nginx
+ExecStop=/usr/bin/docker stop nginx-%i
  
 [X-Fleet]
-X-Conflicts=nginx.*.service
+X-Conflicts=nginx@*.service
