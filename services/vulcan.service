@@ -5,8 +5,6 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Restart=always
-RestartSec=20s
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill vulcan1
 ExecStartPre=-/usr/bin/docker rm vulcan1

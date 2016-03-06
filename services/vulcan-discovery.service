@@ -1,12 +1,11 @@
 [Unit]
 Description=Register for Vulcan
+Requires=vulcan.service
+After=vulcan.service
 BindsTo=vulcan.service
-Before=vulcan.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Restart=always
-RestartSec=20s
 RemainAfterExit=yes
 ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/path" '/.*'
 ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/upstream" nginx

@@ -4,8 +4,6 @@ After=docker.service
 Requires=docker.service
  
 [Service]
-Restart=always
-RestartSec=20s
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill nginx1
 ExecStartPre=-/usr/bin/docker rm nginx1

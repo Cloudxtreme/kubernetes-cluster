@@ -6,8 +6,6 @@ BindsTo=apache@%i.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Restart=always
-RestartSec=20s
 ExecStart=/bin/bash -c '\
   while true; do \
     curl -f ${COREOS_PUBLIC_IPV4}:%i; \
