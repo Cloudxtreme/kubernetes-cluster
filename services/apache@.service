@@ -1,11 +1,7 @@
 [Unit]
 Description=Apache web server service on port %i
-
-# Requirements
-Requires=etcd.service
-Requires=docker.service
-After=etcd.service
 After=docker.service
+Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
