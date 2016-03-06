@@ -14,3 +14,5 @@ ExecStop=/usr/bin/docker stop vulcan1
 
 [X-Fleet]
 X-Conflicts=vulcan*.service
+MachineMetadata=region=main
+#Global=true
