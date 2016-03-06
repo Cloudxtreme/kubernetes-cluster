@@ -9,14 +9,10 @@ BindsTo=nginx@%i.service
 [Service]
 EnvironmentFile=/etc/environment
 RemainAfterExit=yes
-ExecStart=/bin/sh -c " \
-  /bin/etcdctl set \"/vulcand/upstreams/nginix/endpoints/ngnix-service\" http://$COREOS_PUBLIC_IPV4:%i; \
-  /bin/etcdctl set \"/vulcand/hosts/$COREOS_PUBLIC_IPV4/locations/home/path\" '/.*'; \
-  /bin/etcdctl set \"/vulcand/hosts/$COREOS_PUBLIC_IPV4/locations/home/upstream\" nginix \
-  "
-ExecStop=/bin/sh -c " \
-  /bin/etcdctl rm /vulcand/upstreams/nginix/endpoints/ngnix-service \
-  "
+ExecStart=/bin/etcdctl set "/vulcand/upstreams/nginix/endpoints/ngnix-$COREOS_PUBLIC_IPV4-%i" http://$COREOS_PUBLIC_IPV4:%i
+ExecStart=/bin/etcdctl set "/vulcand/hosts/$COREOS_PUBLIC_IPV4/locations/home/path" '/.*'
+ExecStart=/bin/etcdctl set "/vulcand/hosts/$COREOS_PUBLIC_IPV4/locations/home/upstream" nginix
+ExecStop=/bin/etcdctl rm "/vulcand/upstreams/nginix/endpoints/ngnix-$COREOS_PUBLIC_IPV4-%i"
 
 [X-Fleet]
 # Schedule on the same machine as the associated Nginx service
