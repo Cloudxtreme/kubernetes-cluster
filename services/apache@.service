@@ -4,6 +4,8 @@ After=docker.service
 Requires=docker.service
 
 [Service]
+Restart=always
+RestartSec=20s
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill apache1
 ExecStartPre=-/usr/bin/docker rm apache1

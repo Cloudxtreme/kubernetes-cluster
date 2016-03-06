@@ -5,6 +5,8 @@ After=nginx@%i.service
 BindsTo=nginx@%i.service
 
 [Service]
+Restart=always
+RestartSec=20s
 EnvironmentFile=/etc/environment
 ExecStart=/bin/bash -c '\
   while true; do \
