@@ -7,6 +7,7 @@ coreos:
     engine-reconcile-interval: 10
     etcd-request-timeout: 5
     agent-ttl: 120s
+    metadata: "region=main"
   update:
     reboot-strategy: etcd-lock
   etcd2:
