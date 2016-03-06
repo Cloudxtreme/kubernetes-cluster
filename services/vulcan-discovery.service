@@ -9,7 +9,8 @@ Restart=always
 RestartSec=20s
 RemainAfterExit=yes
 ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/path" '/.*'
-ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/upstream" u1
+ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/upstream" ngnix
+#ExecStartPre=/bin/etcdctl set "/vulcand/hosts/${COREOS_PUBLIC_IPV4}/locations/home/upstream" apache
 ExecStop=/bin/etcdctl rm "/vulcand/hosts/${COREOS_PUBLIC_IPV4}"
 
 [X-Fleet]
