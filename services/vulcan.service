@@ -1,12 +1,6 @@
 [Unit]
 Description=Vulcan
-
-# Requirements
-# Requires=etcd.service
 Requires=docker.service
-
-# Dependency ordering
-# After=etcd.service
 After=docker.service
 
 [Service]
@@ -18,5 +12,5 @@ ExecStartPre=/usr/bin/docker pull mailgun/vulcand
 ExecStart=/usr/bin/docker run --rm --name vulcan1 -p 80:80 -p 8182:8182 mailgun/vulcand /go/bin/vulcand -apiInterface=0.0.0.0 -interface=0.0.0.0 -etcd=http://${COREOS_PUBLIC_IPV4}:4001 -port=80 -apiPort=8182
 ExecStop=/usr/bin/docker kill vulcan1
 
-# [X-Fleet]
-# X-Conflicts=vulcan*.service
+[X-Fleet]
+X-Conflicts=vulcan*.service
