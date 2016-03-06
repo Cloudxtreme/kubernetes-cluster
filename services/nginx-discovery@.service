@@ -12,13 +12,13 @@ ExecStart=/bin/bash -c '\
   while true; do \
     curl -f ${COREOS_PUBLIC_IPV4}:%i; \
     if [ $? -eq 0 ]; then \
-      /bin/etcdctl set "/vulcand/upstreams/ngnix/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i" http://${COREOS_PUBLIC_IPV4}:%i --ttl 30; \
+      /bin/etcdctl set "/vulcand/upstreams/nginx/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i" http://${COREOS_PUBLIC_IPV4}:%i --ttl 30; \
     else \
-      /bin/etcdctl rm "/vulcand/upstreams/ngnix/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i"; \
+      /bin/etcdctl rm "/vulcand/upstreams/nginx/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i"; \
     fi; \
     sleep 20; \
   done'
-ExecStop=/bin/etcdctl rm "/vulcand/upstreams/ngnix/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i"
+ExecStop=/bin/etcdctl rm "/vulcand/upstreams/nginx/endpoints/nginx-${COREOS_PUBLIC_IPV4}-%i"
 
 [X-Fleet]
 X-ConditionMachineOf=nginx@%i.service
