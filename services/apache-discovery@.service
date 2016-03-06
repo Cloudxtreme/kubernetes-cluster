@@ -1,13 +1,9 @@
 [Unit]
 Description=Apache web server on port %i etcd registration
-
-# Requirements
-Requires=etcd.service
 Requires=apache@%i.service
-
-# Dependency ordering and binding
-After=etcd.service
 After=apache@%i.service
+
+# Bindings
 BindsTo=apache@%i.service
 
 [Service]
