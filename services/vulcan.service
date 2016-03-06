@@ -13,6 +13,6 @@ ExecStart=/usr/bin/docker run --rm --name vulcan1 -p 80:80 -p 8182:8182 mailgun/
 ExecStop=/usr/bin/docker stop vulcan1
 
 [X-Fleet]
-X-Conflicts=vulcan*.service
+X-Conflicts=vulcan.service
 MachineMetadata=region=main
 #Global=true
