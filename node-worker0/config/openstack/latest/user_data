@@ -83,9 +83,33 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
+    - name: kubelet.service
+      command: start
+      content: |
+        [Service]
+        ExecStart=/usr/bin/kubelet \
+          --api_servers=https://192.168.178.130 \
+          --register-node=true \
+          --allow-privileged=true \
+          --config=/etc/kubernetes/manifests \
+          --hostname-override=192.168.178.140 \
+          --cluster-dns=10.103.0.10 \
+          --cluster-domain=cluster.local \
+          --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
+          --tls-cert-file=/etc/kubernetes/ssl/worker.pem \
+          --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem
+        Restart=always
+        RestartSec=10
+        [Install]
+        WantedBy=multi-user.target
 write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
       COREOS_PUBLIC_IPV4=192.168.178.140
       COREOS_PRIVATE_IPV4=192.168.178.140
+  - path: /run/flannel/options.env
+    permissions: 0644
+    content: |
+      FLANNELD_IFACE=192.168.178.140
+      FLANNELD_ETCD_ENDPOINTS=http://192.168.178.130:2379,http://192.168.178.140:2379,http://192.168.178.141:2379,http://192.168.178.142:2379
