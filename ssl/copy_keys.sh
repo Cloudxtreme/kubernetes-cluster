@@ -13,8 +13,10 @@ mkdir -p ../node-worker0/kubernetes/ssl
 cp ca.pem ../node-worker0/kubernetes/ssl/ca.pem
 cp worker0-worker.pem ../node-worker0/kubernetes/ssl/worker0-worker.pem
 cp worker0-worker-key.pem ../node-worker0/kubernetes/ssl/worker0-worker-key.pem
-cd ../node-worker0/kubernetes/ssl/ && ln -s worker2-worker.pem worker.pem
-cd ../node-worker0/kubernetes/ssl/ && ln -s worker2-worker-key.pem worker-key.pem
+cd ../node-worker0/kubernetes/ssl
+ln -s worker2-worker.pem worker.pem
+ln -s worker2-worker-key.pem worker-key.pem
+cd -
 chmod 600 ../node-worker0/kubernetes/ssl/*-key.pem
 chown root:root ../node-worker0/kubernetes/ssl/*-key.pem
 
@@ -23,8 +25,10 @@ mkdir -p ../node-worker1/kubernetes/ssl
 cp ca.pem ../node-worker1/kubernetes/ssl/ca.pem
 cp worker1-worker.pem ../node-worker1/kubernetes/ssl/worker1-worker.pem
 cp worker1-worker-key.pem ../node-worker1/kubernetes/ssl/worker1-worker-key.pem
-cd ../node-worker1/kubernetes/ssl/ && ln -s worker2-worker.pem worker.pem
-cd ../node-worker1/kubernetes/ssl/ && ln -s worker2-worker-key.pem worker-key.pem
+cd ../node-worker1/kubernetes/ssl
+ln -s worker2-worker.pem worker.pem
+ln -s worker2-worker-key.pem worker-key.pem
+cd -
 chmod 600 ../node-worker1/kubernetes/ssl/*-key.pem
 chown root:root ../node-worker1/kubernetes/ssl/*-key.pem
 
@@ -33,7 +37,9 @@ mkdir -p ../node-worker2/kubernetes/ssl
 cp ca.pem ../node-worker2/kubernetes/ssl/ca.pem
 cp worker2-worker.pem ../node-worker2/kubernetes/ssl/worker2-worker.pem
 cp worker2-worker-key.pem ../node-worker2/kubernetes/ssl/worker2-worker-key.pem
-cd ../node-worker2/kubernetes/ssl/ && ln -s worker2-worker.pem worker.pem
-cd ../node-worker2/kubernetes/ssl/ && ln -s worker2-worker-key.pem worker-key.pem
+cd ../node-worker2/kubernetes/ssl
+ln -s worker2-worker.pem worker.pem
+ln -s worker2-worker-key.pem worker-key.pem
+cd -
 chmod 600 ../node-worker2/kubernetes/ssl/*-key.pem
 chown root:root ../node-worker2/kubernetes/ssl/*-key.pem
