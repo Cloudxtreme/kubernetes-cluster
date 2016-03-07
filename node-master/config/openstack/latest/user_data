@@ -90,7 +90,6 @@ coreos:
       content: |
         [Service]
         ExecStart=/usr/bin/kubelet \
-          --v=2 \
           --api_servers=http://127.0.0.1:8080 \
           --allow-privileged=true \
           --config=/etc/kubernetes/manifests \
@@ -98,6 +97,7 @@ coreos:
 #          --hostname-override=192.168.178.130 \
 #          --cluster-dns=10.103.0.10 \
 #          --cluster-domain=cluster.local
+          --v=2
         Restart=always
         RestartSec=10
         [Install]
