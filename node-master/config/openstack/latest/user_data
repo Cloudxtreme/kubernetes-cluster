@@ -21,6 +21,7 @@ coreos:
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
     - name: etc-kubernetes.mount
+      command: start
       content: |
         [Unit]
         Wants=user-configdrive.service
