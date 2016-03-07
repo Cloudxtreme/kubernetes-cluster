@@ -1,0 +1,57 @@
+#cloud-config
+ssh_authorized_keys:
+ - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCOw/yh7+j3ygZp2aZRdZDWUh0Dkj5N9/USdiLSoS+0CHJta+mtSxxmI/yv1nOk7xnuA6qtjpxdMlWn5obtC9xyS6T++tlTK9gaPwU7a/PObtoZdfQ7znAJDpX0IPI06/OH1tFE9kEutHQPzhCwRaIQ402BHIrUMWzzP7Ige8Oa0HwXH4sHUG5h/V/svzi9T0CKJjF8dTx4iUfKX959hT8wQnKYPULewkNBFv6pNfWIr8EzvIEQcPmmm3tP+dQPKg5QKVi6jPdRla+t5HXfhXu0W3WCDa2s0VGmJjBdMMowr5MLNYI79MKziSV1w1IWL17Z58Lop0zEHqP7Ba0Aooqd
+hostname: coreos2
+coreos:
+  fleet:
+    engine-reconcile-interval: 10
+    etcd-request-timeout: 5
+    agent-ttl: 120s
+    metadata: "region=secondary"
+  update:
+    reboot-strategy: etcd-lock
+  etcd2:
+    name: "coreos2"
+    initial-cluster: "coreos0=http://192.168.178.136:2380,coreos1=http://192.168.178.137:2380,coreos2=http://192.168.178.139:2380"
+    initial-cluster-token: "cluster1"
+    initial-cluster-state: "new"
+    initial-advertise-peer-urls: "http://192.168.178.139:2380"
+    advertise-client-urls: "http://192.168.178.139:2379"
+    listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
+    listen-peer-urls: "http://0.0.0.0:2380"
+  units:
+    - name: 10-ens3.network
+      content: |
+        [Match]
+        MACAddress=00:16:3e:cc:51:23
+        [Network]
+        Address=192.168.178.139/24
+        Gateway=192.168.178.1
+        DNS=192.168.178.1
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
+    - name:  systemd-networkd.service
+      command: restart
+    - name: flanneld.service
+      command: start
+      drop-ins:
+        - name: 50-network-config.conf
+          content: |
+            [Service]
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.101.0.0/16" }'
+    - name: docker.service
+      command: start
+      drop-ins:
+        - name: 40-flannel.conf
+          content: |
+            [Unit]
+            Requires=flanneld.service
+            After=flanneld.service
+write_files:
+  - path: /etc/environment
+    permissions: 0644
+    content: |
+      COREOS_PUBLIC_IPV4=192.168.178.139
+      COREOS_PRIVATE_IPV4=192.168.178.139
