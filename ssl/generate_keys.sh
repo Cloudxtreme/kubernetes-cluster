@@ -12,22 +12,22 @@ openssl req -new -key apiserver-key.pem -out apiserver.csr -subj "/CN=kube-apise
 openssl x509 -req -in apiserver.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf
 
 # Worker 0 Key
-WORKER_FQDN = "worker0"
-WORKER_IP = 192.168.178.137
+WORKER_FQDN="worker0"
+WORKER_IP=192.168.178.137
 openssl genrsa -out ${WORKER_FQDN}-worker-key.pem 2048
 WORKER_IP=${WORKER_IP} openssl req -new -key ${WORKER_FQDN}-worker-key.pem -out ${WORKER_FQDN}-worker.csr -subj "/CN=${WORKER_FQDN}" -config worker-openssl.cnf
 WORKER_IP=${WORKER_IP} openssl x509 -req -in ${WORKER_FQDN}-worker.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out ${WORKER_FQDN}-worker.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
 # Worker 1 Key
-WORKER_FQDN = "worker1"
-WORKER_IP = 192.168.178.138
+WORKER_FQDN="worker1"
+WORKER_IP=192.168.178.138
 openssl genrsa -out ${WORKER_FQDN}-worker-key.pem 2048
 WORKER_IP=${WORKER_IP} openssl req -new -key ${WORKER_FQDN}-worker-key.pem -out ${WORKER_FQDN}-worker.csr -subj "/CN=${WORKER_FQDN}" -config worker-openssl.cnf
 WORKER_IP=${WORKER_IP} openssl x509 -req -in ${WORKER_FQDN}-worker.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out ${WORKER_FQDN}-worker.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
 # Worker 2 Key
-WORKER_FQDN = "worker2"
-WORKER_IP = 192.168.178.139
+WORKER_FQDN="worker2"
+WORKER_IP=192.168.178.139
 openssl genrsa -out ${WORKER_FQDN}-worker-key.pem 2048
 WORKER_IP=${WORKER_IP} openssl req -new -key ${WORKER_FQDN}-worker-key.pem -out ${WORKER_FQDN}-worker.csr -subj "/CN=${WORKER_FQDN}" -config worker-openssl.cnf
 WORKER_IP=${WORKER_IP} openssl x509 -req -in ${WORKER_FQDN}-worker.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out ${WORKER_FQDN}-worker.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
