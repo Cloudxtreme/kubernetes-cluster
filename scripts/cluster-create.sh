@@ -22,6 +22,6 @@ dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/s
 dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/system/node-worker1
 dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/system/node-worker2
 
-./cluster-create.sh
+./virsh-create.sh
 
 echo "done"
