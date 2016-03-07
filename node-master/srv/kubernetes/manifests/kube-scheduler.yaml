@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: kube-scheduler
-  namespace: default
+  namespace: kube-system
 spec:
   hostNetwork: true
   containers:
