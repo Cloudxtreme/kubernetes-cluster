@@ -35,12 +35,20 @@ coreos:
     - name:  systemd-networkd.service
       command: restart
     - name: flanneld.service
+      command: start
       drop-ins:
         - name: 50-network-config.conf
           content: |
             [Service]
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.101.0.0/16" }'
+    - name: docker.service
       command: start
+      drop-ins:
+        - name: 40-flannel.conf
+          content: |
+            [Unit]
+            Requires=flanneld.service
+            After=flanneld.service
 write_files:
   - path: /etc/environment
     permissions: 0644
