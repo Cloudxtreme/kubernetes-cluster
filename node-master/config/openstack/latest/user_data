@@ -83,22 +83,25 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
+#/usr/bin/kubelet --address=127.0.0.1 --api-servers=http://127.0.0.1:8080 --allow-privileged=false --config=/etc/kubernetes/manifests --v=2 --cadvisor-port=0
+#/usr/bin/kubelet                     --api_servers=http://127.0.0.1:8080 --allow-privileged=true  --config=/etc/kubernetes/manifests --register-node=false  --hostname-override=192.168.178.130 --cluster-dns=10.103.0.10 --cluster-domain=cluster.local
     - name: kubelet.service
       command: start
-#      content: |
-#        [Service]
-#        ExecStart=/usr/bin/kubelet \
-#          --api_servers=http://127.0.0.1:8080 \
-#          --register-node=false \
-#          --allow-privileged=true \
-#          --config=/etc/kubernetes/manifests \
+      content: |
+        [Service]
+        ExecStart=/usr/bin/kubelet \
+          --v=2 \
+          --api_servers=http://127.0.0.1:8080 \
+          --allow-privileged=true \
+          --config=/etc/kubernetes/manifests \
+          --register-node=false \
 #          --hostname-override=192.168.178.130 \
 #          --cluster-dns=10.103.0.10 \
 #          --cluster-domain=cluster.local
-#        Restart=always
-#        RestartSec=10
-#        [Install]
-#        WantedBy=multi-user.target
+        Restart=always
+        RestartSec=10
+        [Install]
+        WantedBy=multi-user.target
 write_files:
   - path: /etc/environment
     permissions: 0644
