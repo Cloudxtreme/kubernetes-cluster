@@ -11,10 +11,10 @@ echo "converting image ..."
 qemu-img convert coreos_production_qemu_image.img -O raw coreos_production_qemu_image.raw
 
 echo "create lvm volumes ..."
-lvcreate -L 8G -n node-master system
-lvcreate -L 8G -n node-worker0 system
-lvcreate -L 8G -n node-worker1 system
-lvcreate -L 8G -n node-worker2 system
+lvcreate -L 10G -n node-master system
+lvcreate -L 10G -n node-worker0 system
+lvcreate -L 10G -n node-worker1 system
+lvcreate -L 10G -n node-worker2 system
 
 echo "writing images ..."
 dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/system/node-master
