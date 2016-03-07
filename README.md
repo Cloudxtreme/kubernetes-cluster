@@ -32,7 +32,7 @@ virt-install \
 --nographics \
 --name coreos0 \
 --disk /dev/mapper/system-coreos0 \
---filesystem /var/lib/libvirt/images/coreos/coreos0/,config-2,type=mount,mode=squash \
+--filesystem /var/lib/libvirt/images/coreos/coreos0/config/,config-2,type=mount,mode=squash \
 --network bridge=br0,mac=00:16:3e:1f:3d:a9,type=bridge
 ```
 
@@ -50,7 +50,7 @@ virt-install \
 --nographics \
 --name coreos1 \
 --disk /dev/mapper/system-coreos1 \
---filesystem /var/lib/libvirt/images/coreos/coreos1/,config-2,type=mount,mode=squash \
+--filesystem /var/lib/libvirt/images/coreos/coreos1/config/,config-2,type=mount,mode=squash \
 --network bridge=br0,mac=00:16:3e:0d:03:6a,type=bridge
 ```
 
@@ -68,7 +68,7 @@ virt-install \
 --nographics \
 --name coreos2 \
 --disk /dev/mapper/system-coreos2 \
---filesystem /var/lib/libvirt/images/coreos/coreos2/,config-2,type=mount,mode=squash \
+--filesystem /var/lib/libvirt/images/coreos/coreos2/config/,config-2,type=mount,mode=squash \
 --network bridge=br0,mac=00:16:3e:9d:5d:d8,type=bridge
 ```
 
