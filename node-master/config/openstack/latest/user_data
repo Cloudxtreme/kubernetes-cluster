@@ -85,6 +85,20 @@ coreos:
             After=flanneld.service
     - name: kubelet.service
       command: start
+      content: |
+        [Service]
+        ExecStart=/usr/bin/kubelet \
+          --api_servers=http://127.0.0.1:8080 \
+          --register-node=false \
+          --allow-privileged=true \
+          --config=/etc/kubernetes/manifests \
+          --hostname-override=192.168.178.130 \
+          --cluster-dns=10.103.0.10 \
+          --cluster-domain=cluster.local
+        Restart=always
+        RestartSec=10
+        [Install]
+        WantedBy=multi-user.target
 write_files:
   - path: /etc/environment
     permissions: 0644
