@@ -12,11 +12,11 @@ coreos:
     reboot-strategy: etcd-lock
   etcd2:
     name: "node-worker2"
-    initial-cluster: "node-master=http://192.168.178.136:2380,node-worker0=http://192.168.178.137:2380,node-worker1=http://192.168.178.138:2380,node-worker2=http://192.168.178.139:2380"
+    initial-cluster: "node-master=http://192.168.178.130:2380,node-worker0=http://192.168.178.140:2380,node-worker1=http://192.168.178.141:2380,node-worker2=http://192.168.178.142:2380"
     initial-cluster-token: "cluster1"
     initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://192.168.178.138:2380"
-    advertise-client-urls: "http://192.168.178.138:2379"
+    initial-advertise-peer-urls: "http://192.168.178.142:2380"
+    advertise-client-urls: "http://192.168.178.142:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
@@ -25,7 +25,7 @@ coreos:
         [Match]
         MACAddress=00:16:3e:9d:5d:d8
         [Network]
-        Address=192.168.178.138/24
+        Address=192.168.178.142/24
         Gateway=192.168.178.1
         DNS=192.168.178.1
     - name: etcd2.service
@@ -53,5 +53,5 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=192.168.178.138
-      COREOS_PRIVATE_IPV4=192.168.178.138
+      COREOS_PUBLIC_IPV4=192.168.178.142
+      COREOS_PRIVATE_IPV4=192.168.178.142
