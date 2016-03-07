@@ -94,6 +94,7 @@ coreos:
           --allow-privileged=true \
           --config=/etc/kubernetes/manifests \
           --register-node=false \
+          --master-service-namespace=kube-system \
           --v=2
         Restart=always
         RestartSec=10
