@@ -33,7 +33,7 @@ coreos:
         ConditionKernelCommandLine=!coreos.configdrive=0
 
         [Mount]
-        What=LABEL=/etc/kubernetes
+        What=LABEL=etc-kubernetes
         Where=/etc/kubernetes
         Options=ro
     - name: 10-ens3.network
