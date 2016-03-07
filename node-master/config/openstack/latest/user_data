@@ -49,6 +49,8 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
+    - name: kubelet.service
+      command: start
 write_files:
   - path: /etc/environment
     permissions: 0644
