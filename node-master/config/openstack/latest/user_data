@@ -83,7 +83,7 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
-    - name: kubelet.service
+    - name: mykubelet.service
       command: start
       content: |
         [Service]
