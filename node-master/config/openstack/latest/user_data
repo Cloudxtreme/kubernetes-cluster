@@ -24,8 +24,8 @@ coreos:
       command: start
       content: |
         [Unit]
-        Wants=user-configdrive.service
-        Before=user-configdrive.service
+        Wants=user-configvirtfs.service
+        Before=user-configvirtfs.service
         # Only mount config drive block devices automatically in virtual machines
         # or any host that has it explicitly enabled and not explicitly disabled.
         ConditionVirtualization=|vm
@@ -33,9 +33,10 @@ coreos:
         ConditionKernelCommandLine=!coreos.configdrive=0
 
         [Mount]
-        What=LABEL=etc-kubernetes
+        What=etc-kubernetes
         Where=/etc/kubernetes
-        Options=ro
+        Options=ro,trans=virtio,version=9p2000.L
+        Type=9p
     - name: 10-ens3.network
       content: |
         [Match]
