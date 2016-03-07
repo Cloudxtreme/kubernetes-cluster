@@ -37,7 +37,7 @@ coreos:
         Where=/etc/kubernetes
         Options=ro,trans=virtio,version=9p2000.L
         Type=9p
-    - name: etc-kubernetes.mount
+    - name: srv-kubernetes.mount
       command: start
       content: |
         [Unit]
