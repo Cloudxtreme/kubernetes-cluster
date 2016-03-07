@@ -5,8 +5,8 @@ mkdir -p ../node-master/kubernetes/ssl
 cp ca.pem ../node-master/kubernetes/ssl/ca.pem
 cp apiserver.pem ../node-master/kubernetes/ssl/apiserver.pem
 cp apiserver-key.pem ../node-master/kubernetes/ssl/apiserver-key.pem
-chmod 600 ../node-master/kubernetes/ssl/*-key.pem
-chown root:root ../node-master/kubernetes/ssl/*-key.pem
+chmod 600 ../node-master/kubernetes/ssl/*.pem
+chown root:root ../node-master/kubernetes/ssl/*.pem
 
 # node-worker0
 mkdir -p ../node-worker0/kubernetes/ssl
@@ -17,8 +17,8 @@ cd ../node-worker0/kubernetes/ssl
 ln -s worker2-worker.pem worker.pem
 ln -s worker2-worker-key.pem worker-key.pem
 cd -
-chmod 600 ../node-worker0/kubernetes/ssl/*-key.pem
-chown root:root ../node-worker0/kubernetes/ssl/*-key.pem
+chmod 600 ../node-worker0/kubernetes/ssl/*.pem
+chown root:root ../node-worker0/kubernetes/ssl/*.pem
 
 # node-worker1
 mkdir -p ../node-worker1/kubernetes/ssl
@@ -29,8 +29,8 @@ cd ../node-worker1/kubernetes/ssl
 ln -s worker2-worker.pem worker.pem
 ln -s worker2-worker-key.pem worker-key.pem
 cd -
-chmod 600 ../node-worker1/kubernetes/ssl/*-key.pem
-chown root:root ../node-worker1/kubernetes/ssl/*-key.pem
+chmod 600 ../node-worker1/kubernetes/ssl/*.pem
+chown root:root ../node-worker1/kubernetes/ssl/*.pem
 
 # node-worker2
 mkdir -p ../node-worker2/kubernetes/ssl
@@ -41,5 +41,5 @@ cd ../node-worker2/kubernetes/ssl
 ln -s worker2-worker.pem worker.pem
 ln -s worker2-worker-key.pem worker-key.pem
 cd -
-chmod 600 ../node-worker2/kubernetes/ssl/*-key.pem
-chown root:root ../node-worker2/kubernetes/ssl/*-key.pem
+chmod 600 ../node-worker2/kubernetes/ssl/*.pem
+chown root:root ../node-worker2/kubernetes/ssl/*.pem
