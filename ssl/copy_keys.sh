@@ -14,8 +14,8 @@ cp ca.pem ../node-worker0/kubernetes/ssl/ca.pem
 cp worker0-worker.pem ../node-worker0/kubernetes/ssl/worker0-worker.pem
 cp worker0-worker-key.pem ../node-worker0/kubernetes/ssl/worker0-worker-key.pem
 cd ../node-worker0/kubernetes/ssl
-ln -s worker2-worker.pem worker.pem
-ln -s worker2-worker-key.pem worker-key.pem
+ln -s worker0-worker.pem worker.pem
+ln -s worker0-worker-key.pem worker-key.pem
 cd -
 chmod 600 ../node-worker0/kubernetes/ssl/*.pem
 chown root:root ../node-worker0/kubernetes/ssl/*.pem
@@ -26,8 +26,8 @@ cp ca.pem ../node-worker1/kubernetes/ssl/ca.pem
 cp worker1-worker.pem ../node-worker1/kubernetes/ssl/worker1-worker.pem
 cp worker1-worker-key.pem ../node-worker1/kubernetes/ssl/worker1-worker-key.pem
 cd ../node-worker1/kubernetes/ssl
-ln -s worker2-worker.pem worker.pem
-ln -s worker2-worker-key.pem worker-key.pem
+ln -s worker1-worker.pem worker.pem
+ln -s worker1-worker-key.pem worker-key.pem
 cd -
 chmod 600 ../node-worker1/kubernetes/ssl/*.pem
 chown root:root ../node-worker1/kubernetes/ssl/*.pem
