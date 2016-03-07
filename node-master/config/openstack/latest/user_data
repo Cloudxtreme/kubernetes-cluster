@@ -57,3 +57,8 @@ write_files:
     content: |
       COREOS_PUBLIC_IPV4=192.168.178.130
       COREOS_PRIVATE_IPV4=192.168.178.130
+  - path: /run/flannel/options.env
+    permissions: 0644
+    content: |
+      FLANNELD_IFACE=192.168.178.130
+      FLANNELD_ETCD_ENDPOINTS=http://192.168.178.130:2379,http://192.168.178.140:2379,http://192.168.178.141:2379,http://192.168.178.142:2379
