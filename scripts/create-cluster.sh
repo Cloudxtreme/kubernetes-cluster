@@ -22,12 +22,6 @@ dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/s
 dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/system/node-worker1
 dd bs=1M iflag=direct oflag=direct if=coreos_production_qemu_image.raw of=/dev/system/node-worker2
 
-echo "starting machines ..."
-virsh start node-master
-virsh start node-worker0
-virsh start node-worker1
-virsh start node-worker2
-
 echo "create virsh node-master ..."
 virt-install \
 --import \
@@ -103,7 +97,7 @@ virt-install \
 echo "starting machines ..."
 virsh start node-master
 virsh start node-worker0
+virsh start node-worker1
 virsh start node-worker2
-virsh start node-worker3
 
 echo "done"
