@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hello-world-po
+  name: helloworld-po
 spec:  # specification of the pod’s contents
   restartPolicy: Never
   containers:
