@@ -20,41 +20,24 @@ coreos:
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
-#    - name: etc-kubernetes.mount
-#      command: start
-#      content: |
-#        [Unit]
-#        Wants=user-configvirtfs.service
-#        Before=user-configvirtfs.service
-#        # Only mount config drive block devices automatically in virtual machines
-#        # or any host that has it explicitly enabled and not explicitly disabled.
-#        ConditionVirtualization=|vm
-#        ConditionKernelCommandLine=|coreos.configdrive=1
-#        ConditionKernelCommandLine=!coreos.configdrive=0
-#
-#        [Mount]
-#        What=etc-kubernetes
-#        Where=/etc/kubernetes
-#        Options=rw,trans=virtio,version=9p2000.L
-#        Type=9p
-#    - name: srv-kubernetes.mount
-#      command: start
-#      content: |
-#        [Unit]
-#        Wants=user-configvirtfs.service
-#        Before=user-configvirtfs.service
-#        # Only mount config drive block devices automatically in virtual machines
-#        # or any host that has it explicitly enabled and not explicitly disabled.
-#        ConditionVirtualization=|vm
-#        ConditionKernelCommandLine=|coreos.configdrive=1
-#        ConditionKernelCommandLine=!coreos.configdrive=0
-#
-#        [Mount]
-#        What=srv-kubernetes
-#        Where=/srv/kubernetes
-#        Options=rw,trans=virtio,version=9p2000.L
-#        Type=9p
-    - name: 10-ens3.network
+     - name: etc-kubernetes-ssl.mount
+       command: start
+       content: |
+         [Unit]
+         Wants=user-configvirtfs.service
+         Before=user-configvirtfs.service
+         # Only mount config drive block devices automatically in virtual machines
+         # or any host that has it explicitly enabled and not explicitly disabled.
+         ConditionVirtualization=|vm
+         ConditionKernelCommandLine=|coreos.configdrive=1
+         ConditionKernelCommandLine=!coreos.configdrive=0
+
+         [Mount]
+         What=kubernetes-ssl
+         Where=/etc/kubernetes/ssl
+         Options=ro,trans=virtio,version=9p2000.L
+         Type=9p
+   - name: 10-ens3.network
       content: |
         [Match]
         MACAddress=00:16:3e:cc:51:23
@@ -113,3 +96,61 @@ write_files:
     content: |
       FLANNELD_IFACE=192.168.178.141
       FLANNELD_ETCD_ENDPOINTS=http://192.168.178.130:2379,http://192.168.178.140:2379,http://192.168.178.141:2379,http://192.168.178.142:2379
+  - path: /etc/kubernetes/worker-kubeconfig.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/worker.pem
+          client-key: /etc/kubernetes/ssl/worker-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
+  - path: /etc/kubernetes/worker-kubeconfig.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: kube-proxy
+      namespace: kube-system
+    spec:
+      hostNetwork: true
+      containers:
+      - name: kube-proxy
+        image: gcr.io/google_containers/hyperkube:v1.1.2
+        command:
+        - /hyperkube
+        - proxy
+        - --master=https://192.168.178.130
+        - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
+        - --proxy-mode=iptables
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - mountPath: /etc/ssl/certs
+            name: "ssl-certs"
+          - mountPath: /etc/kubernetes/worker-kubeconfig.yaml
+            name: "kubeconfig"
+            readOnly: true
+          - mountPath: /etc/kubernetes/ssl
+            name: "etc-kube-ssl"
+            readOnly: true
+      volumes:
+        - name: "ssl-certs"
+          hostPath:
+            path: "/usr/share/ca-certificates"
+        - name: "kubeconfig"
+          hostPath:
+            path: "/etc/kubernetes/worker-kubeconfig.yaml"
+        - name: "etc-kube-ssl"
+          hostPath:
+            path: "/etc/kubernetes/ssl"
