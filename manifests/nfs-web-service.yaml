@@ -1,12 +1,13 @@
----
-kind: "Service"
-apiVersion: "v1"
+kind: Service
+apiVersion: v1
 metadata:
-  name: "nfs-web"
+  name: nfs-web
+  labels:
+    app: nfs
 spec:
   ports:
   - port: 80
   selector:
-    role: "web-frontend"
+    role: web-frontend
   externalIPs:
-  - "192.168.178.142"
+  - 192.168.178.142
