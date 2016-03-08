@@ -78,7 +78,16 @@ coreos:
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --v=2
-        ExecStartPost=-/bin/curl -XPOST -d'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}' "http://127.0.0.1:8080/api/v1/namespaces"
+        ExecStartPost=/bin/bash -c '\
+          while true; do \
+            curl -f 127.0.0.1:8080; \
+            if [ $? -eq 0 ]; then \
+              /bin/curl -XPOST -d'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}' "http://127.0.0.1:8080/api/v1/namespaces"
+              break;
+            else \
+              sleep 20; \
+            fi; \
+          done'
         Restart=always
         RestartSec=10
         [Install]
