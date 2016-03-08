@@ -80,7 +80,7 @@ coreos:
           --v=2
         ExecStartPost=/bin/bash -c '\
           while true; do \
-            curl -f 127.0.0.1:8080; \
+            curl -f "http://127.0.0.1:8080/version"; \
             if [ $? -eq 0 ]; then \
               curl -XPOST -d"{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"name\":\"kube-system\"}}" "http://127.0.0.1:8080/api/v1/namespaces"; \
               exit 0; \
