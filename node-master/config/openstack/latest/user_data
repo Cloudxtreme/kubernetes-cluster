@@ -31,7 +31,6 @@ coreos:
         ConditionVirtualization=|vm
         ConditionKernelCommandLine=|coreos.configdrive=1
         ConditionKernelCommandLine=!coreos.configdrive=0
-
         [Mount]
         What=kubernetes-ssl
         Where=/etc/kubernetes/ssl
