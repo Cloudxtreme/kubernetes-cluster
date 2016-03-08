@@ -1,0 +1,20 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "helloworld-po"
+  },
+  "spec": {
+    "restartPolicy": "Never",
+    "containers": [
+      {
+        "name": "hello",
+        "image": "ubuntu:14.04",
+        "command": [
+          "/bin/echo",
+          "Hello World!"
+        ]
+      }
+    ]
+  }
+}

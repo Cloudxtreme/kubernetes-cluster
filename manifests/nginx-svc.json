@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "nginx-svc",
+    "labels": {
+      "app": "nginx"
+    }
+  },
+  "spec": {
+    "selector": {
+      "app": "nginx"
+    },
+    "ports": [
+      {
+        "port": 80,
+        "name": "http",
+        "protocol": "TCP",
+        "targetPort": 80
+      }
+    ],
+    "externalIPs": [
+      "192.168.178.140"
+    ]
+  }
+}
