@@ -115,7 +115,7 @@ write_files:
           user: kubelet
         name: kubelet-context
       current-context: kubelet-context
-  - path: /etc/kubernetes/worker-kubeconfig.yaml
+  - path: /etc/kubernetes/manifests/kube-proxy.yaml
     apiVersion: v1
     kind: Pod
     metadata:
