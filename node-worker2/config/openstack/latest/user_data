@@ -35,7 +35,7 @@ coreos:
         [Mount]
         What=etc-kubernetes
         Where=/etc/kubernetes
-        Options=ro,trans=virtio,version=9p2000.L
+        Options=rw,trans=virtio,version=9p2000.L
         Type=9p
     - name: srv-kubernetes.mount
       command: start
@@ -52,7 +52,7 @@ coreos:
         [Mount]
         What=srv-kubernetes
         Where=/srv/kubernetes
-        Options=ro,trans=virtio,version=9p2000.L
+        Options=rw,trans=virtio,version=9p2000.L
         Type=9p
     - name: 10-ens3.network
       content: |
