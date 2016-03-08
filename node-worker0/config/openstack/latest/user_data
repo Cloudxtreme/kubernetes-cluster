@@ -36,7 +36,7 @@ coreos:
         Where=/etc/kubernetes/ssl
         Options=ro,trans=virtio,version=9p2000.L
         Type=9p
-   - name: 10-ens3.network
+    - name: 10-ens3.network
       content: |
         [Match]
         MACAddress=00:16:3e:0d:03:6a
