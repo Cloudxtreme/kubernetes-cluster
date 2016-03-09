@@ -78,7 +78,7 @@ coreos:
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --v=2
-        ExecStartPost=/bin/bash -c '\
+        ExecStartPre=-/bin/bash -c '\
           echo "try create namepsace kube-system"; \
           while true; do \
             curl -f "http://127.0.0.1:8080/version"; \
