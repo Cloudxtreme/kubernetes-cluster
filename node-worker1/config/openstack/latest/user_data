@@ -12,11 +12,11 @@ coreos:
     reboot-strategy: etcd-lock
   etcd2:
     name: "node-worker1"
-    initial-cluster: "node-master=http://192.168.178.130:2380,node-worker0=http://192.168.178.140:2380,node-worker1=http://192.168.178.141:2380,node-worker2=http://192.168.178.142:2380"
+    initial-cluster: "node-master=http://172.16.20.0.10:2380,node-worker0=http://172.16.20.0.20:2380,node-worker1=http://172.16.20.0.21:2380,node-worker2=http://172.16.20.0.22:2380"
     initial-cluster-token: "cluster1"
     initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://192.168.178.141:2380"
-    advertise-client-urls: "http://192.168.178.141:2379"
+    initial-advertise-peer-urls: "http://172.16.20.0.21:2380"
+    advertise-client-urls: "http://172.16.20.0.21:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
@@ -42,9 +42,9 @@ coreos:
         [Match]
         MACAddress=00:16:3e:cc:51:23
         [Network]
-        Address=192.168.178.141/24
-        Gateway=192.168.178.1
-        DNS=192.168.178.1
+        Address=172.16.20.0.21/24
+        Gateway=172.16.20.0.1
+        DNS=172.16.20.0.1
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -71,11 +71,11 @@ coreos:
       content: |
         [Service]
         ExecStart=/usr/bin/kubelet \
-          --api_servers=https://192.168.178.130 \
+          --api_servers=https://172.16.20.0.10 \
           --register-node=true \
           --allow-privileged=true \
           --config=/etc/kubernetes/manifests \
-          --hostname-override=192.168.178.141 \
+          --hostname-override=172.16.20.0.21 \
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
@@ -89,13 +89,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=192.168.178.141
-      COREOS_PRIVATE_IPV4=192.168.178.141
+      COREOS_PUBLIC_IPV4=172.16.20.0.21
+      COREOS_PRIVATE_IPV4=172.16.20.0.21
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=192.168.178.141
-      FLANNELD_ETCD_ENDPOINTS=http://192.168.178.130:2379,http://192.168.178.140:2379,http://192.168.178.141:2379,http://192.168.178.142:2379
+      FLANNELD_IFACE=172.16.20.0.21
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.0.10:2379,http://172.16.20.0.20:2379,http://172.16.20.0.21:2379,http://172.16.20.0.22:2379
   - path: /etc/kubernetes/worker-kubeconfig.yaml
     permissions: 0644
     content: |
@@ -132,7 +132,7 @@ write_files:
           command:
           - /hyperkube
           - proxy
-          - --master=https://192.168.178.130
+          - --master=https://172.16.20.0.10
           - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
           - --proxy-mode=iptables
           securityContext:
