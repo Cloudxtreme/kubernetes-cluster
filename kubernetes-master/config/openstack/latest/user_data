@@ -84,7 +84,7 @@ coreos:
             curl -sf "http://127.0.0.1:8080/version"; \
             if [ $? -eq 0 ]; then \
               echo "api up. create namepsace kube-system"; \
-              curl -XPOST -d"{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"name\":\"kube-system\"}}" "http://127.0.0.1:8080/api/v1/namespaces"; \
+              curl -XPOST -d\'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}\' "http://127.0.0.1:8080/api/v1/namespaces"; \
               echo "namepsace kube-system created"; \
               exit 0; \
             else \
