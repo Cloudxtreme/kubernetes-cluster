@@ -78,7 +78,7 @@ coreos:
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --v=2
-        ExecStartPre=-/bin/bash -c '\
+        ExecStartPost=-/bin/bash -c '\
           echo "try create namepsace kube-system"; \
           while true; do \
             curl -sf "http://127.0.0.1:8080/version"; \
@@ -91,7 +91,7 @@ coreos:
               echo "api down. sleep."; \
               sleep 20; \
             fi; \
-          done' &
+          done'
         Restart=always
         RestartSec=10
         [Install]
