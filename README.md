@@ -4,7 +4,7 @@
 
 `cd /var/lib/libvirt/images`
 
-`git clone https://bborbe@bitbucket.org/bborbe/coreos.git`
+`git clone https://bborbe@bitbucket.org/bborbe/kubernetes-libvirt.git kubernetes`
 
 # Install via script
 
