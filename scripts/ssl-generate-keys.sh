@@ -4,7 +4,7 @@
 
 # CA Key
 openssl genrsa -out kubernetes-ca-key.pem 2048
-openssl req -x509 -new -nodes -key kubernetes-ca-key.pem -days 10000 -out ca.pem -subj "/CN=kube-ca"
+openssl req -x509 -new -nodes -key kubernetes-ca-key.pem -days 10000 -out kubernetes-ca.pem -subj "/CN=kube-ca"
 
 # Master Key
 openssl genrsa -out kubernetes-apiserver-key.pem 2048
