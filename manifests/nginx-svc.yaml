@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     targetPort: 80
   externalIPs:
-  - 172.16.20.20
+  - 172.16.30.20

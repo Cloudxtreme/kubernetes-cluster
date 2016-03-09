@@ -4,19 +4,16 @@ ssh_authorized_keys:
 hostname: kubernetes-worker0
 coreos:
   fleet:
-#    engine-reconcile-interval: 10
-#    etcd-request-timeout: 5
-#    agent-ttl: 120s
-    metadata: "region=secondary"
+    metadata: "region=rn"
   update:
     reboot-strategy: etcd-lock
   etcd2:
     name: "kubernetes-worker0"
-    initial-cluster: "kubernetes-master=http://172.16.20.10:2380,kubernetes-worker0=http://172.16.20.20:2380,kubernetes-worker1=http://172.16.20.21:2380,kubernetes-worker2=http://172.16.20.22:2380"
+    initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
     initial-cluster-token: "cluster1"
     initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.20.20:2380"
-    advertise-client-urls: "http://172.16.20.20:2379"
+    initial-advertise-peer-urls: "http://172.16.30.20:2380"
+    advertise-client-urls: "http://172.16.30.20:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
@@ -39,11 +36,11 @@ coreos:
     - name: 10-ens3.network
       content: |
         [Match]
-        MACAddress=00:16:3e:0d:03:6a
+        MACAddress=00:16:3e:fe:ab:50
         [Network]
-        Address=172.16.20.20/24
-        Gateway=172.16.20.1
-        DNS=172.16.20.1
+        Address=172.16.30.20/24
+        Gateway=172.16.30.1
+        DNS=172.16.30.1
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -70,11 +67,11 @@ coreos:
       content: |
         [Service]
         ExecStart=/usr/bin/kubelet \
-          --api_servers=https://172.16.20.10 \
+          --api_servers=https://172.16.30.10 \
           --register-node=true \
           --allow-privileged=true \
           --config=/etc/kubernetes/manifests \
-          --hostname-override=172.16.20.20 \
+          --hostname-override=172.16.30.20 \
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
@@ -88,13 +85,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=172.16.20.20
-      COREOS_PRIVATE_IPV4=172.16.20.20
+      COREOS_PUBLIC_IPV4=172.16.30.20
+      COREOS_PRIVATE_IPV4=172.16.30.20
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=172.16.20.20
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.10:2379,http://172.16.20.20:2379,http://172.16.20.21:2379,http://172.16.20.22:2379
+      FLANNELD_IFACE=172.16.30.20
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
   - path: /etc/kubernetes/worker-kubeconfig.yaml
     permissions: 0644
     content: |
@@ -131,7 +128,7 @@ write_files:
           command:
           - /hyperkube
           - proxy
-          - --master=https://172.16.20.10
+          - --master=https://172.16.30.10
           - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
           - --proxy-mode=iptables
           securityContext:

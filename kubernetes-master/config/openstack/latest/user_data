@@ -4,19 +4,16 @@ ssh_authorized_keys:
 hostname: kubernetes-master
 coreos:
   fleet:
-#    engine-reconcile-interval: 10
-#    etcd-request-timeout: 5
-#    agent-ttl: 120s
-    metadata: "region=main"
+    metadata: "region=rn"
   update:
     reboot-strategy: etcd-lock
   etcd2:
     name: "kubernetes-master"
-    initial-cluster: "kubernetes-master=http://172.16.20.10:2380,kubernetes-worker0=http://172.16.20.20:2380,kubernetes-worker1=http://172.16.20.21:2380,kubernetes-worker2=http://172.16.20.22:2380"
+    initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
     initial-cluster-token: "cluster1"
     initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.20.10:2380"
-    advertise-client-urls: "http://172.16.20.10:2379"
+    initial-advertise-peer-urls: "http://172.16.30.10:2380"
+    advertise-client-urls: "http://172.16.30.10:2379"
     listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
     listen-peer-urls: "http://0.0.0.0:2380"
   units:
@@ -39,11 +36,11 @@ coreos:
     - name: 10-ens3.network
       content: |
         [Match]
-        MACAddress=00:16:3e:1f:3d:a9
+        MACAddress=00:16:3e:2f:06:41
         [Network]
-        Address=172.16.20.10/24
-        Gateway=172.16.20.1
-        DNS=172.16.20.1
+        Address=172.16.30.10/24
+        Gateway=172.16.30.1
+        DNS=172.16.30.1
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -74,7 +71,7 @@ coreos:
           --register-node=false \
           --allow-privileged=true \
           --config=/etc/kubernetes/manifests \
-          --hostname-override=172.16.20.10 \
+          --hostname-override=172.16.30.10 \
           --cluster-dns=10.103.0.10 \
           --cluster-domain=cluster.local \
           --v=2
@@ -100,13 +97,13 @@ write_files:
   - path: /etc/environment
     permissions: 0644
     content: |
-      COREOS_PUBLIC_IPV4=172.16.20.10
-      COREOS_PRIVATE_IPV4=172.16.20.10
+      COREOS_PUBLIC_IPV4=172.16.30.10
+      COREOS_PRIVATE_IPV4=172.16.30.10
   - path: /run/flannel/options.env
     permissions: 0644
     content: |
-      FLANNELD_IFACE=172.16.20.10
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.20.10:2379,http://172.16.20.20:2379,http://172.16.20.21:2379,http://172.16.20.22:2379
+      FLANNELD_IFACE=172.16.30.10
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
   - path: /etc/kubernetes/manifests/kube-apiserver.yaml
     permissions: 0644
     content: |
@@ -124,11 +121,11 @@ write_files:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
-          - --etcd-servers=http://172.16.20.10:2379,http://172.16.20.20:2379,http://172.16.20.21:2379,http://172.16.20.22:2379
+          - --etcd-servers=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
           - --allow-privileged=true
           - --service-cluster-ip-range=10.103.0.0/24
           - --secure-port=443
-          - --advertise-address=172.16.20.10
+          - --advertise-address=172.16.30.10
           - --admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota
           - --tls-cert-file=/etc/kubernetes/ssl/apiserver.pem
           - --tls-private-key-file=/etc/kubernetes/ssl/apiserver-key.pem
@@ -170,9 +167,9 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.20.10:2379,http://172.16.20.20:2379,http://172.16.20.21:2379,http://172.16.20.22:2379
+          - --etcd-servers=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
           - --key=controller
-          - --whoami=172.16.20.10
+          - --whoami=172.16.30.10
           - --source-file=/src/manifests/kube-controller-manager.yaml
           - --dest-file=/dst/manifests/kube-controller-manager.yaml
           terminationMessagePath: /dev/termination-log
@@ -186,9 +183,9 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=http://172.16.20.10:2379,http://172.16.20.20:2379,http://172.16.20.21:2379,http://172.16.20.22:2379
+          - --etcd-servers=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
           - --key=scheduler
-          - --whoami=172.16.20.10
+          - --whoami=172.16.30.10
           - --source-file=/src/manifests/kube-scheduler.yaml
           - --dest-file=/dst/manifests/kube-scheduler.yaml
           volumeMounts:

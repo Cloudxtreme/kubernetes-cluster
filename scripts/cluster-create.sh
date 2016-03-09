@@ -1,26 +1,26 @@
 #!/bin/sh
 
-if [ ! -f /tmp/coreos_production_qemu_image.img ]; then
+if [ ! -f /mnt/images/coreos/coreos_production_qemu_image.img ]; then
   echo "downloading image ..."
-  #wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
-  wget http://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
-  #wget http://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
+  #wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /mnt/images/coreos/coreos_production_qemu_image.img
+  wget http://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /mnt/images/coreos/coreos_production_qemu_image.img
+  #wget http://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /mnt/images/coreos/coreos_production_qemu_image.img
 fi
 
 echo "converting image ..."
-qemu-img convert /tmp/coreos_production_qemu_image.img -O raw /tmp/coreos_production_qemu_image.raw
+qemu-img convert /mnt/images/coreos/coreos_production_qemu_image.img -O raw /mnt/images/coreos/coreos_production_qemu_image.raw
 
 echo "create lvm volumes ..."
-lvcreate -L 10G -n kubernetes-master system
-lvcreate -L 10G -n kubernetes-worker0 system
-lvcreate -L 10G -n kubernetes-worker1 system
-lvcreate -L 10G -n kubernetes-worker2 system
+lvcreate -L 10G -n kubernetes-master vg0
+lvcreate -L 10G -n kubernetes-worker0 vg0
+lvcreate -L 10G -n kubernetes-worker1 vg0
+lvcreate -L 10G -n kubernetes-worker2 vg0
 
 echo "writing images ..."
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-master
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker0
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker1
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker2
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/kubernetes-master
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/kubernetes-worker0
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/kubernetes-worker1
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/kubernetes-worker2
 
 ./virsh-create.sh
 
