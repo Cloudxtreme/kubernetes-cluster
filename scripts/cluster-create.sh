@@ -1,9 +1,11 @@
 #!/bin/sh
 
-echo "downloading image ..."
-#wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
-wget http://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
-#wget http://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
+if [ ! -f /tmp/coreos_production_qemu_image.img ]; then
+  echo "downloading image ..."
+  #wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
+  wget http://beta.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
+  #wget http://alpha.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /tmp/coreos_production_qemu_image.img
+fi
 
 echo "converting image ..."
 qemu-img convert /tmp/coreos_production_qemu_image.img -O raw /tmp/coreos_production_qemu_image.raw
