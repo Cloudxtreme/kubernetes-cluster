@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: golang-docker
+  labels:
+    app: golang-docker
+spec:
+  selector:
+    app: golang-docker
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 8080
+  externalIPs:
+  externalIPs:
+  - 172.16.30.20
+  - 172.16.30.21
+  - 172.16.30.22
