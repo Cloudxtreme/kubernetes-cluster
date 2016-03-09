@@ -9,16 +9,16 @@ echo "converting image ..."
 qemu-img convert /tmp/coreos_production_qemu_image.img -O raw /tmp/coreos_production_qemu_image.raw
 
 echo "create lvm volumes ..."
-lvcreate -L 10G -n node-master system
-lvcreate -L 10G -n node-worker0 system
-lvcreate -L 10G -n node-worker1 system
-lvcreate -L 10G -n node-worker2 system
+lvcreate -L 10G -n kubernetes-master system
+lvcreate -L 10G -n kubernetes-worker0 system
+lvcreate -L 10G -n kubernetes-worker1 system
+lvcreate -L 10G -n kubernetes-worker2 system
 
 echo "writing images ..."
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/node-master
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/node-worker0
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/node-worker1
-dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/node-worker2
+dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-master
+dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker0
+dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker1
+dd bs=1M iflag=direct oflag=direct if=/tmp/coreos_production_qemu_image.raw of=/dev/system/kubernetes-worker2
 
 ./virsh-create.sh
 

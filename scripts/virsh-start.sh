@@ -1,9 +1,9 @@
 #!/bin/sh
 
 echo "starting machines ..."
-virsh start node-master
-virsh start node-worker0
-virsh start node-worker1
-virsh start node-worker2
+virsh start kubernetes-master
+virsh start kubernetes-worker0
+virsh start kubernetes-worker1
+virsh start kubernetes-worker2
 
 echo "done"

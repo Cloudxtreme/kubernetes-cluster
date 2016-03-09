@@ -1,9 +1,9 @@
 #!/bin/sh
 
 echo "reboot machines ..."
-virsh reboot node-master
-virsh reboot node-worker0
-virsh reboot node-worker1
-virsh reboot node-worker2
+virsh reboot kubernetes-master
+virsh reboot kubernetes-worker0
+virsh reboot kubernetes-worker1
+virsh reboot kubernetes-worker2
 
 echo "done"
