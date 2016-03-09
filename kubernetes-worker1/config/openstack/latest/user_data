@@ -4,9 +4,9 @@ ssh_authorized_keys:
 hostname: kubernetes-worker1
 coreos:
   fleet:
-    engine-reconcile-interval: 10
-    etcd-request-timeout: 5
-    agent-ttl: 120s
+#    engine-reconcile-interval: 10
+#    etcd-request-timeout: 5
+#    agent-ttl: 120s
     metadata: "region=secondary"
   update:
     reboot-strategy: etcd-lock
@@ -31,7 +31,6 @@ coreos:
         ConditionVirtualization=|vm
         ConditionKernelCommandLine=|coreos.configdrive=1
         ConditionKernelCommandLine=!coreos.configdrive=0
-
         [Mount]
         What=kubernetes-ssl
         Where=/etc/kubernetes/ssl
