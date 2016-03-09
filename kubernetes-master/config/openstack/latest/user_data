@@ -91,7 +91,7 @@ coreos:
               echo "api down. sleep."; \
               sleep 20; \
             fi; \
-          done'
+          done' &
         Restart=always
         RestartSec=10
         [Install]
