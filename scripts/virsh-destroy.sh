@@ -1,13 +1,13 @@
 #!/bin/sh
 
 echo "destroying machines ..."
-virsh destroy kubernetes-master
-virsh destroy kubernetes-worker0
-virsh destroy kubernetes-worker1
-virsh destroy kubernetes-worker2
+virsh destroy bb_kubernetes-master
+virsh destroy bb_kubernetes-worker0
+virsh destroy bb_kubernetes-worker1
+virsh destroy bb_kubernetes-worker2
 
 echo "undefine machines ..."
-virsh undefine kubernetes-master
-virsh undefine kubernetes-worker0
-virsh undefine kubernetes-worker1
-virsh undefine kubernetes-worker2
+virsh undefine bb_kubernetes-master
+virsh undefine bb_kubernetes-worker0
+virsh undefine bb_kubernetes-worker1
+virsh undefine bb_kubernetes-worker2
