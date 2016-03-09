@@ -16,7 +16,7 @@ virt-install \
 --disk /dev/vg0/kubernetes-master \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=privatebr0,mac=00:16:3e:2f:06:41,type=bridge
+--network bridge=br0,mac=00:16:3e:2f:06:41,type=bridge
 
 echo "create virsh kubernetes-worker0 ..."
 virt-install \
@@ -34,7 +34,7 @@ virt-install \
 --disk /dev/vg0/kubernetes-worker0 \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker0/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=privatebr0,mac=00:16:3e:fe:ab:50,type=bridge
+--network bridge=br0,mac=00:16:3e:fe:ab:50,type=bridge
 
 echo "create virsh kubernetes-worker1 ..."
 virt-install \
@@ -52,7 +52,7 @@ virt-install \
 --disk /dev/vg0/kubernetes-worker1 \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker1/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=privatebr0,mac=00:16:3e:14:36:8d,type=bridge
+--network bridge=br0,mac=00:16:3e:14:36:8d,type=bridge
 
 echo "create virsh kubernetes-worker2 ..."
 virt-install \
@@ -70,4 +70,4 @@ virt-install \
 --disk /dev/vg0/kubernetes-worker2 \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/config/,config-2,type=mount,mode=squash \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker2/ssl/,kubernetes-ssl,type=mount,mode=squash \
---network bridge=privatebr0,mac=00:16:3e:00:8d:91,type=bridge
+--network bridge=br0,mac=00:16:3e:00:8d:91,type=bridge
