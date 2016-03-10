@@ -9,10 +9,12 @@ spec:
   replicas: 2
   selector:
     app: nfs
+    role: web
   template:
     metadata:
       labels:
         app: nfs
+        role: web
         enviroment: development
     spec:
       containers:
