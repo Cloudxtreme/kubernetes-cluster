@@ -8,7 +8,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    role: web-frontend
+    app: web-frontend
   ports:
     - port: 8080
       nodePort: 30082

@@ -8,11 +8,14 @@ metadata:
 spec:
   replicas: 2
   selector:
-    name: nfs-busybox
+    app: nfs
+    role: nfs-busybox
   template:
     metadata:
       labels:
-        name: nfs-busybox
+        app: nfs
+        enviroment: development
+        role: nfs-busybox
     spec:
       containers:
       - image: busybox
