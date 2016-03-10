@@ -1,18 +1,17 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: golang-docker
+  name: static-go-webserver
   labels:
-    app: golang-docker
+    app: static-go-webserver
 spec:
   selector:
-    app: golang-docker
+    app: static-go-webserver
   ports:
   - port: 80
     name: http
     protocol: TCP
     targetPort: 8080
-  externalIPs:
   externalIPs:
   - 172.16.30.20
   - 172.16.30.21

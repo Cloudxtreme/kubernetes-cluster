@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: golang-docker
+  name: static-go-webserver
   labels:
-    app: golang-docker
+    app: static-go-webserver
 spec:
   replicas: 2
   selector:
-    app: golang-docker
+    app: static-go-webserver
   template:
     metadata:
       labels:
-        app: golang-docker
+        app: static-go-webserver
     spec:
       containers:
-      - name: golang-docker
-        image: bborbe/golang-docker
+      - name: static-go-webserver
+        image: bborbe/static-go-webserver
         ports:
         - containerPort: 80
