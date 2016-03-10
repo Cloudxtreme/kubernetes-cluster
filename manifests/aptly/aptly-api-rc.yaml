@@ -23,8 +23,6 @@ spec:
         ports:
         - containerPort: 3845
         volumeMounts:
-            - name: aptly-root
-              mountPath: "/root"
             - name: aptly-db
               mountPath: "/aptly/db"
             - name: aptly-public
@@ -34,9 +32,6 @@ spec:
             - name: aptly-upload
               mountPath: "/aptly/upload"
       volumes:
-      - name: aptly-root
-        persistentVolumeClaim:
-          claimName: aptly-root
       - name: aptly-db
         persistentVolumeClaim:
           claimName: aptly-db
