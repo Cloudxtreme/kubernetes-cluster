@@ -10,5 +10,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 192.168.178.106
-    path: /mnt/storage/kubernetes/test
+    server: 172.16.30.9
+    path: /data/test
