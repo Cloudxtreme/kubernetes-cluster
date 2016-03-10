@@ -27,7 +27,6 @@ spec:
       - name: puppetmaster-etc
         persistentVolumeClaim:
           claimName: puppetmaster-etc
-      volumes:
       - name: puppetmaster-ssl
         persistentVolumeClaim:
           claimName: puppetmaster-ssl
