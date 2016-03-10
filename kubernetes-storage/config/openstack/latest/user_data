@@ -25,10 +25,8 @@ coreos:
         Type=ext4
     - name: rpc-mountd.service
       command: start
-      enable: true
     - name: nfsd.service
       command: start
-      enable: true
 write_files:
   - path: /etc/environment
     permissions: 0644
