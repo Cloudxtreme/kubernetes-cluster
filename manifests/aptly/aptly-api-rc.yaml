@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: aptly-api
-        image: bborbe/aptly
+        image: bborbe/aptly:latest
         ports:
         - containerPort: 3845
         volumeMounts:
