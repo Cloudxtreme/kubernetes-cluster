@@ -34,6 +34,6 @@ write_files:
       COREOS_PUBLIC_IPV4=172.16.30.9
       COREOS_PRIVATE_IPV4=172.16.30.9
   - path: /etc/exports
-    permissions: '0644'
+    permissions: 0644
     content: |
       /data/ 172.16.30.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
