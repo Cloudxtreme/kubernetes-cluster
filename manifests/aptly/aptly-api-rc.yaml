@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: aptly-web
+  name: aptly-api
   labels:
     app: aptly
     enviroment: development
 spec:
   replicas: 1
   selector:
-    app: aptly
+    app: aptly-api
   template:
     metadata:
       labels:
-        app: aptly
+        app: aptly-api
         enviroment: development
     spec:
       containers:
-      - name: web
+      - name: aptly-api
         image: nginx
         ports:
-          - name: web
+          - name: aptly-api
             containerPort: 80
         volumeMounts:
             - name: aptly-db
