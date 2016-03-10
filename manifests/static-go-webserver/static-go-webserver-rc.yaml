@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: static-go-webserver
-        image: bborbe/static-go-webserver
+        image: bborbe/static-go-webserver:latest
         ports:
         - containerPort: 80
