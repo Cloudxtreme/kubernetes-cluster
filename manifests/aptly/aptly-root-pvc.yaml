@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: aptly-home
+  name: aptly-root
   labels:
     app: aptly
     enviroment: production
