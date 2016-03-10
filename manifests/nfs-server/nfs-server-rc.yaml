@@ -3,7 +3,7 @@ kind: ReplicationController
 metadata:
   name: nfs-server
   labels:
-    app: nfs
+    app: nfs-server
     enviroment: development
 spec:
   replicas: 1

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: nfs-server
   labels:
-    app: nfs
+    app: nfs-server
     enviroment: development
 spec:
   ports:
