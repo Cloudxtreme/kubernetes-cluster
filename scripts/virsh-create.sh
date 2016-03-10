@@ -32,6 +32,8 @@ virt-install \
 --nographics \
 --name bb_kubernetes-storage \
 --disk /dev/vg0/bb_kubernetes-storage \
+--disk /dev/vg0/bb_kubernetes-storage-data \
+--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \
 --network bridge=br0,mac=00:16:3e:51:b5:82,type=bridge
 
 echo "create virsh kubernetes-worker0 ..."

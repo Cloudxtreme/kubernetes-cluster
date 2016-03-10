@@ -14,15 +14,15 @@ coreos:
         Address=172.16.30.9/24
         Gateway=172.16.30.1
         DNS=172.16.30.1
-#    - name: data.mount
-#      command: start
-#      content: |
-#        [Unit]
-#        Description=Mount Data to /data
-#        [Mount]
-#        What=/dev/xvdb
-#        Where=/data
-#        Type=ext4
+    - name: data.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount Data to /data
+        [Mount]
+        What=/dev/vdb
+        Where=/data
+        Type=ext4
 write_files:
   - path: /etc/environment
     permissions: 0644
