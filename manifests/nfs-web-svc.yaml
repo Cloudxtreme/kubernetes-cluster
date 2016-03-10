@@ -1,15 +1,13 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: nfs-web
   labels:
     app: nfs
 spec:
-  ports:
-  - port: 80
+  type: NodePort
   selector:
     role: web-frontend
-  externalIPs:
-  - 172.16.30.20
-  - 172.16.30.21
-  - 172.16.30.22
+  ports:
+    - port: 8080
+      nodePort: 30082
