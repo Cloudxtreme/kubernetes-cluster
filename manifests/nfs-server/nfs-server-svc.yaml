@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 2049
   selector:
-    role: nfs-server
+    app: nfs-server
