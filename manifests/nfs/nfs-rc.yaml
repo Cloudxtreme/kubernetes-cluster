@@ -16,7 +16,7 @@ spec:
         enviroment: development
     spec:
       containers:
-      - name: web
+      - name: nfs
         image: nginx
         ports:
           - name: web
