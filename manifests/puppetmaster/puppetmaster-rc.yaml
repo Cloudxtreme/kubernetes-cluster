@@ -19,11 +19,8 @@ spec:
         ports:
         - containerPort: 8140
         volumeMounts:
-            # name must match the volume name below
             - name: puppetmaster-etc
               mountPath: "/etc/puppet"
-        volumeMounts:
-            # name must match the volume name below
             - name: puppetmaster-ssl
               mountPath: "/var/lib/puppet/ssl"
       volumes:
