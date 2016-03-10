@@ -8,7 +8,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: aptly-api
+    app: aptly
+    role: api
   ports:
     - port: 3845
       nodePort: 30083

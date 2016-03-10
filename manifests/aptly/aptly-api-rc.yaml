@@ -8,19 +8,20 @@ metadata:
 spec:
   replicas: 1
   selector:
-    app: aptly-api
+    app: aptly
+    role: api
   template:
     metadata:
       labels:
-        app: aptly-api
+        app: aptly
+        role: api
         enviroment: development
     spec:
       containers:
       - name: aptly-api
-        image: bborbe/aptly
+        image: bborbe/aptly-api
         ports:
-          - name: aptly-api
-            containerPort: 3845
+        - containerPort: 3845
         volumeMounts:
             - name: aptly-db
               mountPath: "/aptly/db"

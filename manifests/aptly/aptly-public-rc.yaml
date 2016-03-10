@@ -8,11 +8,13 @@ metadata:
 spec:
   replicas: 2
   selector:
-    app: aptly-public
+    app: aptly
+    role: public
   template:
     metadata:
       labels:
-        app: aptly-public
+        app: aptly
+        role: public
         enviroment: development
     spec:
       containers:

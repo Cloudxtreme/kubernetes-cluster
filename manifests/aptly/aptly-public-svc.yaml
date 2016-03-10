@@ -8,7 +8,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: aptly-public
+    app: aptly
+    role: public
   ports:
     - port: 8080
       nodePort: 30084
