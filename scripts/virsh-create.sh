@@ -18,6 +18,24 @@ virt-install \
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \
 --network bridge=br0,mac=00:16:3e:2f:06:41,type=bridge
 
+echo "create virsh kubernetes-storage ..."
+virt-install \
+--import \
+--debug \
+--serial pty \
+--accelerate \
+--ram 1024 \
+--vcpus 2 \
+--os-type linux \
+--os-variant virtio26 \
+--noautoconsole \
+--nographics \
+--name bb_kubernetes-storage \
+--disk /dev/vg0/bb_kubernetes-storage \
+--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \
+--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \
+--network bridge=br0,mac=00:16:3e:51:b5:82,type=bridge
+
 echo "create virsh kubernetes-worker0 ..."
 virt-install \
 --import \
