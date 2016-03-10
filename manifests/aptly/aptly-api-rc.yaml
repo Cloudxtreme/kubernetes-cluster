@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: aptly-web
+  labels:
+    app: aptly
+    enviroment: development
+spec:
+  replicas: 1
+  selector:
+    app: aptly
+  template:
+    metadata:
+      labels:
+        app: aptly
+        enviroment: development
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        ports:
+          - name: web
+            containerPort: 80
+        volumeMounts:
+            - name: aptly-db
+              mountPath: "/aptly/db"
+            - name: aptly-public
+              mountPath: "/aptly/public"
+            - name: aptly-pool
+              mountPath: "/aptly/pool"
+            - name: aptly-upload
+              mountPath: "/aptly/upload"
+            - name: aptly-home
+              mountPath: "/aptly/home"
+      volumes:
+      - name: aptly-db
+        persistentVolumeClaim:
+          claimName: aptly-db
+      - name: aptly-upload
+        persistentVolumeClaim:
+          claimName: aptly-upload
+      - name: aptly-pool
+        persistentVolumeClaim:
+          claimName: aptly-pool
+      - name: aptly-public
+        persistentVolumeClaim:
+          claimName: aptly-public
+      - name: aptly-home
+        persistentVolumeClaim:
+          claimName: aptly-home
