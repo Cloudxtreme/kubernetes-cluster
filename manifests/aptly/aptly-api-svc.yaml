@@ -10,5 +10,5 @@ spec:
   selector:
     app: aptly-api
   ports:
-    - port: 8080
+    - port: 3845
       nodePort: 30083

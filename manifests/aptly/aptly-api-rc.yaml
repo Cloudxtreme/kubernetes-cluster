@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: aptly-api
-        image: nginx
+        image: bborbe/aptly
         ports:
           - name: aptly-api
-            containerPort: 80
+            containerPort: 3845
         volumeMounts:
             - name: aptly-db
               mountPath: "/aptly/db"
