@@ -7,7 +7,7 @@ metadata:
     enviroment: production
 spec:
   capacity:
-    storage: 2000Mi
+    storage: 4000Mi
   accessModes:
     - ReadWriteMany
   nfs:
