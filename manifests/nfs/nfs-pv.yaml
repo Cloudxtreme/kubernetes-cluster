@@ -11,4 +11,4 @@ spec:
     - ReadWriteMany
   nfs:
     server: 172.16.30.9
-    path: /data/test
+    path: /data/nfs
