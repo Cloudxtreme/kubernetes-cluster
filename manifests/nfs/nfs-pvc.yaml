@@ -4,6 +4,7 @@ metadata:
   name: nfs
   labels:
     app: nfs
+    enviroment: development
 spec:
   accessModes:
     - ReadWriteMany

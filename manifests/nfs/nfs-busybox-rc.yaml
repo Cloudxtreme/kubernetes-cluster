@@ -4,6 +4,7 @@ metadata:
   name: nfs-busybox
   labels:
     app: nfs
+    enviroment: development
 spec:
   replicas: 2
   selector:

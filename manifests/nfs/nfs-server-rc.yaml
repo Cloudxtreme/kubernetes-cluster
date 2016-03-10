@@ -4,6 +4,7 @@ metadata:
   name: nfs-server
   labels:
     app: nfs
+    enviroment: development
 spec:
   replicas: 1
   selector:

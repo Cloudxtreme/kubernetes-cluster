@@ -4,6 +4,7 @@ metadata:
   name: static-go-webserver
   labels:
     app: static-go-webserver
+    enviroment: development
 spec:
   replicas: 2
   selector:

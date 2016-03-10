@@ -4,6 +4,7 @@ metadata:
   name: puppetmaster-ssl
   labels:
     app: puppetmaster
+    enviroment: production
 spec:
   accessModes:
     - ReadWriteMany

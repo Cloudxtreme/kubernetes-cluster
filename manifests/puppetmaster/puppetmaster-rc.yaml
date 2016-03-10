@@ -4,6 +4,7 @@ metadata:
   name: puppetmaster
   labels:
     app: puppetmaster
+    enviroment: production
 spec:
   replicas: 1
   selector:

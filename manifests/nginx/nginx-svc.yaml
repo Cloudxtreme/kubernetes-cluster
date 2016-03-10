@@ -4,6 +4,7 @@ metadata:
   name: nginx
   labels:
     app: nginx
+    enviroment: development
 spec:
   type: NodePort
   selector:

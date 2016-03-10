@@ -4,7 +4,8 @@ metadata:
   name: puppetmaster
   labels: 
     app: puppetmaster
-spec: 
+    enviroment: production
+spec:
   type: NodePort
   selector:
     app: puppetmaster

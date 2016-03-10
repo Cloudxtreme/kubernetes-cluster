@@ -4,6 +4,7 @@ metadata:
   name: nfs-server
   labels:
     app: nfs
+    enviroment: development
 spec:
   ports:
     - port: 2049

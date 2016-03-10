@@ -4,7 +4,8 @@ metadata:
   name: static-go-webserver
   labels: 
     app: static-go-webserver
-spec: 
+    enviroment: development
+spec:
   type: NodePort
   selector:
     app: static-go-webserver
