@@ -18,3 +18,19 @@ spec:
         image: bborbe/puppetmaster
         ports:
         - containerPort: 8140
+        volumeMounts:
+            # name must match the volume name below
+            - name: puppetmaster-etc
+              mountPath: "/etc/puppet"
+        volumeMounts:
+            # name must match the volume name below
+            - name: puppetmaster-ssl
+              mountPath: "/var/lib/puppet/ssl"
+      volumes:
+      - name: puppetmaster-etc
+        persistentVolumeClaim:
+          claimName: puppetmaster-etc
+      volumes:
+      - name: puppetmaster-ssl
+        persistentVolumeClaim:
+          claimName: puppetmaster-ssl

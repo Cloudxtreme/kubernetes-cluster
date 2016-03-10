@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: puppetmaster-ssl
+  labels:
+    app: puppetmaster
+spec:
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 172.16.30.9
+    path: /data/puppetmaster-ssl
