@@ -9,13 +9,13 @@ spec:
   replicas: 2
   selector:
     app: nfs
-    role: nfs-busybox
+    role: busybox
   template:
     metadata:
       labels:
         app: nfs
         enviroment: development
-        role: nfs-busybox
+        role: busybox
     spec:
       containers:
       - image: busybox
