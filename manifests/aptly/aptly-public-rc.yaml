@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: aptly-public
-        image: nginx
+        image: jrelva/nginx-autoindex
         ports:
           - name: web
             containerPort: 80
