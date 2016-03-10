@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: static-go-webserver
+        enviroment: development
     spec:
       containers:
       - name: static-go-webserver
