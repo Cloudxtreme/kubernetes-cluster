@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: puppetmaster
+        enviroment: production
     spec:
       containers:
       - name: puppetmaster
