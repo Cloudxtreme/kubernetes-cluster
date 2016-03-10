@@ -19,10 +19,12 @@ spec:
     spec:
       containers:
       - name: aptly-api
-        image: bborbe/aptly-api
+        image: bborbe/aptly
         ports:
         - containerPort: 3845
         volumeMounts:
+            - name: aptly-home
+              mountPath: "/root"
             - name: aptly-db
               mountPath: "/aptly/db"
             - name: aptly-public
@@ -31,21 +33,19 @@ spec:
               mountPath: "/aptly/pool"
             - name: aptly-upload
               mountPath: "/aptly/upload"
-            - name: aptly-home
-              mountPath: "/aptly/home"
       volumes:
-      - name: aptly-db
-        persistentVolumeClaim:
-          claimName: aptly-db
-      - name: aptly-upload
-        persistentVolumeClaim:
-          claimName: aptly-upload
-      - name: aptly-pool
-        persistentVolumeClaim:
-          claimName: aptly-pool
-      - name: aptly-public
-        persistentVolumeClaim:
-          claimName: aptly-public
       - name: aptly-home
         persistentVolumeClaim:
           claimName: aptly-home
+      - name: aptly-db
+        persistentVolumeClaim:
+          claimName: aptly-db
+      - name: aptly-public
+        persistentVolumeClaim:
+          claimName: aptly-public
+      - name: aptly-pool
+        persistentVolumeClaim:
+          claimName: aptly-pool
+      - name: aptly-upload
+        persistentVolumeClaim:
+          claimName: aptly-upload
