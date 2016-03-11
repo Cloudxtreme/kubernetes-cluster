@@ -19,7 +19,8 @@ spec:
       - name: puppetmaster
         image: bborbe/puppetmaster:latest
         ports:
-        - containerPort: 8140
+        - name: puppetmaster
+          containerPort: 8140
         volumeMounts:
             - name: puppetmaster-etc
               mountPath: "/etc/puppet"
