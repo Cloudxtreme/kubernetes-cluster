@@ -4,7 +4,7 @@ metadata:
   name: aptly-api
   labels:
     app: aptly
-    enviroment: development
+    enviroment: production
 spec:
   replicas: 1
   selector:
@@ -15,13 +15,14 @@ spec:
       labels:
         app: aptly
         role: api
-        enviroment: development
+        enviroment: production
     spec:
       containers:
       - name: aptly-api
-        image: bborbe/aptly:latest
+        image: bborbe/aptly-dbcleanup:latest
         ports:
-        - containerPort: 3845
+        - name: aptly-api
+          containerPort: 3845
         volumeMounts:
             - name: aptly-db
               mountPath: "/aptly/db"
