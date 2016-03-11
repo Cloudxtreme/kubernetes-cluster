@@ -1,11 +1,54 @@
-# CoreOs
+# Kubernetes
 
-# Checkout
+## Install on libvirt
 
-`cd /var/lib/libvirt/images`
+```
+ssh root@kvm.example.com
+cd /var/lib/libvirt/images/kubernetes
+git clone https://github.com/bborbe/kubernetes.git
+cd scripts
+sh ssl-generate-keys.sh
+sh ssl-copy-keys.sh
+sh cluster-create.sh
+```
 
-`git clone https://bborbe@bitbucket.org/bborbe/kubernetes-libvirt.git kubernetes`
+## Configure Kubectl
 
-# Install via script
+```
+cd scripts
+sh kubectl-configure.sh
+cd ~/.kube
+scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-ca.pem
+scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-admin.pem
+scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-admin-key.pem
+kubectl get nodes
+```
 
-sh scripts/create-cluster.sh
+
+## Copyright and license
+
+    Copyright (c) 2016, Benjamin Borbe <bborbe@rocketnews.de>
+    All rights reserved.
+    
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+    
+       * Redistributions of source code must retain the above copyright
+         notice, this list of conditions and the following disclaimer.
+       * Redistributions in binary form must reproduce the above
+         copyright notice, this list of conditions and the following
+         disclaimer in the documentation and/or other materials provided
+         with the distribution.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
