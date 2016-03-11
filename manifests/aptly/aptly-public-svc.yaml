@@ -4,7 +4,7 @@ metadata:
   name: aptly-public
   labels:
     app: aptly
-    enviroment: development
+    enviroment: production
 spec:
   type: NodePort
   selector:

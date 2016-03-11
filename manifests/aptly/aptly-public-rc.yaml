@@ -4,7 +4,7 @@ metadata:
   name: aptly-public
   labels:
     app: aptly
-    enviroment: development
+    enviroment: production
 spec:
   replicas: 2
   selector:
@@ -15,7 +15,7 @@ spec:
       labels:
         app: aptly
         role: public
-        enviroment: development
+        enviroment: production
     spec:
       containers:
       - name: aptly-public
