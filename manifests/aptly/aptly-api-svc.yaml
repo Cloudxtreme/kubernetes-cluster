@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aptly-api
   labels:
     app: aptly
     enviroment: production
+  name: aptly-api
 spec:
-  type: NodePort
+  ports:
+  - nodePort: 30083
+    port: 3845
   selector:
     app: aptly
     role: api
-  ports:
-    - port: 3845
-      nodePort: 30083
+  type: NodePort

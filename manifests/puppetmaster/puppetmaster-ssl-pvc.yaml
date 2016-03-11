@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: puppetmaster-ssl
   labels:
     app: puppetmaster
     enviroment: production
+  name: puppetmaster-ssl
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteMany
   resources:
     requests:
       storage: 50Mi

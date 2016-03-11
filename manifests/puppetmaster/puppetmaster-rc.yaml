@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: puppetmaster
   labels:
     app: puppetmaster
     enviroment: production
+  name: puppetmaster
 spec:
   replicas: 1
   selector:
@@ -16,16 +16,16 @@ spec:
         enviroment: production
     spec:
       containers:
-      - name: puppetmaster
-        image: bborbe/puppetmaster:latest
+      - image: bborbe/puppetmaster:latest
+        name: puppetmaster
         ports:
-        - name: puppetmaster
-          containerPort: 8140
+        - containerPort: 8140
+          name: puppetmaster
         volumeMounts:
-            - name: puppetmaster-etc
-              mountPath: "/etc/puppet"
-            - name: puppetmaster-ssl
-              mountPath: "/var/lib/puppet/ssl"
+        - mountPath: /etc/puppet
+          name: puppetmaster-etc
+        - mountPath: /var/lib/puppet/ssl
+          name: puppetmaster-ssl
       volumes:
       - name: puppetmaster-etc
         persistentVolumeClaim:

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: nfs-server
   labels:
     app: nfs-server
     enviroment: development
+  name: nfs-server
 spec:
   replicas: 1
   selector:
@@ -16,10 +16,10 @@ spec:
         enviroment: development
     spec:
       containers:
-      - name: nfs-server
-        image: gcr.io/google_containers/volume-nfs
+      - image: gcr.io/google_containers/volume-nfs
+        name: nfs-server
         ports:
-          - name: nfs-server
-            containerPort: 2049
+        - containerPort: 2049
+          name: nfs-server
         securityContext:
           privileged: true

@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: puppetmaster-etc
   labels:
     app: puppetmaster
     enviroment: production
+  name: puppetmaster-etc
 spec:
+  accessModes:
+  - ReadWriteMany
   capacity:
     storage: 50Mi
-  accessModes:
-    - ReadWriteMany
   nfs:
-    server: 172.16.30.9
     path: /data/puppetmaster-etc
+    server: 172.16.30.9
