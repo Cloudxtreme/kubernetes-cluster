@@ -24,29 +24,9 @@ spec:
         - name: aptly-api
           containerPort: 3845
         volumeMounts:
-            - name: aptly-db
-              mountPath: "/aptly/db"
-            - name: aptly-public
-              mountPath: "/aptly/public"
-            - name: aptly-pool
-              mountPath: "/aptly/pool"
-            - name: aptly-upload
-              mountPath: "/aptly/upload"
-            - name: aptly-home
-              mountPath: "/aptly/home"
+            - name: aptly
+              mountPath: "/aptly"
       volumes:
-      - name: aptly-db
+      - name: aptly
         persistentVolumeClaim:
-          claimName: aptly-db
-      - name: aptly-public
-        persistentVolumeClaim:
-          claimName: aptly-public
-      - name: aptly-pool
-        persistentVolumeClaim:
-          claimName: aptly-pool
-      - name: aptly-upload
-        persistentVolumeClaim:
-          claimName: aptly-upload
-      - name: aptly-home
-        persistentVolumeClaim:
-          claimName: aptly-home
+          claimName: aptly

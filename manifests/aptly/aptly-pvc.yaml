@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: aptly-pool
+  name: aptly
   labels:
     app: aptly
     enviroment: production
@@ -10,4 +10,4 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 4000Mi
+      storage: 8000Mi

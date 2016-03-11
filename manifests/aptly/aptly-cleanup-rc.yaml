@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: aptly-cleanup
+  labels:
+    app: aptly
+    enviroment: production
+spec:
+  replicas: 1
+  selector:
+    app: aptly
+    role: cleanup
+  template:
+    metadata:
+      labels:
+        app: aptly
+        role: cleanup
+        enviroment: production
+    spec:
+      containers:
+      - name: aptly-cleanup
+        image: bborbe/aptly-dbcleanup-cron:latest
