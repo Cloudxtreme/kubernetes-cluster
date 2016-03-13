@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    app: confluence
+    enviroment: production
+    version: v1
+  name: confluence
+spec:
+  replicas: 1
+  selector:
+    app: confluence
+    version: v1
+    role: web
+  template:
+    metadata:
+      labels:
+        app: confluence
+        enviroment: production
+        version: v1
+        role: web
+    spec:
+      containers:
+      - image: bborbe/confluence:latest
+        name: confluence
+        ports:
+        - containerPort: 8780
+          name: confluence-http
+        - containerPort: 8709
+          name: confluence-ajp
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 500Mi
