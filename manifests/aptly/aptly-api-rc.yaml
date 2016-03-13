@@ -3,22 +3,22 @@ kind: ReplicationController
 metadata:
   labels:
     app: aptly
-    version: v1
     enviroment: production
+    version: v1
   name: aptly-api
 spec:
   replicas: 1
   selector:
     app: aptly
-    version: v1
     role: api
+    version: v1
   template:
     metadata:
       labels:
         app: aptly
-        version: v1
         enviroment: production
         role: api
+        version: v1
     spec:
       containers:
       - image: bborbe/aptly-dbcleanup:latest

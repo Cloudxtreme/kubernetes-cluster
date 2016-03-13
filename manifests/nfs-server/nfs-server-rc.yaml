@@ -3,8 +3,8 @@ kind: ReplicationController
 metadata:
   labels:
     app: nfs-server
-    version: v1
     enviroment: development
+    version: v1
   name: nfs-server
 spec:
   replicas: 1
@@ -15,8 +15,8 @@ spec:
     metadata:
       labels:
         app: nfs-server
-        version: v1
         enviroment: development
+        version: v1
     spec:
       containers:
       - image: gcr.io/google_containers/volume-nfs

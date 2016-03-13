@@ -3,8 +3,8 @@ kind: ReplicationController
 metadata:
   labels:
     app: minecraft
-    version: v1
     enviroment: production
+    version: v1
   name: minecraft
 spec:
   replicas: 1
@@ -15,8 +15,8 @@ spec:
     metadata:
       labels:
         app: minecraft
-        version: v1
         enviroment: production
+        version: v1
     spec:
       containers:
       - image: bborbe/minecraft:latest

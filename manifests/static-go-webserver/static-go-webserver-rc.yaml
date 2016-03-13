@@ -3,8 +3,8 @@ kind: ReplicationController
 metadata:
   labels:
     app: static-go-webserver
-    version: v1
     enviroment: development
+    version: v1
   name: static-go-webserver
 spec:
   replicas: 2
@@ -15,8 +15,8 @@ spec:
     metadata:
       labels:
         app: static-go-webserver
-        version: v1
         enviroment: development
+        version: v1
     spec:
       containers:
       - image: bborbe/static-go-webserver:latest

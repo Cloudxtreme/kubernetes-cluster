@@ -3,22 +3,22 @@ kind: ReplicationController
 metadata:
   labels:
     app: aptly
-    version: v1
     enviroment: production
+    version: v1
   name: aptly-public
 spec:
   replicas: 2
   selector:
     app: aptly
-    version: v1
     role: public
+    version: v1
   template:
     metadata:
       labels:
         app: aptly
-        version: v1
         enviroment: production
         role: public
+        version: v1
     spec:
       containers:
       - image: jrelva/nginx-autoindex

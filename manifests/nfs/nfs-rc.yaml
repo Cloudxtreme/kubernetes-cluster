@@ -3,22 +3,22 @@ kind: ReplicationController
 metadata:
   labels:
     app: nfs
-    version: v1
     enviroment: development
+    version: v1
   name: nfs-web
 spec:
   replicas: 2
   selector:
     app: nfs
-    version: v1
     role: web
+    version: v1
   template:
     metadata:
       labels:
         app: nfs
-        version: v1
         enviroment: development
         role: web
+        version: v1
     spec:
       containers:
       - image: nginx
