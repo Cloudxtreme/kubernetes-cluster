@@ -30,11 +30,11 @@ spec:
           name: confluence-ajp
         resources:
           limits:
-            cpu: 1000m
-            memory: 1000Mi
+            cpu: 2000m
+            memory: 1500Mi
           requests:
             cpu: 500m
-            memory: 500Mi
+            memory: 1000Mi
         volumeMounts:
         - mountPath: /var/lib/confluence
           name: confluence-data
