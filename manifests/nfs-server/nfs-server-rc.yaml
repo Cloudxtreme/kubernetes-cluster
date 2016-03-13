@@ -17,6 +17,13 @@ spec:
     spec:
       containers:
       - image: gcr.io/google_containers/volume-nfs
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "100m"
+          limits:
+            memory: "100Mi"
+            cpu: "250m"
         name: nfs-server
         ports:
         - containerPort: 2049
