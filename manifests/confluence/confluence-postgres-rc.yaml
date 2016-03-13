@@ -10,15 +10,15 @@ spec:
   replicas: 1
   selector:
     app: confluence
-    version: v1
     role: postgres
+    version: v1
   template:
     metadata:
       labels:
         app: confluence
         enviroment: production
-        version: v1
         role: postgres
+        version: v1
     spec:
       containers:
       - env:

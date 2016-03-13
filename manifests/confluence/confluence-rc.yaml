@@ -10,15 +10,15 @@ spec:
   replicas: 1
   selector:
     app: confluence
-    version: v1
     role: web
+    version: v1
   template:
     metadata:
       labels:
         app: confluence
         enviroment: production
-        version: v1
         role: web
+        version: v1
     spec:
       containers:
       - image: bborbe/confluence:latest
@@ -35,3 +35,10 @@ spec:
           requests:
             cpu: 500m
             memory: 500Mi
+        volumeMounts:
+        - mountPath: /var/lib/confluence
+          name: confluence-data
+      volumes:
+      - name: confluence-data
+        persistentVolumeClaim:
+          claimName: confluence-data

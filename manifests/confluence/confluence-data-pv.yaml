@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app: confluence
+    enviroment: production
+  name: confluence-data
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1500Mi
+  nfs:
+    path: /data/confluence-data
+    server: 172.16.30.9
