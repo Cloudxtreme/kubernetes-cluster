@@ -3,17 +3,20 @@ kind: ReplicationController
 metadata:
   labels:
     app: aptly
+    version: v1
     enviroment: production
   name: aptly-api
 spec:
   replicas: 1
   selector:
     app: aptly
+    version: v1
     role: api
   template:
     metadata:
       labels:
         app: aptly
+        version: v1
         enviroment: production
         role: api
     spec:

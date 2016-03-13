@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   labels:
     app: nfs-server
+    version: v1
     enviroment: development
   name: nfs-server
 spec:
   replicas: 1
   selector:
     app: nfs-server
+    version: v1
   template:
     metadata:
       labels:
         app: nfs-server
+        version: v1
         enviroment: development
     spec:
       containers:

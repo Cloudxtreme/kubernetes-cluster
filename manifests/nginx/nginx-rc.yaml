@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   labels:
     app: nginx
+    version: v1
     enviroment: development
   name: nginx
 spec:
   replicas: 2
   selector:
     app: nginx
+    version: v1
   template:
     metadata:
       labels:
         app: nginx
+        version: v1
         enviroment: development
     spec:
       containers:

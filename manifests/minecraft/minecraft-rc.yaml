@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   labels:
     app: minecraft
+    version: v1
     enviroment: production
   name: minecraft
 spec:
   replicas: 1
   selector:
     app: minecraft
+    version: v1
   template:
     metadata:
       labels:
         app: minecraft
+        version: v1
         enviroment: production
     spec:
       containers:

@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   labels:
     app: static-go-webserver
+    version: v1
     enviroment: development
   name: static-go-webserver
 spec:
   replicas: 2
   selector:
     app: static-go-webserver
+    version: v1
   template:
     metadata:
       labels:
         app: static-go-webserver
+        version: v1
         enviroment: development
     spec:
       containers:

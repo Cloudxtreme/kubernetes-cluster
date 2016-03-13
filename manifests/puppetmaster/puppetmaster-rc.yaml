@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   labels:
     app: puppetmaster
+    version: v1
     enviroment: production
   name: puppetmaster
 spec:
   replicas: 1
   selector:
     app: puppetmaster
+    version: v1
   template:
     metadata:
       labels:
         app: puppetmaster
+        version: v1
         enviroment: production
     spec:
       containers:
