@@ -17,17 +17,17 @@ spec:
     spec:
       containers:
       - image: bborbe/puppetmaster:latest
-        resources:
-          requests:
-            memory: "150Mi"
-            cpu: "100m"
-          limits:
-            memory: "300Mi"
-            cpu: "250m"
         name: puppetmaster
         ports:
         - containerPort: 8140
           name: puppetmaster
+        resources:
+          limits:
+            cpu: 250m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 150Mi
         volumeMounts:
         - mountPath: /etc/puppet
           name: puppetmaster-etc

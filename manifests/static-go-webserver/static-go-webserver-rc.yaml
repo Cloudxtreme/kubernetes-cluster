@@ -17,14 +17,14 @@ spec:
     spec:
       containers:
       - image: bborbe/static-go-webserver:latest
-        resources:
-          requests:
-            memory: "10Mi"
-            cpu: "10m"
-          limits:
-            memory: "50Mi"
-            cpu: "250m"
         name: static-go-webserver
         ports:
         - containerPort: 80
           name: static-go-web
+        resources:
+          limits:
+            cpu: 250m
+            memory: 50Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi

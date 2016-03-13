@@ -17,17 +17,17 @@ spec:
     spec:
       containers:
       - image: bborbe/backup-rsync:latest
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "250m"
-          limits:
-            memory: "200Mi"
-            cpu: "1000m"
         name: backup
         ports:
         - containerPort: 22
           name: backup
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 200Mi
+          requests:
+            cpu: 250m
+            memory: 100Mi
         volumeMounts:
         - mountPath: /data
           name: backup

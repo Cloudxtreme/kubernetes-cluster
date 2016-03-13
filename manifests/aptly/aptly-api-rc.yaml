@@ -19,17 +19,17 @@ spec:
     spec:
       containers:
       - image: bborbe/aptly-dbcleanup:latest
-        resources:
-          requests:
-            memory: "50Mi"
-            cpu: "100m"
-          limits:
-            memory: "100Mi"
-            cpu: "500m"
         name: aptly-api
         ports:
         - containerPort: 3845
           name: aptly-api
+        resources:
+          limits:
+            cpu: 500m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
         volumeMounts:
         - mountPath: /aptly
           name: aptly

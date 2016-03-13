@@ -17,17 +17,17 @@ spec:
     spec:
       containers:
       - image: bborbe/minecraft:latest
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "768Mi"
-            cpu: "1000m"
         name: minecraft
         ports:
         - containerPort: 20000
           name: minecraft
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 768Mi
+          requests:
+            cpu: 250m
+            memory: 512Mi
         volumeMounts:
         - mountPath: /opt/msm
           name: minecraft

@@ -19,17 +19,17 @@ spec:
     spec:
       containers:
       - image: nginx
-        resources:
-          requests:
-            memory: "10Mi"
-            cpu: "10m"
-          limits:
-            memory: "50Mi"
-            cpu: "250m"
         name: nfs
         ports:
         - containerPort: 80
           name: nfs-web
+        resources:
+          limits:
+            cpu: 250m
+            memory: 50Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
         volumeMounts:
         - mountPath: /usr/share/nginx/html
           name: nfs
