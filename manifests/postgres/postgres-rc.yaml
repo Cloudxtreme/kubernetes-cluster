@@ -20,10 +20,14 @@ spec:
     spec:
       containers:
       - env:
-        - name: DB_PASS
-          value: vGwcMHhR1F2P8rMW
+        - name: POSTGRES_PASSWORD
+          value: 8PfiWhkwZi0NKohD
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_DB
+          value: postgres
         image: postgres
         name: postgres
         ports:
