@@ -19,6 +19,13 @@ spec:
     spec:
       containers:
       - image: jrelva/nginx-autoindex
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "10m"
+          limits:
+            memory: "50Mi"
+            cpu: "250m"
         name: aptly-public
         ports:
         - containerPort: 80
