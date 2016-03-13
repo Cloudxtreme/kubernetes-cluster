@@ -17,6 +17,13 @@ spec:
     spec:
       containers:
       - image: bborbe/puppetmaster:latest
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "100m"
+          limits:
+            memory: "300Mi"
+            cpu: "250m"
         name: puppetmaster
         ports:
         - containerPort: 8140
