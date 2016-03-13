@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: confluence
+    enviroment: production
+  name: confluence-postgres
+spec:
+  ports:
+  - nodePort: 30001
+    port: 5432
+  selector:
+    app: confluence
+    role: postgres
+  type: NodePort
