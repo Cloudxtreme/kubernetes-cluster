@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: bind
+    enviroment: production
+  name: bind
+spec:
+  ports:
+  - nodePort: 30053
+    port: 53
+    protocol: UDP
+  selector:
+    app: bind
+  type: NodePort
