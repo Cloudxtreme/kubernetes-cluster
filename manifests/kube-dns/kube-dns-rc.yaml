@@ -60,7 +60,6 @@ spec:
         - -addr=0.0.0.0:53
         - -ns-rotate=false
         - -domain=cluster.local.
-        - -kube_master_url=http://172.16.30.10:8080
         command:
         - /skydns
         image: gcr.io/google_containers/skydns:2015-10-13-8c72f8c
