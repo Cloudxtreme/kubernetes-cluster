@@ -7,9 +7,14 @@ metadata:
   name: bind
 spec:
   ports:
-  - nodePort: 30053
+  - name: dns-udp
+    nodePort: 30053
     port: 53
     protocol: UDP
+  - name: dns-tcp
+    nodePort: 30054
+    port: 53
+    protocol: TCP
   selector:
     app: bind
   type: NodePort
