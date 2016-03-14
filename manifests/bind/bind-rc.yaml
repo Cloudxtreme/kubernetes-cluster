@@ -19,7 +19,7 @@ spec:
         version: v1
     spec:
       containers:
-        image: bborbe/bind:latest
+      - image: bborbe/bind:latest
         name: bind
         ports:
         - containerPort: 53
@@ -36,7 +36,7 @@ spec:
             cpu: 100m
             memory: 25Mi
         volumeMounts:
-        - mountPath: /test
+        - mountPath: /etc/bind
           name: bind
       volumes:
       - name: bind
