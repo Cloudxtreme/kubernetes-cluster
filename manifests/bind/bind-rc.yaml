@@ -38,6 +38,8 @@ spec:
         volumeMounts:
         - mountPath: /etc/bind
           name: bind
+        - mountPath: /var/lib/bind
+          name: bind
       volumes:
       - name: bind
         persistentVolumeClaim:
