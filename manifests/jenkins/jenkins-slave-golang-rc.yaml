@@ -32,6 +32,13 @@ spec:
           value: slave-golang
         image: bborbe/jenkins-jnlp-slave-golang:latest
         name: jenkins-slave-golang
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
         volumeMounts:
         - mountPath: /home/jenkins
           name: jenkins-slave
