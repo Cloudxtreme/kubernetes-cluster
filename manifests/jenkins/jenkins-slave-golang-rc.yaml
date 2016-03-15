@@ -23,7 +23,7 @@ spec:
       containers:
       - env:
         - name: JENKINS_URL
-          value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)
+          value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)/jenkins
         - name: JENKINS_TUNNEL
           value: $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
         - name: JENKINS_SECRET
