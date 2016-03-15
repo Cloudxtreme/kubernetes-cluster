@@ -20,3 +20,10 @@ spec:
       containers:
       - image: bborbe/aptly-dbcleanup-cron:latest
         name: aptly-cleanup
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
