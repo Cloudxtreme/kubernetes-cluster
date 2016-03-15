@@ -21,12 +21,14 @@ spec:
         version: v1
     spec:
       containers:
-        env:
+      - env:
         - name: JENKINS_URL
           value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)
         - name: JENKINS_TUNNEL
           value: $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
         - name: JENKINS_SECRET
           value: 2d3480c9be9fc12ed9631d4a8343a74ba398cf1f0bea98a69dfa8dbaeea179e6
+        - name: JENKINS_NODE
+          value: slave-golang
         image: bborbe/jenkins-jnlp-slave:latest
         name: jenkins-slave
