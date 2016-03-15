@@ -30,6 +30,8 @@ spec:
           value: 68fb899217e49533750bd9adbe2999a4974ea098e9ce2834f573f94374e161a1
         - name: JENKINS_NODE
           value: slave-java
+        - name: JENKINS_OPTS
+          value: -noreconnect
         image: bborbe/jenkins-jnlp-slave-java:latest
         name: jenkins-slave-java
         resources:

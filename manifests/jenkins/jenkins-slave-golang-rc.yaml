@@ -30,6 +30,8 @@ spec:
           value: 2d3480c9be9fc12ed9631d4a8343a74ba398cf1f0bea98a69dfa8dbaeea179e6
         - name: JENKINS_NODE
           value: slave-golang
+        - name: JENKINS_OPTS
+          value: -noreconnect
         image: bborbe/jenkins-jnlp-slave-golang:latest
         name: jenkins-slave-golang
         resources:
