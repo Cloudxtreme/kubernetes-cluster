@@ -21,7 +21,10 @@ spec:
         version: v1
     spec:
       containers:
-      - image: jenkins:latest
+      - env:
+        - name: JENKINS_OPTS
+          value: --prefix=/jenkins
+        image: jenkins:latest
         name: jenkins
         ports:
         - containerPort: 8080
