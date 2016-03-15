@@ -4,12 +4,12 @@ metadata:
   labels:
     app: jenkins
     enviroment: production
-  name: jenkins
+  name: jenkins-slave
 spec:
   accessModes:
   - ReadWriteMany
   capacity:
     storage: 1000Mi
   nfs:
-    path: /data/jenkins
+    path: /data/jenkins-slave
     server: 172.16.30.9

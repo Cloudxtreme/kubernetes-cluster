@@ -32,3 +32,10 @@ spec:
           value: slave-golang
         image: bborbe/jenkins-jnlp-slave-golang:latest
         name: jenkins-slave-golang
+        volumeMounts:
+        - mountPath: /home/jenkins
+          name: jenkins-slave
+      volumes:
+      - name: jenkins-slave
+        persistentVolumeClaim:
+          claimName: jenkins-slave

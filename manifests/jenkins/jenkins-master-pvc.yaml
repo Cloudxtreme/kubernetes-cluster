@@ -4,7 +4,7 @@ metadata:
   labels:
     app: jenkins
     enviroment: production
-  name: jenkins
+  name: jenkins-master
 spec:
   accessModes:
   - ReadWriteMany

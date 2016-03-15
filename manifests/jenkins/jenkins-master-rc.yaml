@@ -40,8 +40,8 @@ spec:
             memory: 200Mi
         volumeMounts:
         - mountPath: /var/jenkins_home
-          name: jenkins
+          name: jenkins-master
       volumes:
-      - name: jenkins
+      - name: jenkins-master
         persistentVolumeClaim:
-          claimName: jenkins
+          claimName: jenkins-master

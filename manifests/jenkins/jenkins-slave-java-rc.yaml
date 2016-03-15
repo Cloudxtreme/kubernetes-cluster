@@ -32,3 +32,10 @@ spec:
           value: slave-java
         image: bborbe/jenkins-jnlp-slave-java:latest
         name: jenkins-slave-java
+        volumeMounts:
+        - mountPath: /home/jenkins
+          name: jenkins-slave
+      volumes:
+      - name: jenkins-slave
+        persistentVolumeClaim:
+          claimName: jenkins-slave
