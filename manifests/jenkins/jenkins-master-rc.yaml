@@ -5,17 +5,19 @@ metadata:
     app: jenkins
     enviroment: production
     version: v1
-  name: jenkins
+  name: jenkins-master
 spec:
   replicas: 1
   selector:
     app: jenkins
+    role: master
     version: v1
   template:
     metadata:
       labels:
         app: jenkins
         enviroment: production
+        role: master
         version: v1
     spec:
       containers:
@@ -23,9 +25,9 @@ spec:
         name: jenkins
         ports:
         - containerPort: 8080
-          name: jenkins-web
+          name: web
         - containerPort: 50000
-          name: jenkins-leader
+          name: leader
         resources:
           limits:
             cpu: 1000m
@@ -33,3 +35,10 @@ spec:
           requests:
             cpu: 100m
             memory: 200Mi
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins
+      volumes:
+      - name: jenkins
+        persistentVolumeClaim:
+          claimName: jenkins

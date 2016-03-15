@@ -4,12 +4,15 @@ metadata:
   labels:
     app: jenkins
     enviroment: production
-  name: jenkins
+  name: jenkins-master
 spec:
   ports:
-  - name: jenkins-web
+  - name: http
     nodePort: 30005
     port: 8080
+  - name: slave
+    port: 50000
   selector:
     app: jenkins
+    role: master
   type: NodePort
