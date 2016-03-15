@@ -21,26 +21,12 @@ spec:
         version: v1
     spec:
       containers:
-      - command:
-        - /usr/local/bin/jenkins-slave.sh
-        - -master
-        - http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)
-        - -tunnel
-        - $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
-        - -username
-        - jenkins
-        - -password
-        - jenkins
-        - -executors
-        - "1"
-        env: null
-        image: csanchez/jenkins-swarm-slave:2.0-net-tools
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - netstat -tan | grep ESTABLISHED
-          initialDelaySeconds: 60
-          timeoutSeconds: 1
+        env:
+        - name: JENKINS_URL
+          value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)
+        - name: JENKINS_TUNNEL
+          value: $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
+        - name: JENKINS_SECRET
+          value: 2d3480c9be9fc12ed9631d4a8343a74ba398cf1f0bea98a69dfa8dbaeea179e6
+        image: bborbe/jenkins-jnlp-slave:latest
         name: jenkins-slave
