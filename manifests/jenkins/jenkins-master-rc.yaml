@@ -24,6 +24,8 @@ spec:
       - env:
         - name: JENKINS_OPTS
           value: --prefix=/jenkins
+        - name: JAVA_OPTS
+          value: -Djava.awt.headless=true -Xmx256m
         image: jenkins:latest
         name: jenkins
         ports:
@@ -34,10 +36,10 @@ spec:
         resources:
           limits:
             cpu: 1000m
-            memory: 500Mi
+            memory: 600Mi
           requests:
             cpu: 100m
-            memory: 200Mi
+            memory: 400Mi
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins-master
