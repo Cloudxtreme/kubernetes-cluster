@@ -19,10 +19,10 @@ spec:
         version: v6
     spec:
       containers:
-      - name: heapster
-        image: kubernetes/heapster:canary
-        imagePullPolicy: Always
-        command:
+      - command:
         - /heapster
         - --source=kubernetes:https://kubernetes.default
         - --sink=influxdb:http://monitoring-influxdb:8086
+        image: kubernetes/heapster:canary
+        imagePullPolicy: Always
+        name: heapster
