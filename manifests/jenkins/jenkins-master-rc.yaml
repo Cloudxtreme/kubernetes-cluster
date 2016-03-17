@@ -36,10 +36,10 @@ spec:
         resources:
           limits:
             cpu: 1000m
-            memory: 600Mi
+            memory: 400Mi
           requests:
             cpu: 100m
-            memory: 400Mi
+            memory: 300Mi
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins-master
