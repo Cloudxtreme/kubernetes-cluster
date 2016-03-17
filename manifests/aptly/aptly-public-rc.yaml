@@ -29,10 +29,10 @@ spec:
         resources:
           limits:
             cpu: 250m
-            memory: 50Mi
+            memory: 25Mi
           requests:
             cpu: 10m
-            memory: 10Mi
+            memory: 5Mi
         volumeMounts:
         - mountPath: /usr/share/nginx/html
           name: aptly-public

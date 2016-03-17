@@ -29,10 +29,10 @@ spec:
         resources:
           limits:
             cpu: 500m
-            memory: 100Mi
+            memory: 75Mi
           requests:
             cpu: 100m
-            memory: 50Mi
+            memory: 25Mi
         volumeMounts:
         - mountPath: /aptly
           name: aptly
