@@ -2,37 +2,57 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    app: heapster
-    enviroment: production
     k8s-app: heapster
     kubernetes.io/cluster-service: "true"
-    version: v10
-  name: heapster-v10
+  name: heapster-v1.0.0
   namespace: kube-system
 spec:
   replicas: 1
   selector:
     k8s-app: heapster
-    version: v10
   template:
     metadata:
       labels:
-        app: heapster
-        enviroment: production
         k8s-app: heapster
         kubernetes.io/cluster-service: "true"
-        version: v10
     spec:
       containers:
       - command:
         - /heapster
         - --source=kubernetes.summary_api:''
-        - --sink=influxdb:http://monitoring-influxdb:8086
-        - --stats_resolution=30s
-        - --sink_frequency=1m
-        image: gcr.io/google_containers/heapster:v0.18.2
+        - --sink=gcm
+        - --metric_resolution=60s
+        image: gcr.io/google_containers/heapster:v1.0.0
         name: heapster
         resources:
           limits:
             cpu: 100m
-            memory: 300Mi
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - mountPath: /etc/ssl/certs
+          name: ssl-certs
+          readOnly: true
+      - command:
+        - /eventer
+        - --source=kubernetes:''
+        - --sink=gcl
+        image: gcr.io/google_containers/heapster:v1.0.0
+        name: eventer
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - mountPath: /etc/ssl/certs
+          name: ssl-certs
+          readOnly: true
+      volumes:
+      - hostPath:
+          path: /etc/ssl/certs
+        name: ssl-certs
