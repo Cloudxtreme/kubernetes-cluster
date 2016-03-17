@@ -24,7 +24,7 @@ spec:
       - command:
         - /heapster
         - --source=kubernetes.summary_api:''
-        - --sink=gcm
+        - --sink=influxdb:http://monitoring-influxdb:8086
         - --metric_resolution=60s
         image: gcr.io/google_containers/heapster:v1.0.0
         name: heapster
@@ -35,14 +35,10 @@ spec:
           requests:
             cpu: 100m
             memory: 200Mi
-        volumeMounts:
-        - mountPath: /etc/ssl/certs
-          name: ssl-certs
-          readOnly: true
       - command:
         - /eventer
         - --source=kubernetes:''
-        - --sink=gcl
+        - --sink=influxdb:http://monitoring-influxdb:8086
         image: gcr.io/google_containers/heapster:v1.0.0
         name: eventer
         resources:
@@ -52,11 +48,3 @@ spec:
           requests:
             cpu: 100m
             memory: 200Mi
-        volumeMounts:
-        - mountPath: /etc/ssl/certs
-          name: ssl-certs
-          readOnly: true
-      volumes:
-      - hostPath:
-          path: /etc/ssl/certs
-        name: ssl-certs
