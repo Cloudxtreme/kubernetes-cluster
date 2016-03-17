@@ -23,15 +23,13 @@ spec:
       containers:
       - env:
         - name: JENKINS_URL
-          value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)/jenkins
+          value: http://10.103.0.11:8080/jenkins
         - name: JENKINS_TUNNEL
-          value: $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
+          value: 10.103.0.11:50000
         - name: JENKINS_SECRET
           value: 2d3480c9be9fc12ed9631d4a8343a74ba398cf1f0bea98a69dfa8dbaeea179e6
         - name: JENKINS_NODE
           value: slave-golang
-        - name: JENKINS_OPTS
-          value: -noreconnect
         image: bborbe/jenkins-jnlp-slave-golang:latest
         name: jenkins-slave-golang
         resources:

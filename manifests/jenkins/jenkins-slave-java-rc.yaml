@@ -23,15 +23,13 @@ spec:
       containers:
       - env:
         - name: JENKINS_URL
-          value: http://$(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_HTTP)/jenkins
+          value: http://10.103.0.11:8080/jenkins
         - name: JENKINS_TUNNEL
-          value: $(JENKINS_MASTER_SERVICE_HOST):$(JENKINS_MASTER_SERVICE_PORT_SLAVE)
+          value: 10.103.0.11:50000
         - name: JENKINS_SECRET
           value: 68fb899217e49533750bd9adbe2999a4974ea098e9ce2834f573f94374e161a1
         - name: JENKINS_NODE
           value: slave-java
-        - name: JENKINS_OPTS
-          value: -noreconnect
         image: bborbe/jenkins-jnlp-slave-java:latest
         name: jenkins-slave-java
         resources:

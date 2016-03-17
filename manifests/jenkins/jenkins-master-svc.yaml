@@ -6,11 +6,13 @@ metadata:
     enviroment: production
   name: jenkins-master
 spec:
+  clusterIP: 10.103.0.11
   ports:
   - name: http
     nodePort: 30005
     port: 8080
   - name: slave
+    nodePort: 30006
     port: 50000
   selector:
     app: jenkins
