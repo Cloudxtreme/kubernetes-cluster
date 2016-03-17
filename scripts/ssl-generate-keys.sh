@@ -12,8 +12,8 @@ openssl req -x509 -new -nodes -key kubernetes-ca-key.pem -days 10000 -out kubern
 
 # Master Key
 openssl genrsa -out kubernetes-apiserver-key.pem 2048
-openssl req -new -key kubernetes-apiserver-key.pem -out kubernetes-apiserver.csr -subj "/CN=kube-apiserver" -config openssl.cnf
-openssl x509 -req -in kubernetes-apiserver.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf
+KUBERNETES_SVC=${KUBERNETES_SVC} MASTER_IP=${MASTER_IP} FIREWALL_IP=${FIREWALL_IP} openssl req -new -key kubernetes-apiserver-key.pem -out kubernetes-apiserver.csr -subj "/CN=kube-apiserver" -config openssl.cnf
+KUBERNETES_SVC=${KUBERNETES_SVC} MASTER_IP=${MASTER_IP} FIREWALL_IP=${FIREWALL_IP} openssl x509 -req -in kubernetes-apiserver.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf
 
 # Worker 0 Key
 WORKER_FQDN="worker0"
