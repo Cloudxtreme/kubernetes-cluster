@@ -10,9 +10,9 @@ metadata:
   namespace: kube-system
 spec:
   ports:
-  - nodePort: 30007
+  - name: http
+    nodePort: 30007
     port: 80
-    targetPort: 3000
   selector:
     k8s-app: influxGrafana
   type: NodePort
