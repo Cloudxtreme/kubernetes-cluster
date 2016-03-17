@@ -4,7 +4,7 @@
 
 KUBERNETES_SVC=10.103.0.1
 MASTER_IP=172.16.30.10
-FIREWALL_IP=10.4.0.1
+FIREWALL_IP=172.16.50.1
 
 # CA Key
 openssl genrsa -out kubernetes-ca-key.pem 2048
