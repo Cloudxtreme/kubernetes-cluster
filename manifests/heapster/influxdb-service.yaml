@@ -11,13 +11,10 @@ metadata:
 spec:
   ports:
   - name: http
-    nodePort: 30010
     port: 8083
     targetPort: 8083
   - name: api
-    nodePort: 30009
     port: 8086
     targetPort: 8086
   selector:
     k8s-app: influxGrafana
-  type: NodePort
