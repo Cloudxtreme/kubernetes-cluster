@@ -34,7 +34,7 @@ spec:
             memory: 1500Mi
           requests:
             cpu: 500m
-            memory: 1000Mi
+            memory: 1200Mi
         volumeMounts:
         - mountPath: /var/lib/confluence
           name: confluence-data
