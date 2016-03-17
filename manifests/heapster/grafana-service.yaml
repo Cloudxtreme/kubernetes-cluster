@@ -9,10 +9,10 @@ metadata:
   name: monitoring-grafana
   namespace: kube-system
 spec:
-  type: NodePort
   ports:
   - name: web
-    port: 3000
     nodePort: 30001
+    port: 3000
   selector:
     k8s-app: influxGrafana
+  type: NodePort

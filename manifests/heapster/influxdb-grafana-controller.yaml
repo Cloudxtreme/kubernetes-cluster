@@ -51,7 +51,7 @@ spec:
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: Admin
         - name: GF_SERVER_ROOT_URL
-          value: /
+          value: /grafana/
         image: gcr.io/google_containers/heapster_grafana:v2.6.0-2
         name: grafana
         resources:
