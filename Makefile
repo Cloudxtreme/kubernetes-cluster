@@ -1,2 +1,2 @@
 format:
-	find . -name "*.yaml" -exec yamlformat -path "{}" -write \;
+	find . -name "*.yaml" -exec yamlformat -write -path "{}" \;
