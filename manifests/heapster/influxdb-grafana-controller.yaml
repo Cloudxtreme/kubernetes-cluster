@@ -45,9 +45,9 @@ spec:
         - name: INFLUXDB_SERVICE_URL
           value: http://127.0.0.1:8086
         - name: GF_AUTH_BASIC_ENABLED
-          value: "false"
-        - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "false"
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: Admin
         - name: GF_SERVER_ROOT_URL
@@ -62,10 +62,17 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - mountPath: /var
-          name: grafana-persistent-storage
+        - mountPath: /etc/grafana
+          name: heapster-grafana-etc
+        - mountPath: /var/lib/grafana
+          name: heapster-grafana-data
       volumes:
-      - emptyDir: {}
-        name: influxdb-persistent-storage
-      - emptyDir: {}
-        name: grafana-persistent-storage
+      - name: influxdb-persistent-storage
+        persistentVolumeClaim:
+          claimName: heapster-influxdb
+      - name: heapster-grafana-data
+        persistentVolumeClaim:
+          claimName: heapster-grafana-data
+      - name: heapster-grafana-etc
+        persistentVolumeClaim:
+          claimName: heapster-grafana-etc
