@@ -34,10 +34,10 @@ spec:
         resources:
           limits:
             cpu: 100m
-            memory: 500Mi
+            memory: 250Mi
           requests:
             cpu: 100m
-            memory: 500Mi
+            memory: 250Mi
         volumeMounts:
         - mountPath: /data
           name: influxdb-persistent-storage
@@ -57,10 +57,10 @@ spec:
         resources:
           limits:
             cpu: 100m
-            memory: 100Mi
+            memory: 50Mi
           requests:
             cpu: 100m
-            memory: 100Mi
+            memory: 50Mi
         volumeMounts:
         - mountPath: /etc/grafana
           name: heapster-grafana-etc
