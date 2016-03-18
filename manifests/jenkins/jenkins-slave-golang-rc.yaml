@@ -32,6 +32,8 @@ spec:
           value: slave-golang
         - name: JENKINS_OPTS
           value: -noreconnect
+        - name: JAVA_OPTS
+          value: -Xmx100m -Dcom.sun.management.jmxremote= -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
         image: bborbe/jenkins-jnlp-slave-golang:latest
         name: jenkins-slave-golang
         resources:
