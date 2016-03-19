@@ -4,7 +4,7 @@ metadata:
   labels:
     app: jenkins
     enviroment: production
-  name: jenkins-slave
+  name: jenkins-slave-golang
 spec:
   accessModes:
   - ReadWriteMany

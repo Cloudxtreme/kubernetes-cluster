@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app: jenkins
+    enviroment: production
+  name: jenkins-slave-docker
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1000Mi
+  nfs:
+    path: /data/jenkins-slave-docker
+    server: 172.16.30.9

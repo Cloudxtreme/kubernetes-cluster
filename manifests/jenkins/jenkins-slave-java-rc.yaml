@@ -45,8 +45,8 @@ spec:
             memory: 200Mi
         volumeMounts:
         - mountPath: /home/jenkins
-          name: jenkins-slave
+          name: jenkins-slave-java
       volumes:
-      - name: jenkins-slave
+      - name: jenkins-slave-java
         persistentVolumeClaim:
-          claimName: jenkins-slave
+          claimName: jenkins-slave-java

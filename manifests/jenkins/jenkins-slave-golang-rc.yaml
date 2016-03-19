@@ -45,8 +45,8 @@ spec:
             memory: 200Mi
         volumeMounts:
         - mountPath: /home/jenkins
-          name: jenkins-slave
+          name: jenkins-slave-golang
       volumes:
-      - name: jenkins-slave
+      - name: jenkins-slave-golang
         persistentVolumeClaim:
-          claimName: jenkins-slave
+          claimName: jenkins-slave-golang

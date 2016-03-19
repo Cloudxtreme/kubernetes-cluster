@@ -45,13 +45,13 @@ spec:
             memory: 100Mi
         volumeMounts:
         - mountPath: /home/jenkins
-          name: jenkins-slave
+          name: jenkins-slave-docker
         - mountPath: /var/run/docker.sock
           name: docker-sock
       volumes:
-      - name: jenkins-slave
+      - name: jenkins-slave-docker
         persistentVolumeClaim:
-          claimName: jenkins-slave
+          claimName: jenkins-slave-docker
       - name: docker-sock
         hostPath:
           path: /var/run/docker.sock
