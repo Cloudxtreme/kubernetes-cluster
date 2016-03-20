@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elastickube
+    enviroment: production
+    name: elastickube-server
+  name: elastickube-server
+  namespace: kube-system
+spec:
+  ports:
+  - name: http
+    nodePort: 30007
+    port: 80
+  selector:
+    name: elastickube-server
+  type: NodePort
