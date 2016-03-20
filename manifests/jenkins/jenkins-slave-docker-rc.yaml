@@ -33,7 +33,8 @@ spec:
         - name: JENKINS_OPTS
           value: -noreconnect
         - name: JAVA_OPTS
-          value: -Xmx100m -Dcom.sun.management.jmxremote= -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+          value: -Xmx100m -Dcom.sun.management.jmxremote= -Dcom.sun.management.jmxremote.port=1099
+            -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
         image: bborbe/jenkins-jnlp-slave-docker:latest
         name: jenkins-slave-docker
         resources:
@@ -52,6 +53,6 @@ spec:
       - name: jenkins-slave-docker
         persistentVolumeClaim:
           claimName: jenkins-slave-docker
-      - name: docker-sock
-        hostPath:
+      - hostPath:
           path: /var/run/docker.sock
+        name: docker-sock

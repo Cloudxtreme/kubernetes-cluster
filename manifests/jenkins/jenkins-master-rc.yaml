@@ -25,7 +25,9 @@ spec:
         - name: JENKINS_OPTS
           value: --prefix=/jenkins
         - name: JAVA_OPTS
-          value: -Djava.awt.headless=true -Xmx200m -Dcom.sun.management.jmxremote= -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+          value: -Djava.awt.headless=true -Xmx200m -Dcom.sun.management.jmxremote=
+            -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.ssl=false
+            -Dcom.sun.management.jmxremote.authenticate=false
         image: jenkins:latest
         name: jenkins
         ports:
