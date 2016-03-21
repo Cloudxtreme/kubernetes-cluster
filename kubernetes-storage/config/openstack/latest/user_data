@@ -4,7 +4,7 @@ ssh_authorized_keys:
 hostname: kubernetes-storage
 coreos:
   fleet:
-    metadata: "region=main"
+    metadata: "region=rn"
   units:
     - name: 10-ens3.network
       content: |
