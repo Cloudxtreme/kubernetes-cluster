@@ -3,8 +3,8 @@
 # https://coreos.com/kubernetes/docs/latest/openssl.html
 
 KUBERNETES_SVC=10.103.0.1
-MASTER_IP=172.16.30.10
-FIREWALL_IP=172.16.50.1
+MASTER_IP=${NETWORK}.10
+FIREWALL_IP=${API_SERVER}
 
 # CA Key
 openssl genrsa -out kubernetes-ca-key.pem 2048
@@ -17,21 +17,21 @@ KUBERNETES_SVC=\${KUBERNETES_SVC} MASTER_IP=\${MASTER_IP} FIREWALL_IP=\${FIREWAL
 
 # Worker 0 Key
 WORKER_FQDN=\"worker0\"
-WORKER_IP=172.16.30.20
+WORKER_IP=${NETWORK}.20
 openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
 WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
 WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
 # Worker 1 Key
 WORKER_FQDN=\"worker1\"
-WORKER_IP=172.16.30.21
+WORKER_IP=${NETWORK}.21
 openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
 WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
 WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
 # Worker 2 Key
 WORKER_FQDN=\"worker2\"
-WORKER_IP=172.16.30.22
+WORKER_IP=${NETWORK}.22
 openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
 WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
 WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
