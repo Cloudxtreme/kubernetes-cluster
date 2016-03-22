@@ -8,14 +8,30 @@ function generate_configs {
 
 function create_directories {
 	echo "create_directories started"
-	mkdir -p kubernetes-master/config kubernetes-master/ssl
-	mkdir -p kubernetes-storage/config kubernetes-storage/ssl
+	create_ssl "kubernetes-master"
+	copy_user_data "kubernetes-master"
+	create_ssl "kubernetes-storage"
+	copy_user_data "kubernetes-storage"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
-		mkdir -p kubernetes-worker${i}/config kubernetes-worker${i}/ssl
+		create_ssl "kubernetes-worker$i"
+		copy_user_data "kubernetes-worker$i"
 	done
 	echo "create_directories finished"
 }
 
+function copy_user_data {
+	echo "copy_user_data for $1 started"
+	mkdir -p $1/config/openstack/latest
+	cp template/$1/config/openstack/latest/user_data $1/config/openstack/latest/user_data
+	echo "copy_user_data for $1 finished"
+}
+
+function create_ssl {
+	echo "create_ssl for $1 started"
+	mkdir -p $1/ssl
+	touch $1/ssl/.keep
+	echo "create_ssl for $1 finished"
+}
 
 function render {
   eval "echo \"$(cat $1)\""
