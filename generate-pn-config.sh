@@ -19,6 +19,7 @@ MASTER_MEMORY=1024
 STORAGE_MEMORY=256
 WORKER_MEMORY=2048
 HOST=sun.pn.benjamin-borbe.de
+BRIDGE=privatebr0
 
 ################################################################################
 

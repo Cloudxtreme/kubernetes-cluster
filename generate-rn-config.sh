@@ -19,6 +19,7 @@ MASTER_MEMORY=1024
 STORAGE_MEMORY=256
 WORKER_MEMORY=3072
 HOST=host.rocketsource.de
+BRIDGE=br0
 
 ################################################################################
 
