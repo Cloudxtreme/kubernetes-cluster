@@ -2,8 +2,6 @@
 
 ./virsh-destroy.sh
 
-#./storage-data-destroy.sh
-
 echo \"remove lvm volumes ...\"
 lvremove /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-master
 lvremove /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage
