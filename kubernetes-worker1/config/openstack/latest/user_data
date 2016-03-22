@@ -91,7 +91,7 @@ write_files:
     permissions: 0644
     content: |
       FLANNELD_IFACE=172.16.30.21
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
+      FLANNELD_ETCD_ENDPOINTS=http://172.16.30.10:2379,http://172.16.30.9:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
   - path: /etc/kubernetes/worker-kubeconfig.yaml
     permissions: 0644
     content: |
