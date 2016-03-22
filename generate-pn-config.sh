@@ -8,7 +8,7 @@ set -o pipefail
 
 API_SERVER="172.16.90.1"
 CLUSTER_NAME="cluster-pn"
-REGION="rn"
+REGION="pn"
 WORKER_AMOUNT=3
 NETWORK="172.16.90"
 MACPREFIX="00:16:3e:2f:90:"
