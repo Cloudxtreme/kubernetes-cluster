@@ -2,28 +2,36 @@
 
 ## Install on libvirt
 
+Connect system with kvm installed.
+
 ```
-ssh root@kvm.example.com
-cd /var/lib/libvirt/images/kubernetes
+cd /var/lib/libvirt/images
 git clone https://github.com/bborbe/kubernetes.git
+cd kubernetes
+./generate-your-config.sh
 cd scripts
-sh ssl-generate-keys.sh
-sh ssl-copy-keys.sh
-sh cluster-create.sh
+./ssl-generate-keys.sh
+./ssl-copy-keys.sh
+./storage-data-create.sh
+./cluster-create.sh
 ```
 
 ## Configure Kubectl
 
+On admin machine.
+
 ```
+git clone https://github.com/bborbe/kubernetes.git
+cd kubernetes
+./generate-your-config.sh
 cd scripts
-sh kubectl-configure.sh
-cd ~/.kube
-scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-ca.pem
-scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-admin.pem
-scp root@kvm.example.com:/var/lib/libvirt/images/kubernetes/scripts/kubernetes-admin-key.pem
-kubectl get nodes
+./admin-kubectl-configure.sh
+./admin-copy-keys.sh
 ```
 
+Test with
+
+`kubectl get nodes`
 
 ## Copyright and license
 
