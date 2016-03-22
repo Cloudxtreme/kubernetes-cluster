@@ -65,6 +65,11 @@ write_files:
     content: |
       COREOS_PUBLIC_IPV4=$NODEIP
       COREOS_PRIVATE_IPV4=$NODEIP
+  - path: /run/flannel/options.env
+    permissions: 0644
+    content: |
+      FLANNELD_IFACE=$NODEIP
+      FLANNELD_ETCD_ENDPOINTS=$ETCD
   - path: /etc/exports
     permissions: 0644
     content: |
