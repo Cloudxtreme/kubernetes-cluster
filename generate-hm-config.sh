@@ -6,7 +6,7 @@ set -o pipefail
 
 ################################################################################
 
-API_SERVER="172.16.60.3"
+API_SERVER="172.16.60.6"
 CLUSTER_NAME="cluster-hm"
 REGION="hm"
 WORKER_AMOUNT=3
