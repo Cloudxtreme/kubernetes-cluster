@@ -23,8 +23,8 @@ coreos:
         MACAddress=$NODEMAC
         [Network]
         Address=$NODEIP/24
-        Gateway=172.16.30.1
-        DNS=172.16.30.1
+        Gateway=$NETWORK.1
+        DNS=$NETWORK.1
     - name: data.mount
       command: start
       content: |
@@ -68,4 +68,4 @@ write_files:
   - path: /etc/exports
     permissions: 0644
     content: |
-      /data/ 172.16.30.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0) 172.16.50.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
+      /data/ $NETWORK.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)

@@ -39,8 +39,8 @@ coreos:
         MACAddress=$NODEMAC
         [Network]
         Address=$NODEIP/24
-        Gateway=172.16.30.1
-        DNS=172.16.30.1
+        Gateway=$NETWORK.1
+        DNS=$NETWORK.1
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -67,7 +67,7 @@ coreos:
       content: |
         [Service]
         ExecStart=/usr/bin/kubelet \\
-          --api_servers=https://172.16.30.10 \\
+          --api_servers=https://$NETWORK.10 \\
           --register-node=true \\
           --allow-privileged=true \\
           --config=/etc/kubernetes/manifests \\
@@ -128,7 +128,7 @@ write_files:
           command:
           - /hyperkube
           - proxy
-          - --master=https://172.16.30.10
+          - --master=https://$NETWORK.10
           - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
           - --proxy-mode=iptables
           securityContext:

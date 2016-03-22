@@ -39,8 +39,8 @@ coreos:
         MACAddress=$NODEMAC
         [Network]
         Address=$NODEIP/24
-        Gateway=172.16.30.1
-        DNS=172.16.30.1
+        Gateway=$NETWORK.1
+        DNS=$NETWORK.1
     - name: etcd2.service
       command: start
     - name: fleet.service
