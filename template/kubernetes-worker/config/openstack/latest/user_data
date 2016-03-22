@@ -9,7 +9,7 @@ coreos:
     reboot-strategy: etcd-lock
   etcd2:
     name: \"$NODENAME\"
-    initial-cluster: \"kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380\"
+    initial-cluster: \"$INITIAL_CLUSTER\"
     initial-cluster-token: \"$CLUSTER_NAME\"
     initial-cluster-state: \"new\"
     initial-advertise-peer-urls: \"http://$NODEIP:2380\"
@@ -91,7 +91,7 @@ write_files:
     permissions: 0644
     content: |
       FLANNELD_IFACE=$NODEIP
-      FLANNELD_ETCD_ENDPOINTS=http://172.16.30.10:2379,http://172.16.30.20:2379,http://172.16.30.21:2379,http://172.16.30.22:2379
+      FLANNELD_ETCD_ENDPOINTS=$ETCD
   - path: /etc/kubernetes/worker-kubeconfig.yaml
     permissions: 0644
     content: |

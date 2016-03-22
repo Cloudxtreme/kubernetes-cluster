@@ -7,11 +7,20 @@ function generate_configs {
 }
 
 function generate_mac {
-	printf '00:16:3e:2f:06:%x' $1
+	printf "$MACPREFIX%x" $1
 }
 
 function create_nodes {
 	echo "create_nodes started"
+	
+	ETCD="http://$NETWORK.10:2379,http://$NETWORK.9:2379"
+	INITIAL_CLUSTER="kubernetes-master=http://$NETWORK.10:2380,kubernetes-storage=http://$NETWORK.9:2380"
+	for ((i=0; i < WORKER_AMOUNT; i++)) do
+		value=$((20 + $i))
+		ETCD="$ETCD,http://$NETWORK.$value:2379"
+		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://$NETWORK.$value:2380"
+	done
+
 	create_node "kubernetes-master" "kubernetes-master" "10"
 	create_node "kubernetes-storage" "kubernetes-storage" "9"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
