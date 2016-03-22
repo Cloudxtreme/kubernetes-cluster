@@ -15,6 +15,8 @@ function copy_scripts {
 	do
 		copy_script "$f"
 	done
+	chmod 644 scripts/*
+	chmod 755 scripts/*.sh
 	echo "copy_scripts finished"
 }
 
