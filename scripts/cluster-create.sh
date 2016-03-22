@@ -24,8 +24,6 @@ dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_
 dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-worker1
 dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-worker2
 
-# ./storage-data-create.sh
-
 ./virsh-create.sh
 
 echo "done"
