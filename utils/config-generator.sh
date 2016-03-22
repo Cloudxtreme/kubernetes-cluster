@@ -60,7 +60,7 @@ function create_node {
 
 function copy_user_data {
 	echo "copy_user_data for $2 started"
-	mkdir -p $1/config/openstack/latest
+	mkdir -p $2/config/openstack/latest
 	render template/$1/config/openstack/latest/user_data > $2/config/openstack/latest/user_data
 	echo "copy_user_data for $2 finished"
 }
