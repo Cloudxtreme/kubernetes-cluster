@@ -1,3 +1,3 @@
 #!/bin/sh
 
-#lvremove /dev/vg0/bb_kubernetes-storage-data
+#lvremove /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage-data

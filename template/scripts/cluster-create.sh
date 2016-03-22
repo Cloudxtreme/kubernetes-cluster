@@ -11,18 +11,18 @@ echo \"converting image ...\"
 qemu-img convert /mnt/images/coreos/coreos_production_qemu_image.img -O raw /mnt/images/coreos/coreos_production_qemu_image.raw
 
 echo \"create lvm volumes ...\"
-lvcreate -L 10G -n bb_kubernetes-master vg0
-lvcreate -L 10G -n bb_kubernetes-storage vg0
-lvcreate -L 10G -n bb_kubernetes-worker0 vg0
-lvcreate -L 10G -n bb_kubernetes-worker1 vg0
-lvcreate -L 10G -n bb_kubernetes-worker2 vg0
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-master ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-storage ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-worker0 ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-worker1 ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-worker2 ${LVM_VG}
 
 echo \"writing images ...\"
-dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-master
-dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-storage
-dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-worker0
-dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-worker1
-dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/vg0/bb_kubernetes-worker2
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-master
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker0
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker1
+dd bs=1M iflag=direct oflag=direct if=/mnt/images/coreos/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker2
 
 # ./storage-data-create.sh
 

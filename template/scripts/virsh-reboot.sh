@@ -1,10 +1,10 @@
 #!/bin/sh
 
 echo \"reboot machines ...\"
-virsh reboot bb_kubernetes-master
-virsh reboot bb_kubernetes-storage
-virsh reboot bb_kubernetes-worker0
-virsh reboot bb_kubernetes-worker1
-virsh reboot bb_kubernetes-worker2
+virsh reboot ${VM_PREFIX}kubernetes-master
+virsh reboot ${VM_PREFIX}kubernetes-storage
+virsh reboot ${VM_PREFIX}kubernetes-worker0
+virsh reboot ${VM_PREFIX}kubernetes-worker1
+virsh reboot ${VM_PREFIX}kubernetes-worker2
 
 echo \"done\"

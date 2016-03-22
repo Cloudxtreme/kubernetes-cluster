@@ -1,8 +1,8 @@
 #!/bin/sh
 
 echo \"create lvm data volumes ...\"
-lvcreate -L 10G -n bb_kubernetes-storage-data vg0
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-storage-data ${LVM_VG}
 
 echo \"format data volum ...\"
-wipefs /dev/vg0/bb_kubernetes-storage-data
-mkfs.ext4 -F /dev/vg0/bb_kubernetes-storage-data
+wipefs /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage-data
+mkfs.ext4 -F /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage-data
