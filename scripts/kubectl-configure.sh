@@ -1,8 +1,9 @@
 #!/bin/sh
 
-kubectl config set-cluster default-cluster --server=https://192.168.178.3 --certificate-authority=/Users/bborbe/.kube/kubernetes-ca.pem
-kubectl config set-credentials default-admin --certificate-authority=/Users/bborbe/.kube/kubernetes-ca.pem --client-key=/Users/bborbe/.kube/kubernetes-admin-key.pem --client-certificate=/Users/bborbe/.kube/kubernetes-admin.pem
-kubectl config set-context default-system --cluster=default-cluster --user=default-admin
-kubectl config use-context default-system
+mkdir -p $HOME/.kube/rn
+kubectl config set-cluster rn-cluster --server=https://192.168.178.3 --certificate-authority=$HOME/.kube/rn/kubernetes-ca.pem
+kubectl config set-credentials rn-admin --certificate-authority=$HOME/.kube/rn/kubernetes-ca.pem --client-key=$HOME/.kube/rn/kubernetes-admin-key.pem --client-certificate=$HOME/.kube/rn/kubernetes-admin.pem
+kubectl config set-context rn-system --cluster=rn-cluster --user=rn-admin
+kubectl config use-context rn-system
 
 echo "test with 'kubectl get nodes'"
