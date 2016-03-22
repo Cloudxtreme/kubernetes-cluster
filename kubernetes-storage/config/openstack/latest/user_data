@@ -10,7 +10,7 @@ coreos:
   etcd2:
     name: "kubernetes-storage"
     initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
-    initial-cluster-token: "cluster1"
+    initial-cluster-token: "cluster-rn"
     initial-cluster-state: "new"
     initial-advertise-peer-urls: "http://172.16.30.9:2380"
     advertise-client-urls: "http://172.16.30.9:2379"
