@@ -4,18 +4,18 @@ ssh_authorized_keys:
 hostname: kubernetes-worker0
 coreos:
   fleet:
-    metadata: "region=rn"
+    metadata: \"region=rn\"
   update:
     reboot-strategy: etcd-lock
   etcd2:
-    name: "kubernetes-worker0"
-    initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
-    initial-cluster-token: "cluster1"
-    initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.30.20:2380"
-    advertise-client-urls: "http://172.16.30.20:2379"
-    listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-    listen-peer-urls: "http://0.0.0.0:2380"
+    name: \"kubernetes-worker0\"
+    initial-cluster: \"kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380\"
+    initial-cluster-token: \"cluster1\"
+    initial-cluster-state: \"new\"
+    initial-advertise-peer-urls: \"http://172.16.30.20:2380\"
+    advertise-client-urls: \"http://172.16.30.20:2379\"
+    listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
+    listen-peer-urls: \"http://0.0.0.0:2380\"
   units:
     - name: etc-kubernetes-ssl.mount
       command: start
@@ -53,7 +53,7 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.101.0.0/16" }'
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ \"Network\": \"10.101.0.0/16\" }'
     - name: docker.service
       command: start
       drop-ins:
@@ -66,16 +66,16 @@ coreos:
       command: start
       content: |
         [Service]
-        ExecStart=/usr/bin/kubelet \
-          --api_servers=https://172.16.30.10 \
-          --register-node=true \
-          --allow-privileged=true \
-          --config=/etc/kubernetes/manifests \
-          --hostname-override=172.16.30.20 \
-          --cluster-dns=10.103.0.10 \
-          --cluster-domain=cluster.local \
-          --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
-          --tls-cert-file=/etc/kubernetes/ssl/worker.pem \
+        ExecStart=/usr/bin/kubelet \\
+          --api_servers=https://172.16.30.10 \\
+          --register-node=true \\
+          --allow-privileged=true \\
+          --config=/etc/kubernetes/manifests \\
+          --hostname-override=172.16.30.20 \\
+          --cluster-dns=10.103.0.10 \\
+          --cluster-domain=cluster.local \\
+          --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
+          --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
           --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem
         Restart=always
         RestartSec=10
@@ -135,20 +135,20 @@ write_files:
             privileged: true
           volumeMounts:
             - mountPath: /etc/ssl/certs
-              name: "ssl-certs"
+              name: \"ssl-certs\"
             - mountPath: /etc/kubernetes/worker-kubeconfig.yaml
-              name: "kubeconfig"
+              name: \"kubeconfig\"
               readOnly: true
             - mountPath: /etc/kubernetes/ssl
-              name: "etc-kube-ssl"
+              name: \"etc-kube-ssl\"
               readOnly: true
         volumes:
-          - name: "ssl-certs"
+          - name: \"ssl-certs\"
             hostPath:
-              path: "/usr/share/ca-certificates"
-          - name: "kubeconfig"
+              path: \"/usr/share/ca-certificates\"
+          - name: \"kubeconfig\"
             hostPath:
-              path: "/etc/kubernetes/worker-kubeconfig.yaml"
-          - name: "etc-kube-ssl"
+              path: \"/etc/kubernetes/worker-kubeconfig.yaml\"
+          - name: \"etc-kube-ssl\"
             hostPath:
-              path: "/etc/kubernetes/ssl"
+              path: \"/etc/kubernetes/ssl\"

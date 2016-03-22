@@ -4,18 +4,18 @@ ssh_authorized_keys:
 hostname: kubernetes-storage
 coreos:
   fleet:
-    metadata: "region=rn"
+    metadata: \"region=rn\"
   update:
     reboot-strategy: etcd-lock
   etcd2:
-    name: "kubernetes-storage"
-    initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
-    initial-cluster-token: "cluster1"
-    initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.30.9:2380"
-    advertise-client-urls: "http://172.16.30.9:2379"
-    listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-    listen-peer-urls: "http://0.0.0.0:2380"
+    name: \"kubernetes-storage\"
+    initial-cluster: \"kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380\"
+    initial-cluster-token: \"cluster1\"
+    initial-cluster-state: \"new\"
+    initial-advertise-peer-urls: \"http://172.16.30.9:2380\"
+    advertise-client-urls: \"http://172.16.30.9:2379\"
+    listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
+    listen-peer-urls: \"http://0.0.0.0:2380\"
   units:
     - name: 10-ens3.network
       content: |
@@ -50,7 +50,7 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.102.0.0/16", "Backend":{"Type":"vxlan"} }'
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ \"Network\": \"10.102.0.0/16\", \"Backend\":{\"Type\":\"vxlan\"} }'
     - name: docker.service
       command: start
       drop-ins:

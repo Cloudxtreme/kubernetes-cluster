@@ -4,18 +4,18 @@ ssh_authorized_keys:
 hostname: kubernetes-master
 coreos:
   fleet:
-    metadata: "region=rn"
+    metadata: \"region=rn\"
   update:
     reboot-strategy: etcd-lock
   etcd2:
-    name: "kubernetes-master"
-    initial-cluster: "kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380"
-    initial-cluster-token: "cluster1"
-    initial-cluster-state: "new"
-    initial-advertise-peer-urls: "http://172.16.30.10:2380"
-    advertise-client-urls: "http://172.16.30.10:2379"
-    listen-client-urls: "http://0.0.0.0:2379,http://0.0.0.0:4001"
-    listen-peer-urls: "http://0.0.0.0:2380"
+    name: \"kubernetes-master\"
+    initial-cluster: \"kubernetes-master=http://172.16.30.10:2380,kubernetes-storage=http://172.16.30.9:2380,kubernetes-worker0=http://172.16.30.20:2380,kubernetes-worker1=http://172.16.30.21:2380,kubernetes-worker2=http://172.16.30.22:2380\"
+    initial-cluster-token: \"$CLUSTER_NAME\"
+    initial-cluster-state: \"new\"
+    initial-advertise-peer-urls: \"http://172.16.30.10:2380\"
+    advertise-client-urls: \"http://172.16.30.10:2379\"
+    listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
+    listen-peer-urls: \"http://0.0.0.0:2380\"
   units:
     - name: etc-kubernetes-ssl.mount
       command: start
@@ -53,7 +53,7 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "10.102.0.0/16", "Backend":{"Type":"vxlan"} }'
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ \"Network\": \"10.102.0.0/16\", \"Backend\":{\"Type\":\"vxlan\"} }'
     - name: docker.service
       command: start
       drop-ins:
@@ -66,28 +66,28 @@ coreos:
       command: start
       content: |
         [Service]
-        ExecStart=/usr/bin/kubelet \
-          --api_servers=http://127.0.0.1:8080 \
-          --register-node=false \
-          --allow-privileged=true \
-          --config=/etc/kubernetes/manifests \
-          --hostname-override=172.16.30.10 \
-          --cluster-dns=10.103.0.10 \
-          --cluster-domain=cluster.local \
+        ExecStart=/usr/bin/kubelet \\
+          --api_servers=http://127.0.0.1:8080 \\
+          --register-node=false \\
+          --allow-privileged=true \\
+          --config=/etc/kubernetes/manifests \\
+          --hostname-override=172.16.30.10 \\
+          --cluster-dns=10.103.0.10 \\
+          --cluster-domain=cluster.local \\
           --v=2
-        ExecStartPost=-/bin/bash -c '\
-          echo "try create namepsace kube-system"; \
-          while true; do \
-            curl -sf "http://127.0.0.1:8080/version"; \
-            if [ $? -eq 0 ]; then \
-              echo "api up. create namepsace kube-system"; \
-              curl -XPOST -d\'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}\' "http://127.0.0.1:8080/api/v1/namespaces"; \
-              echo "namepsace kube-system created"; \
-              exit 0; \
-            else \
-              echo "api down. sleep."; \
-              sleep 20; \
-            fi; \
+        ExecStartPost=-/bin/bash -c '\\
+          echo \"try create namepsace kube-system\"; \\
+          while true; do \\
+            curl -sf \"http://127.0.0.1:8080/version\"; \\
+            if [ \$? -eq 0 ]; then \\
+              echo \"api up. create namepsace kube-system\"; \\
+              curl -XPOST -d\\'{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"name\":\"kube-system\"}}\\' \"http://127.0.0.1:8080/api/v1/namespaces\"; \\
+              echo \"namepsace kube-system created\"; \\
+              exit 0; \\
+            else \\
+              echo \"api down. sleep.\"; \\
+              sleep 20; \\
+            fi; \\
           done'
         Restart=always
         RestartSec=10
