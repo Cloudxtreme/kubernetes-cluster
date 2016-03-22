@@ -5,4 +5,4 @@ kubectl config set-credentials default-admin --certificate-authority=/Users/bbor
 kubectl config set-context default-system --cluster=default-cluster --user=default-admin
 kubectl config use-context default-system
 
-echo "test with 'kubectl get nodes'"
+echo \"test with 'kubectl get nodes'\"

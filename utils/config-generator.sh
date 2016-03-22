@@ -3,7 +3,25 @@
 function generate_configs {
 	echo "generate_configs started"
 	create_nodes
+	copy_scripts
 	echo "generate_configs finished"
+}
+
+function copy_scripts {
+	echo "copy_scripts started"
+	mkdir -p scripts
+	SCRIPTS=$(cd template/scripts; ls -1)
+	for f in $SCRIPTS
+	do
+		copy_script "$f"
+	done
+	echo "copy_scripts finished"
+}
+
+function copy_script {
+	echo "copy_script $1 started"
+	render template/scripts/$1 > scripts/$1
+	echo "copy_script $1 finished"
 }
 
 function generate_mac {
