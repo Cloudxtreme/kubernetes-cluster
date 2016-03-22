@@ -42,7 +42,7 @@ virt-install \
 --debug \
 --serial pty \
 --accelerate \
---ram 2048 \
+--ram 3072 \
 --vcpus 2 \
 --os-type linux \
 --os-variant virtio26 \
@@ -60,7 +60,7 @@ virt-install \
 --debug \
 --serial pty \
 --accelerate \
---ram 2048 \
+--ram 3072 \
 --vcpus 2 \
 --os-type linux \
 --os-variant virtio26 \
@@ -78,7 +78,7 @@ virt-install \
 --debug \
 --serial pty \
 --accelerate \
---ram 2048 \
+--ram 3072 \
 --vcpus 2 \
 --os-type linux \
 --os-variant virtio26 \

@@ -6,7 +6,7 @@ virt-install \\
 --debug \\
 --serial pty \\
 --accelerate \\
---ram 1024 \\
+--ram ${MASTER_MEMORY} \\
 --vcpus 2 \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -24,7 +24,7 @@ virt-install \\
 --debug \\
 --serial pty \\
 --accelerate \\
---ram 256 \\
+--ram ${STORAGE_MEMORY} \\
 --vcpus 2 \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -42,7 +42,7 @@ virt-install \\
 --debug \\
 --serial pty \\
 --accelerate \\
---ram 2048 \\
+--ram ${WORKER_MEMORY} \\
 --vcpus 2 \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -60,7 +60,7 @@ virt-install \\
 --debug \\
 --serial pty \\
 --accelerate \\
---ram 2048 \\
+--ram ${WORKER_MEMORY} \\
 --vcpus 2 \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -78,7 +78,7 @@ virt-install \\
 --debug \\
 --serial pty \\
 --accelerate \\
---ram 2048 \\
+--ram ${WORKER_MEMORY} \\
 --vcpus 2 \\
 --os-type linux \\
 --os-variant virtio26 \\

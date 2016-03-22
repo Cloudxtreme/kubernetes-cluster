@@ -15,6 +15,9 @@ MACPREFIX="00:16:3e:2f:30:"
 LVM_VG="vg0"
 PARTITION_PREFIX="bb_"
 VM_PREFIX="bb_"
+MASTER_MEMORY=1024
+STORAGE_MEMORY=256
+WORKER_MEMORY=3072
 
 ################################################################################
 
