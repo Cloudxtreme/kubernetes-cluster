@@ -6,5 +6,5 @@
 .settings/
 *.iml
 target
-kubernetes-*
-scripts
+kubernetes-*/
+scripts/
