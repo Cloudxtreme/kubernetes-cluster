@@ -2,6 +2,10 @@
 
 function generate_configs {
 	echo "generate_configs started"
+
+	MASTER_IP=${NETWORK}.10
+	STORAGE_IP=${NETWORK}.9
+
 	create_nodes
 	copy_scripts
 	echo "generate_configs finished"
@@ -33,8 +37,8 @@ function generate_mac {
 function create_nodes {
 	echo "create_nodes started"
 	
-	ETCD_ENDPOINTS="http://${NETWORK}.10:2379,http://${NETWORK}.9:2379"
-	INITIAL_CLUSTER="kubernetes-master=http://${NETWORK}.10:2380,kubernetes-storage=http://${NETWORK}.9:2380"
+	ETCD_ENDPOINTS="http://${MASTER_IP}:2379,http://${STORAGE_IP}:2379"
+	INITIAL_CLUSTER="kubernetes-master=http://${NETWORK}.10:2380,kubernetes-storage=http://${STORAGE_IP}:2380"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
 		value=$((20 + $i))
 		ETCD_ENDPOINTS="${ETCD_ENDPOINTS},http://${NETWORK}.$value:2379"

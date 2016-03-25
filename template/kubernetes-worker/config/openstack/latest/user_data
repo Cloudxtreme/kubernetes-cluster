@@ -62,7 +62,7 @@ coreos:
       content: |
         [Service]
         ExecStart=/usr/bin/kubelet \\
-          --api_servers=https://${NETWORK}.10 \\
+          --api_servers=https://${MASTER_IP} \\
           --register-node=true \\
           --allow-privileged=true \\
           --config=/etc/kubernetes/manifests \\
@@ -123,7 +123,7 @@ write_files:
           command:
           - /hyperkube
           - proxy
-          - --master=https://${NETWORK}.10
+          - --master=https://${MASTER_IP}
           - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
           - --proxy-mode=iptables
           securityContext:
