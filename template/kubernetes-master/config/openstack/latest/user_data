@@ -90,7 +90,8 @@ coreos:
           gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
           /hyperkube kubelet \\
             --api_servers=http://127.0.0.1:8080 \\
-            --register-node=false \\
+            --register-node=true \\
+            --register-schedulable=false \\
             --allow-privileged=true \\
             --config=/etc/kubernetes/manifests \\
             --hostname-override=${NODEIP} \\
