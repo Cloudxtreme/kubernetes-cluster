@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_ROOT=\$\(dirname "\${BASH_SOURCE}"\)
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
 
 if [ ! -f /var/lib/libvirt/images/coreos_production_qemu_image.img ]; then
   echo \"downloading image ...\"
