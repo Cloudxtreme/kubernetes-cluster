@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo \"create lvm data volumes ...\"
 lvcreate -L 10G -n ${VM_PREFIX}kubernetes-storage-data ${LVM_VG}

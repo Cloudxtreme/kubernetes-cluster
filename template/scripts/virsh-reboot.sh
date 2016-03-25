@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo \"reboot machines ...\"
 virsh reboot ${VM_PREFIX}kubernetes-master

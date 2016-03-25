@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # kubernetes-master
 mkdir -p ../kubernetes-master/ssl

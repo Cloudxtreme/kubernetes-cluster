@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo \"starting machines ...\"
 virsh start ${VM_PREFIX}kubernetes-master

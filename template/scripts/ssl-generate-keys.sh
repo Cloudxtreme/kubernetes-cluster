@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://coreos.com/kubernetes/docs/latest/openssl.html
 

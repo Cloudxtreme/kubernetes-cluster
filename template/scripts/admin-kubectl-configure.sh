@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p \$HOME/.kube/${REGION}
 kubectl config set-cluster ${REGION}-cluster --server=https://${API_SERVER}:443 --certificate-authority=\$HOME/.kube/${REGION}/kubernetes-ca.pem

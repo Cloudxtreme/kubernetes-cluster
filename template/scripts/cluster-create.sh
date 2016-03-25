@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
+SCRIPT_ROOT=\$\(dirname "\${BASH_SOURCE}"\)
 
 if [ ! -f /var/lib/libvirt/images/coreos_production_qemu_image.img ]; then
   echo \"downloading image ...\"
@@ -26,6 +26,6 @@ dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker1
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker2
 
-${SCRIPT_ROOT}/virsh-create.sh
+\${SCRIPT_ROOT}/virsh-create.sh
 
 echo \"done\"

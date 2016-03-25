@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo \"create virsh kubernetes-master ...\"
 virt-install \\

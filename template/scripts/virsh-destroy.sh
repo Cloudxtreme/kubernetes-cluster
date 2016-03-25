@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo \"destroying machines ...\"
 virsh destroy ${VM_PREFIX}kubernetes-master
