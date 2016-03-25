@@ -11,8 +11,8 @@ echo \"converting image ...\"
 qemu-img convert /var/lib/libvirt/images/coreos_production_qemu_image.img -O raw /var/lib/libvirt/images/coreos_production_qemu_image.raw
 
 echo \"create lvm volumes ...\"
-lvcreate -L ${PARTITION_SIZE} -n ${VM_PREFIX}kubernetes-master ${LVM_VG}
-lvcreate -L ${PARTITION_SIZE} -n ${VM_PREFIX}kubernetes-storage ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-master ${LVM_VG}
+lvcreate -L 10G -n ${VM_PREFIX}kubernetes-storage ${LVM_VG}
 lvcreate -L ${PARTITION_SIZE} -n ${VM_PREFIX}kubernetes-worker0 ${LVM_VG}
 lvcreate -L ${PARTITION_SIZE} -n ${VM_PREFIX}kubernetes-worker1 ${LVM_VG}
 lvcreate -L ${PARTITION_SIZE} -n ${VM_PREFIX}kubernetes-worker2 ${LVM_VG}
