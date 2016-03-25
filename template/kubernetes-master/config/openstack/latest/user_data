@@ -65,16 +65,38 @@ coreos:
     - name: kubelet.service
       command: start
       content: |
+        [Unit]
+        Description=Kubelet
+        Requires=docker.service
+        After=docker.service
         [Service]
-        ExecStart=/usr/bin/kubelet \\
-          --api_servers=http://127.0.0.1:8080 \\
-          --register-node=false \\
-          --allow-privileged=true \\
-          --config=/etc/kubernetes/manifests \\
-          --hostname-override=${NODEIP} \\
-          --cluster-dns=${CLUSTER_DNS} \\
-          --cluster-domain=${CLUSTER_DOMAIN} \\
-          --v=2
+        Restart=always
+        RestartSec=20s
+        EnvironmentFile=/etc/environment
+        TimeoutStartSec=0
+        ExecStart=/usr/bin/docker run \\
+          --volume=/:/rootfs:ro \\
+          --volume=/sys:/sys:ro \\
+          --volume=/dev:/dev \\
+          --volume=/var/lib/docker/:/var/lib/docker:rw \\
+          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \\
+          --volume=/var/run:/var/run:rw \\
+          --volume=/etc/kubernetes:/etc/kubernetes \\
+          --volume=/srv/kubernetes:/srv/kubernetes \\
+          --net=host \\
+          --privileged=true \\
+          --pid=host \\
+          -d \\
+          gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
+          /hyperkube kubelet \\
+            --api_servers=http://127.0.0.1:8080 \\
+            --register-node=false \\
+            --allow-privileged=true \\
+            --config=/etc/kubernetes/manifests \\
+            --hostname-override=${NODEIP} \\
+            --cluster-dns=${CLUSTER_DNS} \\
+            --cluster-domain=${CLUSTER_DOMAIN} \\
+            --v=2
         ExecStartPost=-/bin/bash -c '\\
           echo \"try create namepsace kube-system\"; \\
           while true; do \\
@@ -89,8 +111,6 @@ coreos:
               sleep 20; \\
             fi; \\
           done'
-        Restart=always
-        RestartSec=10
         [Install]
         WantedBy=multi-user.target
 write_files:
