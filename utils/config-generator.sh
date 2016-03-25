@@ -4,7 +4,7 @@ function generate_configs {
 	echo "generate_configs started"
 
   # Avaiable Version: https://gcr.io/v2/google-containers/hyperkube-amd64/tags/list
-	K8S_VERSION="1.1.2"
+	K8S_VERSION="1.2.0"
 
 	K8S_SERVICE_IP="10.103.0.1"
 	SERVICE_NETWORK="10.103.0.0/16"
