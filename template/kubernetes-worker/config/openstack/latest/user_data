@@ -92,7 +92,8 @@ coreos:
             --cluster-domain=${CLUSTER_DOMAIN} \\
             --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
             --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
-            --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem
+            --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \\
+            --v=2
         [Install]
         WantedBy=multi-user.target
 write_files:
