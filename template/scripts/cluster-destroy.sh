@@ -1,6 +1,8 @@
 #!/bin/sh
 
-./virsh-destroy.sh
+SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
+
+${SCRIPT_ROOT}/virsh-destroy.sh
 
 echo \"remove lvm volumes ...\"
 lvremove /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-master

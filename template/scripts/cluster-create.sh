@@ -1,5 +1,7 @@
 #!/bin/sh
 
+SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
+
 if [ ! -f /var/lib/libvirt/images/coreos_production_qemu_image.img ]; then
   echo \"downloading image ...\"
   #wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_qemu_image.img.bz2 -O - | bzcat > /var/lib/libvirt/images/coreos_production_qemu_image.img
@@ -24,6 +26,6 @@ dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker1
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker2
 
-./virsh-create.sh
+${SCRIPT_ROOT}/virsh-create.sh
 
 echo \"done\"
