@@ -6,6 +6,7 @@ set -o pipefail
 
 ################################################################################
 
+K8S_VERSION="1.1.2"
 API_SERVER="172.16.60.6"
 CLUSTER_NAME="cluster-hm"
 REGION="hm"
