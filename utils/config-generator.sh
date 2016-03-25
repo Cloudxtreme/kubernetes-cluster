@@ -33,11 +33,11 @@ function generate_mac {
 function create_nodes {
 	echo "create_nodes started"
 	
-	ETCD="http://${NETWORK}.10:2379,http://${NETWORK}.9:2379"
+	ETCD_ENDPOINTS="http://${NETWORK}.10:2379,http://${NETWORK}.9:2379"
 	INITIAL_CLUSTER="kubernetes-master=http://${NETWORK}.10:2380,kubernetes-storage=http://${NETWORK}.9:2380"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
 		value=$((20 + $i))
-		ETCD="${ETCD},http://${NETWORK}.$value:2379"
+		ETCD_ENDPOINTS="${ETCD_ENDPOINTS},http://${NETWORK}.$value:2379"
 		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://${NETWORK}.$value:2380"
 	done
 

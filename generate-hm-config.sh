@@ -6,6 +6,9 @@ set -o pipefail
 
 ################################################################################
 
+K8S_SERVICE_IP="10.103.0.1"
+SERVICE_NETWORK="10.103.0.0/16"
+POD_NETWORK="10.102.0.0/16"
 CLUSTER_DOMAIN="cluster.local"
 CLUSTER_DNS="10.103.0.10"
 K8S_VERSION="1.1.2"

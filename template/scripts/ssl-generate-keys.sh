@@ -2,7 +2,7 @@
 
 # https://coreos.com/kubernetes/docs/latest/openssl.html
 
-KUBERNETES_SVC=10.103.0.1
+KUBERNETES_SVC=${K8S_SERVICE_IP}
 MASTER_IP=${NETWORK}.10
 FIREWALL_IP=${API_SERVER}
 

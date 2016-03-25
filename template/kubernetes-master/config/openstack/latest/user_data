@@ -53,7 +53,7 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ \"Network\": \"10.102.0.0/16\", \"Backend\":{\"Type\":\"vxlan\"} }'
+            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ \"Network\": \"${POD_NETWORK}\", \"Backend\":{\"Type\":\"vxlan\"} }'
     - name: docker.service
       command: start
       drop-ins:
@@ -103,7 +103,7 @@ write_files:
     permissions: 0644
     content: |
       FLANNELD_IFACE=${NODEIP}
-      FLANNELD_ETCD_ENDPOINTS=${ETCD}
+      FLANNELD_ETCD_ENDPOINTS=${ETCD_ENDPOINTS}
   - path: /etc/kubernetes/manifests/kube-apiserver.yaml
     permissions: 0644
     content: |
@@ -121,9 +121,9 @@ write_files:
           - /hyperkube
           - apiserver
           - --bind-address=0.0.0.0
-          - --etcd-servers=${ETCD}
+          - --etcd-servers=${ETCD_ENDPOINTS}
           - --allow-privileged=true
-          - --service-cluster-ip-range=10.103.0.0/24
+          - --service-cluster-ip-range=${SERVICE_NETWORK}
           - --secure-port=443
           - --advertise-address=${NODEIP}
           - --admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
@@ -167,7 +167,7 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=${ETCD}
+          - --etcd-servers=${ETCD_ENDPOINTS}
           - --key=controller
           - --whoami=${NODEIP}
           - --source-file=/src/manifests/kube-controller-manager.yaml
@@ -183,7 +183,7 @@ write_files:
           image: gcr.io/google_containers/podmaster:1.1
           command:
           - /podmaster
-          - --etcd-servers=${ETCD}
+          - --etcd-servers=${ETCD_ENDPOINTS}
           - --key=scheduler
           - --whoami=${NODEIP}
           - --source-file=/src/manifests/kube-scheduler.yaml
