@@ -4,7 +4,7 @@
 
 KUBERNETES_SVC=${K8S_SERVICE_IP}
 MASTER_IP=${NETWORK}.10
-FIREWALL_IP=${API_SERVER}
+FIREWALL_IP=${PUBLIC_IP}
 
 # CA Key
 openssl genrsa -out kubernetes-ca-key.pem 2048
