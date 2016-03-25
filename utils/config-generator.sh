@@ -33,12 +33,12 @@ function generate_mac {
 function create_nodes {
 	echo "create_nodes started"
 	
-	ETCD="http://$NETWORK.10:2379,http://$NETWORK.9:2379"
-	INITIAL_CLUSTER="kubernetes-master=http://$NETWORK.10:2380,kubernetes-storage=http://$NETWORK.9:2380"
+	ETCD="http://${NETWORK}.10:2379,http://${NETWORK}.9:2379"
+	INITIAL_CLUSTER="kubernetes-master=http://${NETWORK}.10:2380,kubernetes-storage=http://${NETWORK}.9:2380"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
 		value=$((20 + $i))
-		ETCD="$ETCD,http://$NETWORK.$value:2379"
-		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://$NETWORK.$value:2380"
+		ETCD="${ETCD},http://${NETWORK}.$value:2379"
+		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://${NETWORK}.$value:2380"
 	done
 
 	create_node "kubernetes-master" "kubernetes-master" "10"
@@ -53,7 +53,7 @@ function create_nodes {
 function create_node {
 	echo "create_nodes $2 started"
 	NODENAME=$2
-	NODEIP="$NETWORK.$3"
+	NODEIP="${NETWORK}.$3"
 	NODEMAC=$(generate_mac "$3")
 	create_ssl $2
 	copy_user_data $1 $2
