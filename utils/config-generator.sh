@@ -68,8 +68,8 @@ function create_nodes {
 function create_node {
 	echo "create_nodes $2 started"
 	HOSTNAME="kubernetes-$2"
-	NODENAME="$2"
 	NODEIP="${NETWORK}.$3"
+	NODENAME="${NODEIP}"
 	NODEMAC=$(generate_mac "$3")
 	create_ssl "kubernetes-$2"
 	copy_user_data "kubernetes-$1" "kubernetes-$2"
