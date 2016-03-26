@@ -50,10 +50,6 @@ coreos:
         What=/dev/vdb
         Where=/data
         Type=btrfs
-    - name: rpc-mountd.service
-      command: start
-    - name: nfsd.service
-      command: start
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -211,3 +207,63 @@ write_files:
           - name: \"etc-kube-ssl\"
             hostPath:
               path: \"/etc/kubernetes/ssl\"
+  - path: /etc/kubernetes/manifests/nfs-server-rc.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: ReplicationController
+      metadata:
+        labels:
+          app: nfs-server
+          enviroment: production
+          version: v1
+        name: nfs-server
+      spec:
+        replicas: 1
+        selector:
+          app: nfs-server
+          version: v1
+        template:
+          metadata:
+            labels:
+              app: nfs-server
+              enviroment: production
+              version: v1
+          spec:
+            containers:
+            - image: gcr.io/google_containers/volume-nfs
+              name: nfs-server
+              ports:
+              - containerPort: 2049
+                name: nfs-server
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 100Mi
+                requests:
+                  cpu: 100m
+                  memory: 50Mi
+              securityContext:
+                privileged: true
+              volumeMounts:
+              - mountPath: /data
+                name: data
+            volumes:
+            - name: data
+              hostPath:
+                path: /data
+  - path: /etc/kubernetes/manifests/nfs-server-svc.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Service
+      metadata:
+        labels:
+          app: nfs-server
+          enviroment: production
+        name: nfs-server
+      spec:
+        ports:
+        - port: 2049
+        selector:
+          app: nfs-server
