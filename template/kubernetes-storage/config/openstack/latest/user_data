@@ -95,7 +95,6 @@ coreos:
             --containerized \\
             --api_servers=https://${MASTER_IP} \\
             --register-node=true \\
-            --register-schedulable=false \\
             --allow-privileged=true \\
             --config=/etc/kubernetes/manifests \
             --hostname-override=${NODENAME} \\
