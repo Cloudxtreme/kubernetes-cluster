@@ -56,22 +56,23 @@ function create_nodes {
 		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://${NETWORK}.$value:2380"
 	done
 
-	create_node "kubernetes-master" "kubernetes-master" "10"
-	create_node "kubernetes-storage" "kubernetes-storage" "9"
+	create_node "master" "master" "10"
+	create_node "storage" "storage" "9"
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
 		value=$((20 + $i))
-		create_node "kubernetes-worker" "kubernetes-worker$i" "$value"
+		create_node "worker" "worker$i" "$value"
 	done
 	echo "create_nodes finished"
 }
 
 function create_node {
 	echo "create_nodes $2 started"
-	NODENAME=$2
+	HOSTNAME="kubernetes-$2"
+	NODENAME="$2"
 	NODEIP="${NETWORK}.$3"
 	NODEMAC=$(generate_mac "$3")
-	create_ssl $2
-	copy_user_data $1 $2
+	create_ssl "kubernetes-$2"
+	copy_user_data "kubernetes-$1" "kubernetes-$2"
 	echo "create_nodes $2 finished"
 }
 
