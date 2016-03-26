@@ -83,6 +83,7 @@ coreos:
           -d \\
           gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
           /hyperkube kubelet \\
+            --containerized \\
             --api_servers=https://${MASTER_IP} \\
             --register-node=true \\
             --allow-privileged=true \\

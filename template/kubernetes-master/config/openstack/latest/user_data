@@ -89,6 +89,7 @@ coreos:
           -d \\
           gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
           /hyperkube kubelet \\
+            --containerized \\
             --api_servers=http://127.0.0.1:8080 \\
             --register-node=true \\
             --register-schedulable=false \\
