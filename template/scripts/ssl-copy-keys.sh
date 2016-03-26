@@ -8,6 +8,14 @@ cp kubernetes-apiserver-key.pem ../kubernetes-master/ssl/apiserver-key.pem
 #chmod 600 ../kubernetes-master/ssl/*.pem
 chown root:root ../kubernetes-master/ssl/*.pem
 
+# kubernetes-storage
+mkdir -p ../kubernetes-storage/ssl
+cp kubernetes-ca.pem ../kubernetes-storage/ssl/ca.pem
+cp kubernetes-storage.pem ../kubernetes-storage/ssl/worker.pem
+cp kubernetes-storage-key.pem ../kubernetes-storage/ssl/worker-key.pem
+#chmod 600 ../kubernetes-storage/ssl/*.pem
+chown root:root ../kubernetes-storage/ssl/*.pem
+
 # kubernetes-worker0
 mkdir -p ../kubernetes-worker0/ssl
 cp kubernetes-ca.pem ../kubernetes-worker0/ssl/ca.pem
