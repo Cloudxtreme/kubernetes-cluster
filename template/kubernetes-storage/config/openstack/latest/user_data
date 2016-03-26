@@ -49,7 +49,7 @@ coreos:
         [Mount]
         What=/dev/vdb
         Where=/data
-        Type=btrfs
+        Type=ext4
     - name: etcd2.service
       command: start
     - name: fleet.service
