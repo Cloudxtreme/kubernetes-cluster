@@ -54,6 +54,47 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
+    - name: kubelet.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubelet
+        Requires=docker.service
+        After=docker.service
+        [Service]
+        Restart=always
+        RestartSec=20s
+        EnvironmentFile=/etc/environment
+        TimeoutStartSec=0
+        ExecStart=/usr/bin/docker run \\
+          --volume=/:/rootfs:ro \\
+          --volume=/sys:/sys:ro \\
+          --volume=/dev:/dev \\
+          --volume=/var/lib/docker/:/var/lib/docker:rw \\
+          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \\
+          --volume=/var/run:/var/run:rw \\
+          --volume=/etc/kubernetes:/etc/kubernetes:ro \\
+          --net=host \\
+          --privileged=true \\
+          --pid=host \\
+          -d \\
+          gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
+          /hyperkube kubelet \\
+            --containerized \\
+            --api_servers=https://${MASTER_IP} \\
+            --register-node=true \\
+            --register-schedulable=false \\
+            --allow-privileged=true \\
+            --config=/etc/kubernetes/manifests \\
+            --hostname-override=${NODEIP} \\
+            --cluster-dns=${CLUSTER_DNS} \\
+            --cluster-domain=${CLUSTER_DOMAIN} \\
+            --kubeconfig=/etc/kubernetes/storage-kubeconfig.yaml \\
+            --tls-cert-file=/etc/kubernetes/ssl/storage.pem \\
+            --tls-private-key-file=/etc/kubernetes/ssl/storage-key.pem \\
+            --v=2
+        [Install]
+        WantedBy=multi-user.target
     - name: prometheus-node-exporter.service
       command: start
       content: |
@@ -94,3 +135,63 @@ write_files:
     permissions: 0644
     content: |
       /data/ ${NETWORK}.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
+  - path: /etc/kubernetes/storage-kubeconfig.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/storage.pem
+          client-key: /etc/kubernetes/ssl/storage-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
+  - path: /etc/kubernetes/manifests/kube-proxy.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: kube-proxy
+        namespace: kube-system
+      spec:
+        hostNetwork: true
+        containers:
+        - name: kube-proxy
+          image: gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION}
+          command:
+          - /hyperkube
+          - proxy
+          - --master=https://${MASTER_IP}
+          - --kubeconfig=/etc/kubernetes/storage-kubeconfig.yaml
+          - --proxy-mode=iptables
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /etc/ssl/certs
+              name: \"ssl-certs\"
+            - mountPath: /etc/kubernetes/storage-kubeconfig.yaml
+              name: \"kubeconfig\"
+              readOnly: true
+            - mountPath: /etc/kubernetes/ssl
+              name: \"etc-kube-ssl\"
+              readOnly: true
+        volumes:
+          - name: \"ssl-certs\"
+            hostPath:
+              path: \"/usr/share/ca-certificates\"
+          - name: \"kubeconfig\"
+            hostPath:
+              path: \"/etc/kubernetes/storage-kubeconfig.yaml\"
+          - name: \"etc-kube-ssl\"
+            hostPath:
+              path: \"/etc/kubernetes/ssl\"
