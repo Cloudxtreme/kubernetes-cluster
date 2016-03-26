@@ -50,6 +50,10 @@ coreos:
         What=/dev/vdb
         Where=/data
         Type=ext4
+    - name: rpc-mountd.service
+      command: start
+    - name: nfsd.service
+      command: start
     - name: etcd2.service
       command: start
     - name: fleet.service
@@ -95,6 +99,7 @@ coreos:
             --containerized \\
             --api_servers=https://${MASTER_IP} \\
             --register-node=true \\
+            --register-schedulable=false \\
             --allow-privileged=true \\
             --config=/etc/kubernetes/manifests \
             --hostname-override=${NODENAME} \\
