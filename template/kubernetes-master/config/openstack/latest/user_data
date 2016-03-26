@@ -98,6 +98,7 @@ coreos:
             --hostname-override=${NODENAME} \\
             --cluster-dns=${CLUSTER_DNS} \\
             --cluster-domain=${CLUSTER_DOMAIN} \\
+            --node-labels=role=master \\
             --v=2
         ExecStartPost=-/bin/bash -c '\\
           echo \"try create namepsace kube-system\"; \\

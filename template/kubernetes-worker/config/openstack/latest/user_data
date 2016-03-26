@@ -94,6 +94,7 @@ coreos:
             --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
             --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
             --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \\
+            --node-labels=role=worker \\
             --v=2
         [Install]
         WantedBy=multi-user.target
