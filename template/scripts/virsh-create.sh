@@ -34,6 +34,7 @@ virt-install \\
 --disk /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage \\
 --disk /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage-data \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \\
+--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \\
 --network bridge=${BRIDGE},mac=${MACPREFIX}9,type=bridge
 
 echo \"create virsh kubernetes-worker0 ...\"
