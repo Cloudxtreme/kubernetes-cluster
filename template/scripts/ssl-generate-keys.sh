@@ -24,7 +24,7 @@ WORKER_IP=\${STORAGE_IP} openssl x509 -req -in kubernetes-\${STORAGE_FQDN}.csr -
 
 # Worker Key
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
-	value=$((20 + \$i))
+	value=\$((20 + \$i))
 	WORKER_FQDN=\"worker\${i}\"
 	WORKER_IP=${NETWORK}.${value}
 	openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048

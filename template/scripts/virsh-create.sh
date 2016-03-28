@@ -39,7 +39,7 @@ virt-install \\
 
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	echo \"create virsh kubernetes-worker\${i} ...\"
-	value=$((20 + \$i))
+	value=\$((20 + \$i))
 	virt-install \\
 	--import \\
 	--debug \\
