@@ -22,26 +22,15 @@ openssl genrsa -out kubernetes-\${STORAGE_FQDN}-key.pem 2048
 WORKER_IP=\${STORAGE_IP} openssl req -new -key kubernetes-\${STORAGE_FQDN}-key.pem -out kubernetes-\${STORAGE_FQDN}.csr -subj \"/CN=\${STORAGE_FQDN}\" -config worker-openssl.cnf
 WORKER_IP=\${STORAGE_IP} openssl x509 -req -in kubernetes-\${STORAGE_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${STORAGE_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
-# Worker 0 Key
-WORKER_FQDN=\"worker0\"
-WORKER_IP=${NETWORK}.20
-openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
-WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
-WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
-
-# Worker 1 Key
-WORKER_FQDN=\"worker1\"
-WORKER_IP=${NETWORK}.21
-openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
-WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
-WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
-
-# Worker 2 Key
-WORKER_FQDN=\"worker2\"
-WORKER_IP=${NETWORK}.22
-openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
-WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
-WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
+# Worker Key
+for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
+	value=$((20 + \$i))
+	WORKER_FQDN=\"worker\${i}\"
+	WORKER_IP=${NETWORK}.${value}
+	openssl genrsa -out kubernetes-\${WORKER_FQDN}-key.pem 2048
+	WORKER_IP=\${WORKER_IP} openssl req -new -key kubernetes-\${WORKER_FQDN}-key.pem -out kubernetes-\${WORKER_FQDN}.csr -subj \"/CN=\${WORKER_FQDN}\" -config worker-openssl.cnf
+	WORKER_IP=\${WORKER_IP} openssl x509 -req -in kubernetes-\${WORKER_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${WORKER_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
+done
 
 # Admin Key
 openssl genrsa -out kubernetes-admin-key.pem 2048

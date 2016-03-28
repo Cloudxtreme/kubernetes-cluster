@@ -3,8 +3,8 @@
 echo \"reboot machines ...\"
 virsh reboot ${VM_PREFIX}kubernetes-master
 virsh reboot ${VM_PREFIX}kubernetes-storage
-virsh reboot ${VM_PREFIX}kubernetes-worker0
-virsh reboot ${VM_PREFIX}kubernetes-worker1
-virsh reboot ${VM_PREFIX}kubernetes-worker2
+for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
+	virsh reboot ${VM_PREFIX}kubernetes-worker\${i}
+done
 
 echo \"done\"

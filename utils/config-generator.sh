@@ -11,7 +11,6 @@ function generate_configs {
 	POD_NETWORK="10.102.0.0/16"
 	CLUSTER_DOMAIN="cluster.local"
 	CLUSTER_DNS="10.103.0.10"
-	WORKER_AMOUNT=3
 	CLUSTER_NAME="cluster-${REGION}"
 
 	MASTER_IP=${NETWORK}.10

@@ -16,26 +16,13 @@ cp kubernetes-storage-key.pem ../kubernetes-storage/ssl/storage-key.pem
 #chmod 600 ../kubernetes-storage/ssl/*.pem
 chown root:root ../kubernetes-storage/ssl/*.pem
 
-# kubernetes-worker0
-mkdir -p ../kubernetes-worker0/ssl
-cp kubernetes-ca.pem ../kubernetes-worker0/ssl/ca.pem
-cp kubernetes-worker0.pem ../kubernetes-worker0/ssl/worker.pem
-cp kubernetes-worker0-key.pem ../kubernetes-worker0/ssl/worker-key.pem
-#chmod 600 ../kubernetes-worker0/ssl/*.pem
-chown root:root ../kubernetes-worker0/ssl/*.pem
+# kubernetes-worker
+for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
+	mkdir -p ../kubernetes-worker\${i}/ssl
+	cp kubernetes-ca.pem ../kubernetes-worker\${i}/ssl/ca.pem
+	cp kubernetes-worker\${i}.pem ../kubernetes-worker\${i}/ssl/worker.pem
+	cp kubernetes-worker\${i}-key.pem ../kubernetes-worker\${i}/ssl/worker-key.pem
+	#chmod 600 ../kubernetes-worker\${i}/ssl/*.pem
+	chown root:root ../kubernetes-worker\${i}/ssl/*.pem
+done
 
-# kubernetes-worker1
-mkdir -p ../kubernetes-worker1/ssl
-cp kubernetes-ca.pem ../kubernetes-worker1/ssl/ca.pem
-cp kubernetes-worker1.pem ../kubernetes-worker1/ssl/worker.pem
-cp kubernetes-worker1-key.pem ../kubernetes-worker1/ssl/worker-key.pem
-#chmod 600 ../kubernetes-worker1/ssl/*.pem
-chown root:root ../kubernetes-worker1/ssl/*.pem
-
-# kubernetes-worker2
-mkdir -p ../kubernetes-worker2/ssl
-cp kubernetes-ca.pem ../kubernetes-worker2/ssl/ca.pem
-cp kubernetes-worker2.pem ../kubernetes-worker2/ssl/worker.pem
-cp kubernetes-worker2-key.pem ../kubernetes-worker2/ssl/worker-key.pem
-#chmod 600 ../kubernetes-worker2/ssl/*.pem
-chown root:root ../kubernetes-worker2/ssl/*.pem
