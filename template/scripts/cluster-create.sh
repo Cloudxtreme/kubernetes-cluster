@@ -17,6 +17,7 @@ done
 
 echo \"writing images ...\"
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-master
+dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker\${i}
 done
