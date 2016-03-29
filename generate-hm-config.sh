@@ -20,7 +20,7 @@ STORAGE_MEMORY=512
 WORKER_MEMORY=2048
 HOST=fire.hm.benjamin-borbe.de
 BRIDGE=privatebr0
-WORKER_AMOUNT=2
+WORKER_AMOUNT=3
 
 ################################################################################
 
