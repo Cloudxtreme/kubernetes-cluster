@@ -41,6 +41,15 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
+    - name: storage.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount Storage to /storage
+        [Mount]
+        What=/dev/vdb
+        Where=/storage
+        Type=xfs
     - name: etcd2.service
       command: start
     - name: fleet.service
