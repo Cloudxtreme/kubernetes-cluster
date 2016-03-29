@@ -1,6 +1,11 @@
 #!/bin/bash
 
-echo \"create virsh kubernetes-master ...\"
+function generate_mac {
+	printf \"${MACPREFIX}%x\" \$1
+}
+
+NODEMAC=\$(generate_mac \"10\")
+echo \"create virsh kubernetes-master mac=\${NODEMAC} ...\"
 virt-install \\
 --import \\
 --debug \\
@@ -16,9 +21,10 @@ virt-install \\
 --disk /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-master \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \\
---network bridge=${BRIDGE},mac=${MACPREFIX}10,type=bridge
+--network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge
 
-echo \"create virsh kubernetes-storage ...\"
+NODEMAC=\$(generate_mac \"9\")
+echo \"create virsh kubernetes-storage mac=\${NODEMAC} ...\"
 virt-install \\
 --import \\
 --debug \\
@@ -35,11 +41,11 @@ virt-install \\
 --disk /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-storage-data \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \\
---network bridge=${BRIDGE},mac=${MACPREFIX}9,type=bridge
+--network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge
 
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
-	echo \"create virsh kubernetes-worker\${i} ...\"
-	value=\$((20 + \$i))
+	NODEMAC=\$(generate_mac \$((20 + \$i)))
+	echo \"create virsh kubernetes-worker\${i} mac=\${NODEMAC} ...\"
 	virt-install \\
 	--import \\
 	--debug \\
@@ -55,5 +61,5 @@ for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	--disk /dev/${LVM_VG}/${PARTITION_PREFIX}kubernetes-worker\${i} \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker\${i}/config/,config-2,type=mount,mode=squash \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker\${i}/ssl/,kubernetes-ssl,type=mount,mode=squash \\
-	--network bridge=${BRIDGE},mac=${MACPREFIX}${value},type=bridge
+	--network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge
 done
