@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function generate_mac {
-	printf \"${MACPREFIX}%x\" \$1
+	printf \"${MACPREFIX}%02x\" \$1
 }
 
 NODEMAC=\$(generate_mac \"10\")

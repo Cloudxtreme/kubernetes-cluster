@@ -41,7 +41,7 @@ function copy_script {
 }
 
 function generate_mac {
-	printf "$MACPREFIX%x" $1
+	printf "$MACPREFIX%02x" $1
 }
 
 function create_nodes {
