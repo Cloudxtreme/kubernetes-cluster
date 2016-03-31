@@ -16,6 +16,9 @@ function generate_configs {
 	MASTER_IP=${NETWORK}.10
 	STORAGE_IP=${NETWORK}.9
 
+	DISK_IO=${DISK_IO:="native"}
+	DISK_CACHE=${DISK_CACHE:="none"}
+
 	create_nodes
 	copy_scripts
 	echo "generate_configs finished"
