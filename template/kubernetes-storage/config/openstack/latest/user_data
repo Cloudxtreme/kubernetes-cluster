@@ -78,8 +78,8 @@ coreos:
         Requires=docker.service
         After=docker.service
         [Service]
-        Restart=always
-        RestartSec=20s
+        Restart=on-failure
+        RestartSec=120s
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
         ExecStart=/usr/bin/docker run \\
