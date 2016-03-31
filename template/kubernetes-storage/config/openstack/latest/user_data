@@ -123,6 +123,12 @@ write_files:
     content: |
       FLANNELD_IFACE=${NODEIP}
       FLANNELD_ETCD_ENDPOINTS=${ETCD_ENDPOINTS}
+  - path: /root/.toolboxrc
+    owner: core
+    content: |
+      TOOLBOX_DOCKER_IMAGE=bborbe/toolbox
+      TOOLBOX_DOCKER_TAG=latest
+      TOOLBOX_USER=root
   - path: /home/core/.toolboxrc
     owner: core
     content: |
