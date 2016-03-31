@@ -12,7 +12,7 @@ virt-install \\
 --serial pty \\
 --accelerate \\
 --ram ${MASTER_MEMORY} \\
---vcpus 2 \\
+--vcpus ${CPU_CORES} \\
 --cpu=host \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -32,7 +32,7 @@ virt-install \\
 --serial pty \\
 --accelerate \\
 --ram ${STORAGE_MEMORY} \\
---vcpus 2 \\
+--vcpus ${CPU_CORES} \\
 --cpu=host \\
 --os-type linux \\
 --os-variant virtio26 \\
@@ -54,7 +54,7 @@ for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	--serial pty \\
 	--accelerate \\
 	--ram ${WORKER_MEMORY} \\
-	--vcpus 2 \\
+	--vcpus ${CPU_CORES} \\
 	--cpu=host \\
 	--os-type linux \\
 	--os-variant virtio26 \\

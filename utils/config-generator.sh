@@ -19,6 +19,8 @@ function generate_configs {
 	DISK_IO=${DISK_IO:="native"}
 	DISK_CACHE=${DISK_CACHE:="none"}
 
+	CPU_CORES=${CPU_CORES:="4"}
+
 	create_nodes
 	copy_scripts
 	echo "generate_configs finished"
