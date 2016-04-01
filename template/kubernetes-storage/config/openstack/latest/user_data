@@ -41,7 +41,7 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
-    - name: docker.mount
+    - name: var-lib-docker.mount
       command: start
       content: |
         [Unit]
@@ -79,6 +79,11 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
+        - name: 10-wait-docker.conf
+          content: |
+            [Unit]
+            After=var-lib-docker.mount
+            Requires=var-lib-docker.mount
     - name: kubelet.service
       command: start
       content: |
