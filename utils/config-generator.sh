@@ -16,8 +16,11 @@ function generate_configs {
 	MASTER_IP=${NETWORK}.10
 	STORAGE_IP=${NETWORK}.9
 
-	DISK_IO=${DISK_IO:="native"}
-	DISK_CACHE=${DISK_CACHE:="none"}
+	STORAGE_DISK_CACHE=${STORAGE_DISK_CACHE:="none"}
+	STORAGE_DISK_IO=${STORAGE_DISK_IO:="native"}
+
+	NODE_DISK_CACHE=${NODE_DISK_CACHE:="writeback"}
+	NODE_DISK_IO=${NODE_DISK_IO:="native"}
 
 	CPU_CORES=${CPU_CORES:="4"}
 
