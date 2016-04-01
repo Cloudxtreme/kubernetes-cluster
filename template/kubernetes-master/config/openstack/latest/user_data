@@ -41,6 +41,15 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
+    - name: docker.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount /var/lib/docker
+        [Mount]
+        What=/dev/vdc
+        Where=/var/lib/docker
+        Type=ext4
     - name: etcd2.service
       command: start
     - name: fleet.service

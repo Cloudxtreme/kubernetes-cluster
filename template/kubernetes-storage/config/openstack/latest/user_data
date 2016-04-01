@@ -45,10 +45,19 @@ coreos:
       command: start
       content: |
         [Unit]
-        Description=Mount Data to /data
+        Description=Mount /data
         [Mount]
         What=/dev/vdb
         Where=/data
+        Type=ext4
+    - name: docker.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount /var/lib/docker
+        [Mount]
+        What=/dev/vdc
+        Where=/var/lib/docker
         Type=ext4
     - name: rpc-mountd.service
       command: start
