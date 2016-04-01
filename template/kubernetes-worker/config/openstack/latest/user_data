@@ -16,7 +16,7 @@ coreos:
     advertise-client-urls: \"http://${NODEIP}:2379\"
     listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
     listen-peer-urls: \"http://0.0.0.0:2380\"
-    snapshot-count: 50000
+    snapshot-count: 100000
   units:
     - name: etc-kubernetes-ssl.mount
       command: start
@@ -76,11 +76,6 @@ coreos:
         Type=xfs
     - name: etcd2.service
       command: start
-      drop-ins:
-        - name: 10-snapshot-count.conf
-          content: |
-            [Service]
-            Environment=ETCD_SNAPSHOT_COUNT=100000
     - name: fleet.service
       command: start
     - name:  systemd-networkd.service
