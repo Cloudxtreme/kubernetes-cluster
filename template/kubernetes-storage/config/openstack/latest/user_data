@@ -41,23 +41,23 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
-    - name: data.mount
-      command: start
-      content: |
-        [Unit]
-        Description=Mount /data
-        [Mount]
-        What=/dev/vdb
-        Where=/data
-        Type=ext4
     - name: docker.mount
       command: start
       content: |
         [Unit]
         Description=Mount /var/lib/docker
         [Mount]
-        What=/dev/vdc
+        What=/dev/vdb
         Where=/var/lib/docker
+        Type=ext4
+    - name: data.mount
+      command: start
+      content: |
+        [Unit]
+        Description=Mount /data
+        [Mount]
+        What=/dev/vdc
+        Where=/data
         Type=ext4
     - name: rpc-mountd.service
       command: start

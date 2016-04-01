@@ -47,7 +47,7 @@ coreos:
         [Unit]
         Description=Mount /var/lib/docker
         [Mount]
-        What=/dev/vdc
+        What=/dev/vdb
         Where=/var/lib/docker
         Type=ext4
     - name: etcd2.service
