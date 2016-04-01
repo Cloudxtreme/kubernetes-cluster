@@ -41,11 +41,25 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
+    - name: format-ephemeral.service
+      command: start
+      content: |
+        [Unit]
+        Description=Formats the ephemeral drive
+        After=dev-xvdb.device
+        Requires=dev-xvdb.device
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/sbin/wipefs -f /dev/vdb
+        ExecStart=/usr/sbin/mkfs.ext4 -F /dev/vdb
     - name: var-lib-docker.mount
       command: start
       content: |
         [Unit]
         Description=Mount /var/lib/docker
+        Requires=format-ephemeral.service
+        After=format-ephemeral.service
         [Mount]
         What=/dev/vdb
         Where=/var/lib/docker
