@@ -11,16 +11,7 @@ REGION="pn"
 NETWORK="172.16.90"
 MACPREFIX="00:16:3e:2f:90:"
 LVM_VG="system"
-STORAGE_SIZE="10G"
-PARTITION_SIZE="10G"
-PARTITION_PREFIX=""
-VM_PREFIX=""
-MASTER_MEMORY=1024
-STORAGE_MEMORY=1024
-WORKER_MEMORY=3072
 HOST=sun.pn.benjamin-borbe.de
-BRIDGE=privatebr0
-WORKER_AMOUNT=3
 
 ################################################################################
 
