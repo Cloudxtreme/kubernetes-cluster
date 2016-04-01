@@ -20,7 +20,6 @@ virt-install \\
 --nographics \\
 --name ${VM_PREFIX}kubernetes-master \\
 --disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-master,bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
---disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-master-docker,bus=virtio,cache=${DOCKER_DISK_CACHE},io=${DOCKER_DISK_IO} \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \\
 --network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge,model=virtio
@@ -41,7 +40,6 @@ virt-install \\
 --nographics \\
 --name ${VM_PREFIX}kubernetes-storage \\
 --disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage,bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
---disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-docker,bus=virtio,cache=${DOCKER_DISK_CACHE},io=${DOCKER_DISK_IO} \\
 --disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-data,bus=virtio,cache=${STORAGE_DISK_CACHE},io=${STORAGE_DISK_IO} \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \\
@@ -64,7 +62,6 @@ for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	--nographics \\
 	--name ${VM_PREFIX}kubernetes-worker\${i} \\
 	--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i},bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
-	--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i}-docker,bus=virtio,cache=${DOCKER_DISK_CACHE},io=${DOCKER_DISK_IO} \\
 	--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i}-storage,bus=virtio,cache=${STORAGE_DISK_CACHE},io=${STORAGE_DISK_IO} \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker\${i}/config/,config-2,type=mount,mode=squash \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-worker\${i}/ssl/,kubernetes-ssl,type=mount,mode=squash \\

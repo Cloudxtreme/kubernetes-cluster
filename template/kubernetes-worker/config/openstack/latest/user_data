@@ -41,36 +41,13 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
-    - name: format-ephemeral.service
-      command: start
-      content: |
-        [Unit]
-        Description=Formats the ephemeral drive
-        After=dev-vdb.device
-        Requires=dev-vdb.device
-        [Service]
-        Type=oneshot
-        RemainAfterExit=yes
-        ExecStart=/usr/sbin/wipefs -f /dev/vdb
-        ExecStart=/usr/sbin/mkfs.ext4 -F /dev/vdb
-    - name: var-lib-docker.mount
-      command: start
-      content: |
-        [Unit]
-        Description=Mount /var/lib/docker
-        Requires=format-ephemeral.service
-        After=format-ephemeral.service
-        [Mount]
-        What=/dev/vdb
-        Where=/var/lib/docker
-        Type=ext4
     - name: storage.mount
       command: start
       content: |
         [Unit]
         Description=Mount Storage to /storage
         [Mount]
-        What=/dev/vdc
+        What=/dev/vdb
         Where=/storage
         Type=xfs
     - name: etcd2.service
@@ -89,11 +66,6 @@ coreos:
             [Unit]
             Requires=flanneld.service
             After=flanneld.service
-        - name: 10-wait-docker.conf
-          content: |
-            [Unit]
-            After=var-lib-docker.mount
-            Requires=var-lib-docker.mount
     - name: kubelet.service
       command: start
       content: |
