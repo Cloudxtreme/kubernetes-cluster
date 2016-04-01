@@ -16,7 +16,9 @@ coreos:
     advertise-client-urls: \"http://${NODEIP}:2379\"
     listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
     listen-peer-urls: \"http://0.0.0.0:2380\"
-    snapshot-count: 100000
+    snapshot-count: 10000
+    heartbeat-interval: 1000
+    election-timeout: 10000
   units:
     - name: etc-kubernetes-ssl.mount
       command: start
