@@ -91,7 +91,7 @@ coreos:
           -initial-advertise-peer-urls \"http://${NODEIP}:2380\" \\
           -initial-cluster \"$INITIAL_CLUSTER\" \\
           -initial-cluster-token \"${CLUSTER_NAME}\" \\
-          -initial-cluster-state new" \\
+          -initial-cluster-state new \\
           -snapshot-count: 100000
         ExecStop=/usr/bin/docker kill etcd
         [X-Fleet]
