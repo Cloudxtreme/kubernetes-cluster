@@ -109,6 +109,8 @@ coreos:
         Requires=kubelet.service
         After=kubelet.service
         [Service]
+        Restart=on-failure
+        RestartSec=60s
         ExecStart=/bin/bash -c '\\
           echo \"try create namepsace kube-system\"; \\
           while true; do \\
