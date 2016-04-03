@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 function generate_configs {
 	echo "generate_configs started"
 
