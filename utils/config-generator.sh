@@ -11,7 +11,12 @@ function generate_configs {
   # Avaiable Version:
   # https://gcr.io/v2/google-containers/hyperkube-amd64/tags/list
   # https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md
-	K8S_VERSION="1.2.1"
+	#	K8S_VERSION="v1.2.1"
+	#	K8S_IMAGE="gcr.io/google_containers/hyperkube-amd64"
+
+  # https://quay.io/repository/coreos/hyperkube?tab=tags
+	K8S_VERSION="v1.2.0_coreos.1"
+	K8S_IMAGE="${K8S_IMAGE}"
 
 	K8S_SERVICE_IP="10.103.0.1"
 	SERVICE_NETWORK="10.103.0.0/16"
