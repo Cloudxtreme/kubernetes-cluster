@@ -85,7 +85,6 @@ coreos:
           --net=host \\
           --privileged=true \\
           --pid=host \\
-          -d \\
           gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
           /hyperkube kubelet \\
             --containerized \\
