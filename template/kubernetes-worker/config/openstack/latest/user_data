@@ -71,38 +71,28 @@ coreos:
       content: |
         [Unit]
         Description=Kubelet
-        Requires=docker.service
-        After=docker.service
+        Requires=flanneld.service
+        After=flanneld.service
         [Service]
         Restart=always
         RestartSec=20s
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
-        ExecStart=/usr/bin/docker run \\
-          --volume=/:/rootfs:ro \\
-          --volume=/sys:/sys:ro \\
-          --volume=/var/lib/docker/:/var/lib/docker:rw \\
-          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \\
-          --volume=/var/run:/var/run:rw \\
-          --volume=/etc/kubernetes:/etc/kubernetes:ro \\
-          --net=host \\
-          --privileged=true \\
-          --pid=host \\
-          gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
-          /hyperkube kubelet \\
-            --containerized \\
-            --api_servers=https://${MASTER_IP} \\
-            --register-node=true \\
-            --allow-privileged=true \\
-            --config=/etc/kubernetes/manifests \\
-            --hostname-override=${NODENAME} \\
-            --cluster-dns=${CLUSTER_DNS} \\
-            --cluster-domain=${CLUSTER_DOMAIN} \\
-            --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
-            --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
-            --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \\
-            --node-labels=role=worker \\
-            --v=2
+        Environment=KUBELET_VERSION=v1.2.0_coreos.1
+        ExecStart=/usr/lib/coreos/kubelet-wrapper \\
+          --containerized \\
+          --api_servers=https://${MASTER_IP} \\
+          --register-node=true \\
+          --allow-privileged=true \\
+          --config=/etc/kubernetes/manifests \\
+          --hostname-override=${NODENAME} \\
+          --cluster-dns=${CLUSTER_DNS} \\
+          --cluster-domain=${CLUSTER_DOMAIN} \\
+          --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
+          --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
+          --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \\
+          --node-labels=role=worker \\
+          --v=2
         [Install]
         WantedBy=multi-user.target
 write_files:

@@ -67,37 +67,26 @@ coreos:
       content: |
         [Unit]
         Description=Kubelet
-        Requires=docker.service
-        After=docker.service
+        Requires=flanneld.service
+        After=flanneld.service
         [Service]
         Restart=always
         RestartSec=20s
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
-        ExecStart=/usr/bin/docker run \\
-          --volume=/:/rootfs:ro \\
-          --volume=/sys:/sys:ro \\
-          --volume=/var/lib/docker/:/var/lib/docker:rw \\
-          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \\
-          --volume=/var/run:/var/run:rw \\
-          --volume=/etc/kubernetes:/etc/kubernetes \\
-          --volume=/srv/kubernetes:/srv/kubernetes \\
-          --net=host \\
-          --privileged=true \\
-          --pid=host \\
-          gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
-          /hyperkube kubelet \\
-            --containerized \\
-            --api_servers=http://127.0.0.1:8080 \\
-            --register-node=true \\
-            --register-schedulable=false \\
-            --allow-privileged=true \\
-            --config=/etc/kubernetes/manifests \\
-            --hostname-override=${NODENAME} \\
-            --cluster-dns=${CLUSTER_DNS} \\
-            --cluster-domain=${CLUSTER_DOMAIN} \\
-            --node-labels=role=master \\
-            --v=2
+        Environment=KUBELET_VERSION=v1.2.0_coreos.1
+        ExecStart=/usr/lib/coreos/kubelet-wrapper \\
+          --containerized \\
+          --api_servers=http://127.0.0.1:8080 \\
+          --register-node=true \\
+          --register-schedulable=false \\
+          --allow-privileged=true \\
+          --config=/etc/kubernetes/manifests \\
+          --hostname-override=${NODENAME} \\
+          --cluster-dns=${CLUSTER_DNS} \\
+          --cluster-domain=${CLUSTER_DOMAIN} \\
+          --node-labels=role=master \\
+          --v=2
         [Install]
         WantedBy=multi-user.target
     - name: kube-system-namespace.service
