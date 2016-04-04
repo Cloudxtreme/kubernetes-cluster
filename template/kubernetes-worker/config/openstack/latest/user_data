@@ -78,7 +78,8 @@ coreos:
         RestartSec=20s
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
-        Environment=KUBELET_VERSION=v1.2.0_coreos.1
+        Environment=\"KUBELET_VERSION=${K8S_VERSION}\"
+        Environment=\"KUBELET_ACI=${K8S_IMAGE}\"
         Environment=\"RKT_OPTS=--volume etc-kubernetes-ssl,kind=host,source=/etc/kubernetes/ssl --mount volume=etc-kubernetes-ssl,target=/etc/kubernetes/ssl\"
         ExecStart=/usr/lib/coreos/kubelet-wrapper \\
           --api_servers=https://${MASTER_IP} \\
