@@ -16,7 +16,7 @@ function generate_configs {
 
   # https://quay.io/repository/coreos/hyperkube?tab=tags
 	K8S_VERSION="v1.2.0_coreos.1"
-	K8S_IMAGE="${K8S_IMAGE}"
+	K8S_IMAGE="quay.io/coreos/hyperkube"
 
 	K8S_SERVICE_IP="10.103.0.1"
 	SERVICE_NETWORK="10.103.0.0/16"
