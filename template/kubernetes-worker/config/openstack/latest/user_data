@@ -80,7 +80,6 @@ coreos:
         TimeoutStartSec=0
         Environment=KUBELET_VERSION=v1.2.0_coreos.1
         ExecStart=/usr/lib/coreos/kubelet-wrapper \\
-          --containerized \\
           --api_servers=https://${MASTER_IP} \\
           --register-node=true \\
           --allow-privileged=true \\
