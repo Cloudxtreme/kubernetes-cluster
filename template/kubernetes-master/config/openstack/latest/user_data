@@ -75,6 +75,7 @@ coreos:
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
         Environment=KUBELET_VERSION=v1.2.0_coreos.1
+        Environment=RKT_OPTS=--volume srv-kubernetes,kind=host,source=/srv/kubernetes --mount volume=srv-kubernetes,target=/srv/kubernetes
         ExecStart=/usr/lib/coreos/kubelet-wrapper \\
           --containerized \\
           --api_servers=http://127.0.0.1:8080 \\
