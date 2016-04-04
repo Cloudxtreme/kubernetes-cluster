@@ -75,7 +75,7 @@ coreos:
         EnvironmentFile=/etc/environment
         TimeoutStartSec=0
         Environment=\"KUBELET_VERSION=${K8S_VERSION}\"
-        Environment=\"RKT_OPTS=--volume srv-kubernetes,kind=host,source=/srv/kubernetes --mount volume=srv-kubernetes,target=/srv/kubernetes --volume etc-kubernetes-ssl,kind=host,source=/etc/kubernetes/ssl --mount volume=etc-kubernetes-ssl,target=/etc/kubernetes/ssl --volume volume-rootfs,kind=host,source=/,readOnly=true --mount=volume=volume-rootfs,target=/rootfs\"
+        Environment=\"RKT_OPTS=--volume srv-kubernetes,kind=host,source=/srv/kubernetes --mount volume=srv-kubernetes,target=/srv/kubernetes --volume etc-kubernetes-ssl,kind=host,source=/etc/kubernetes/ssl --mount volume=etc-kubernetes-ssl,target=/etc/kubernetes/ssl --volume rootfs,kind=host,source=/,readOnly=true --mount volume=rootfs,target=/rootfs\"
         ExecStart=/usr/lib/coreos/kubelet-wrapper \\
           --api_servers=http://127.0.0.1:8080 \\
           --register-node=true \\
