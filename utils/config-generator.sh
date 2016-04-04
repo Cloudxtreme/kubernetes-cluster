@@ -18,6 +18,9 @@ function generate_configs {
 	K8S_VERSION="v1.2.0_coreos.1"
 	K8S_IMAGE="quay.io/coreos/hyperkube"
 
+	K8S_VERSION="latest"
+	K8S_IMAGE="quay.io/bborbe/hyperkube"
+
 	K8S_SERVICE_IP="10.103.0.1"
 	SERVICE_NETWORK="10.103.0.0/16"
 	POD_NETWORK="10.102.0.0/16"
