@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 lvremove /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-data
 
 function delete_storage {

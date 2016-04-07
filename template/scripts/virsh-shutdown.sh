@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 echo \"shutdown machines ...\"
 virsh shutdown ${VM_PREFIX}kubernetes-master
 virsh shutdown ${VM_PREFIX}kubernetes-storage

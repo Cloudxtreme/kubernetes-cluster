@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 echo \"undefine machines ...\"
 virsh undefine ${VM_PREFIX}kubernetes-master
 virsh undefine ${VM_PREFIX}kubernetes-storage

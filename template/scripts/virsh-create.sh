@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 function generate_mac {
 	printf \"${MACPREFIX}%02x\" \$1
 }

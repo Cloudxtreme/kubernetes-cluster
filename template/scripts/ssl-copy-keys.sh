@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 # kubernetes-master
 mkdir -p ../kubernetes-master/ssl
 cp kubernetes-ca.pem ../kubernetes-master/ssl/ca.pem

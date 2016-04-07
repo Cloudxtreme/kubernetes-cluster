@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
+
 ################################################################################
 
 PUBLIC_IP="172.16.70.4"

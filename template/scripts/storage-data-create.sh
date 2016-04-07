@@ -5,6 +5,8 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
+
 echo \"create lvm data volumes ...\"
 lvcreate -L ${STORAGE_SIZE} -n ${VM_PREFIX}kubernetes-storage-data ${LVM_VG}
 
