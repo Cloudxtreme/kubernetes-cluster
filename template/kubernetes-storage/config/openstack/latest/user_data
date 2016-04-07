@@ -7,15 +7,6 @@ coreos:
     metadata: \"region=${REGION}\"
   update:
     reboot-strategy: etcd-lock
-  etcd2:
-    name: \"${HOSTNAME}\"
-    initial-cluster: \"$INITIAL_CLUSTER\"
-    initial-cluster-token: \"${CLUSTER_NAME}\"
-    initial-cluster-state: \"new\"
-    initial-advertise-peer-urls: \"http://${NODEIP}:2380\"
-    advertise-client-urls: \"http://${NODEIP}:2379\"
-    listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
-    listen-peer-urls: \"http://0.0.0.0:2380\"
   units:
     - name: etc-kubernetes-ssl.mount
       command: start
@@ -53,8 +44,6 @@ coreos:
     - name: rpc-mountd.service
       command: start
     - name: nfsd.service
-      command: start
-    - name: etcd2.service
       command: start
     - name: fleet.service
       command: start
