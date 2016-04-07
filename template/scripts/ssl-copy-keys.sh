@@ -16,6 +16,16 @@ cp kubernetes-storage-key.pem ../kubernetes-storage/ssl/storage-key.pem
 #chmod 600 ../kubernetes-storage/ssl/*.pem
 chown root:root ../kubernetes-storage/ssl/*.pem
 
+# kubernetes-etcd
+for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
+	mkdir -p ../kubernetes-etcd\${i}/ssl
+	cp kubernetes-ca.pem ../kubernetes-etcd\${i}/ssl/ca.pem
+	cp kubernetes-etcd\${i}.pem ../kubernetes-etcd\${i}/ssl/etcd.pem
+	cp kubernetes-etcd\${i}-key.pem ../kubernetes-etcd\${i}/ssl/etcd-key.pem
+	#chmod 600 ../kubernetes-etcd\${i}/ssl/*.pem
+	chown root:root ../kubernetes-etcd\${i}/ssl/*.pem
+done
+
 # kubernetes-worker
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	mkdir -p ../kubernetes-worker\${i}/ssl

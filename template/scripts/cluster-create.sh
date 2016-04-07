@@ -13,6 +13,9 @@ qemu-img convert /var/lib/libvirt/images/coreos_production_qemu_image.img -O raw
 echo \"create lvm volumes ...\"
 lvcreate -L ${SYSTEM_SIZE} -n ${DISK_PREFIX}kubernetes-master ${LVM_VG}
 lvcreate -L ${SYSTEM_SIZE} -n ${DISK_PREFIX}kubernetes-storage ${LVM_VG}
+for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
+	lvcreate -L ${SYSTEM_SIZE} -n \"${DISK_PREFIX}kubernetes-etcd\${i}\" ${LVM_VG}
+done
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	lvcreate -L ${SYSTEM_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}\" ${LVM_VG}
 done
@@ -20,6 +23,9 @@ done
 echo \"writing images ...\"
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${DISK_PREFIX}kubernetes-master
 dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage
+for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
+	dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${DISK_PREFIX}kubernetes-etcd\${i}
+done
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	dd bs=1M iflag=direct oflag=direct if=/var/lib/libvirt/images/coreos_production_qemu_image.raw of=/dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i}
 done

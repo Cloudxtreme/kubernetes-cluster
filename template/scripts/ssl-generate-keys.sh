@@ -22,6 +22,16 @@ openssl genrsa -out kubernetes-\${STORAGE_FQDN}-key.pem 2048
 WORKER_IP=\${STORAGE_IP} openssl req -new -key kubernetes-\${STORAGE_FQDN}-key.pem -out kubernetes-\${STORAGE_FQDN}.csr -subj \"/CN=\${STORAGE_FQDN}\" -config worker-openssl.cnf
 WORKER_IP=\${STORAGE_IP} openssl x509 -req -in kubernetes-\${STORAGE_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${STORAGE_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 
+# Etcd Key
+for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
+	value=\$((15 + \$i))
+	ETCD_FQDN=\"etcd\${i}\"
+	ETCD_IP=${NETWORK}.${value}
+	openssl genrsa -out kubernetes-\${ETCD_FQDN}-key.pem 2048
+	WORKER_IP=\${ETCD_IP} openssl req -new -key kubernetes-\${ETCD_FQDN}-key.pem -out kubernetes-\${ETCD_FQDN}.csr -subj \"/CN=\${ETCD_FQDN}\" -config worker-openssl.cnf
+	WORKER_IP=\${ETCD_IP} openssl x509 -req -in kubernetes-\${ETCD_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${ETCD_FQDN}.pem -days 365 -extensions v3_req -extfile etcd-openssl.cnf
+done
+
 # Worker Key
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	value=\$((20 + \$i))
