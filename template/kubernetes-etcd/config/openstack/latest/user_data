@@ -93,7 +93,7 @@ coreos:
             --kubeconfig=/etc/kubernetes/storage-kubeconfig.yaml \\
             --tls-cert-file=/etc/kubernetes/ssl/storage.pem \\
             --tls-private-key-file=/etc/kubernetes/ssl/storage-key.pem \\
-            --node-labels=role=storage \\
+            --node-labels=role=etcd \\
             --v=2
         [Install]
         WantedBy=multi-user.target
