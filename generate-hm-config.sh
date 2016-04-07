@@ -15,6 +15,7 @@ NETWORK="172.16.20"
 MACPREFIX="00:16:3e:2f:20:"
 LVM_VG="system"
 HOST=fire.hm.benjamin-borbe.de
+STORAGE_SIZE="5G"
 
 ################################################################################
 
