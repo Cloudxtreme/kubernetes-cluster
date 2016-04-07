@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 function generate_mac {
 	printf \"${MACPREFIX}%02x\" \$1
 }

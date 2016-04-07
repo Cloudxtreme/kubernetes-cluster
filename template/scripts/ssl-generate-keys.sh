@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 # https://coreos.com/kubernetes/docs/latest/openssl.html
 
 KUBERNETES_SVC=${K8S_SERVICE_IP}

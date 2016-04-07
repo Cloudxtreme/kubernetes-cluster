@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 echo \"reboot machines ...\"
 virsh reboot ${VM_PREFIX}kubernetes-master
 virsh reboot ${VM_PREFIX}kubernetes-storage

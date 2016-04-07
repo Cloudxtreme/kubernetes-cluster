@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 echo \"starting machines ...\"
 virsh start ${VM_PREFIX}kubernetes-master
 virsh start ${VM_PREFIX}kubernetes-storage

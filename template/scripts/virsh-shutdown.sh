@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 echo \"shutdown machines ...\"
 virsh shutdown ${VM_PREFIX}kubernetes-master
 virsh shutdown ${VM_PREFIX}kubernetes-storage

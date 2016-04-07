@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 # kubernetes-master
 mkdir -p ../kubernetes-master/ssl
 cp kubernetes-ca.pem ../kubernetes-master/ssl/ca.pem
