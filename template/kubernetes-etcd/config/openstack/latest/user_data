@@ -1,0 +1,186 @@
+#cloud-config
+ssh_authorized_keys:
+ - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCOw/yh7+j3ygZp2aZRdZDWUh0Dkj5N9/USdiLSoS+0CHJta+mtSxxmI/yv1nOk7xnuA6qtjpxdMlWn5obtC9xyS6T++tlTK9gaPwU7a/PObtoZdfQ7znAJDpX0IPI06/OH1tFE9kEutHQPzhCwRaIQ402BHIrUMWzzP7Ige8Oa0HwXH4sHUG5h/V/svzi9T0CKJjF8dTx4iUfKX959hT8wQnKYPULewkNBFv6pNfWIr8EzvIEQcPmmm3tP+dQPKg5QKVi6jPdRla+t5HXfhXu0W3WCDa2s0VGmJjBdMMowr5MLNYI79MKziSV1w1IWL17Z58Lop0zEHqP7Ba0Aooqd
+hostname: ${HOSTNAME}
+coreos:
+  fleet:
+    metadata: \"region=${REGION}\"
+  update:
+    reboot-strategy: etcd-lock
+  etcd2:
+    name: \"${HOSTNAME}\"
+    initial-cluster: \"$INITIAL_CLUSTER\"
+    initial-cluster-token: \"${CLUSTER_NAME}\"
+    initial-cluster-state: \"new\"
+    initial-advertise-peer-urls: \"http://${NODEIP}:2380\"
+    advertise-client-urls: \"http://${NODEIP}:2379\"
+    listen-client-urls: \"http://0.0.0.0:2379,http://0.0.0.0:4001\"
+    listen-peer-urls: \"http://0.0.0.0:2380\"
+  units:
+    - name: etc-kubernetes-ssl.mount
+      command: start
+      content: |
+        [Unit]
+        Wants=user-configvirtfs.service
+        Before=user-configvirtfs.service
+        # Only mount config drive block devices automatically in virtual machines
+        # or any host that has it explicitly enabled and not explicitly disabled.
+        ConditionVirtualization=|vm
+        ConditionKernelCommandLine=|coreos.configdrive=1
+        ConditionKernelCommandLine=!coreos.configdrive=0
+        [Mount]
+        What=kubernetes-ssl
+        Where=/etc/kubernetes/ssl
+        Options=ro,trans=virtio,version=9p2000.L
+        Type=9p
+    - name: 10-ens3.network
+      content: |
+        [Match]
+        MACAddress=${NODEMAC}
+        [Network]
+        Address=${NODEIP}/24
+        Gateway=${NETWORK}.1
+        DNS=${NETWORK}.1
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
+    - name:  systemd-networkd.service
+      command: restart
+    - name: flanneld.service
+      command: start
+    - name: docker.service
+      command: start
+      drop-ins:
+        - name: 40-flannel.conf
+          content: |
+            [Unit]
+            Requires=flanneld.service
+            After=flanneld.service
+    - name: kubelet.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubelet
+        Requires=docker.service
+        After=docker.service
+        [Service]
+        Restart=always
+        RestartSec=20s
+        EnvironmentFile=/etc/environment
+        TimeoutStartSec=0
+        ExecStart=/usr/bin/docker run \\
+          --volume=/:/rootfs:ro \\
+          --volume=/sys:/sys:ro \\
+          --volume=/var/lib/docker/:/var/lib/docker:rw \\
+          --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \\
+          --volume=/var/run:/var/run:rw \\
+          --volume=/etc/kubernetes:/etc/kubernetes:ro \\
+          --net=host \\
+          --privileged=true \\
+          --pid=host \\
+          gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \\
+          /hyperkube kubelet \\
+            --containerized \\
+            --api_servers=https://${MASTER_IP} \\
+            --register-node=true \\
+            --register-schedulable=false \\
+            --allow-privileged=true \\
+            --config=/etc/kubernetes/manifests \\
+            --hostname-override=${NODENAME} \\
+            --cluster-dns=${CLUSTER_DNS} \\
+            --cluster-domain=${CLUSTER_DOMAIN} \\
+            --kubeconfig=/etc/kubernetes/storage-kubeconfig.yaml \\
+            --tls-cert-file=/etc/kubernetes/ssl/storage.pem \\
+            --tls-private-key-file=/etc/kubernetes/ssl/storage-key.pem \\
+            --node-labels=role=storage \\
+            --v=2
+        [Install]
+        WantedBy=multi-user.target
+write_files:
+  - path: /etc/environment
+    permissions: 0644
+    content: |
+      COREOS_PUBLIC_IPV4=${NODEIP}
+      COREOS_PRIVATE_IPV4=${NODEIP}
+  - path: /run/flannel/options.env
+    permissions: 0644
+    content: |
+      FLANNELD_IFACE=${NODEIP}
+      FLANNELD_ETCD_ENDPOINTS=${ETCD_ENDPOINTS}
+  - path: /root/.toolboxrc
+    owner: core
+    content: |
+      TOOLBOX_DOCKER_IMAGE=bborbe/toolbox
+      TOOLBOX_DOCKER_TAG=latest
+      TOOLBOX_USER=root
+  - path: /home/core/.toolboxrc
+    owner: core
+    content: |
+      TOOLBOX_DOCKER_IMAGE=bborbe/toolbox
+      TOOLBOX_DOCKER_TAG=latest
+      TOOLBOX_USER=root
+  - path: /etc/exports
+    permissions: 0644
+    content: |
+      /data/ ${NETWORK}.0/24(rw,async,no_subtree_check,no_root_squash,fsid=0)
+  - path: /etc/kubernetes/storage-kubeconfig.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/storage.pem
+          client-key: /etc/kubernetes/ssl/storage-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
+  - path: /etc/kubernetes/manifests/kube-proxy.yaml
+    permissions: 0644
+    content: |
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: kube-proxy
+        namespace: kube-system
+      spec:
+        hostNetwork: true
+        containers:
+        - name: kube-proxy
+          image: gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION}
+          command:
+          - /hyperkube
+          - proxy
+          - --master=https://${MASTER_IP}
+          - --kubeconfig=/etc/kubernetes/storage-kubeconfig.yaml
+          - --proxy-mode=iptables
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /etc/ssl/certs
+              name: \"ssl-certs\"
+            - mountPath: /etc/kubernetes/storage-kubeconfig.yaml
+              name: \"kubeconfig\"
+              readOnly: true
+            - mountPath: /etc/kubernetes/ssl
+              name: \"etc-kube-ssl\"
+              readOnly: true
+        volumes:
+          - name: \"ssl-certs\"
+            hostPath:
+              path: \"/usr/share/ca-certificates\"
+          - name: \"kubeconfig\"
+            hostPath:
+              path: \"/etc/kubernetes/storage-kubeconfig.yaml\"
+          - name: \"etc-kube-ssl\"
+            hostPath:
+              path: \"/etc/kubernetes/ssl\"
