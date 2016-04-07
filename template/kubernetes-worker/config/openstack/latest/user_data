@@ -96,8 +96,8 @@ coreos:
             --cluster-dns=${CLUSTER_DNS} \\
             --cluster-domain=${CLUSTER_DOMAIN} \\
             --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \\
-            --tls-cert-file=/etc/kubernetes/ssl/worker.pem \\
-            --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \\
+            --tls-cert-file=/etc/kubernetes/ssl/node.pem \\
+            --tls-private-key-file=/etc/kubernetes/ssl/node-key.pem \\
             --node-labels=role=worker \\
             --v=2
         [Install]
@@ -137,8 +137,8 @@ write_files:
       users:
       - name: kubelet
         user:
-          client-certificate: /etc/kubernetes/ssl/worker.pem
-          client-key: /etc/kubernetes/ssl/worker-key.pem
+          client-certificate: /etc/kubernetes/ssl/node.pem
+          client-key: /etc/kubernetes/ssl/node-key.pem
       contexts:
       - context:
           cluster: local
