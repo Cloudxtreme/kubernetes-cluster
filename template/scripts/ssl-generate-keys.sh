@@ -29,7 +29,7 @@ for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 	ETCD_IP=${NETWORK}.${value}
 	openssl genrsa -out kubernetes-\${ETCD_FQDN}-key.pem 2048
 	WORKER_IP=\${ETCD_IP} openssl req -new -key kubernetes-\${ETCD_FQDN}-key.pem -out kubernetes-\${ETCD_FQDN}.csr -subj \"/CN=\${ETCD_FQDN}\" -config worker-openssl.cnf
-	WORKER_IP=\${ETCD_IP} openssl x509 -req -in kubernetes-\${ETCD_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${ETCD_FQDN}.pem -days 365 -extensions v3_req -extfile etcd-openssl.cnf
+	WORKER_IP=\${ETCD_IP} openssl x509 -req -in kubernetes-\${ETCD_FQDN}.csr -CA kubernetes-ca.pem -CAkey kubernetes-ca-key.pem -CAcreateserial -out kubernetes-\${ETCD_FQDN}.pem -days 365 -extensions v3_req -extfile worker-openssl.cnf
 done
 
 # Worker Key
