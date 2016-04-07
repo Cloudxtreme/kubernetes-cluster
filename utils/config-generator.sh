@@ -78,16 +78,25 @@ function generate_mac {
 function create_nodes {
 	echo "create_nodes started"
 	
-	ETCD_ENDPOINTS="http://${MASTER_IP}:2379,http://${STORAGE_IP}:2379"
-	INITIAL_CLUSTER="kubernetes-master=http://${NETWORK}.10:2380,kubernetes-storage=http://${STORAGE_IP}:2380"
-	for ((i=0; i < WORKER_AMOUNT; i++)) do
-		value=$((20 + $i))
-		ETCD_ENDPOINTS="${ETCD_ENDPOINTS},http://${NETWORK}.$value:2379"
-		INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-worker$i=http://${NETWORK}.$value:2380"
+	ETCD_ENDPOINTS=""
+	INITIAL_CLUSTER=""
+	for ((i=0; i < ETCD_AMOUNT; i++)) do
+		value=$((15 + $i))
+		if [ $i == 0 ]; then
+			ETCD_ENDPOINTS="http://${NETWORK}.$value:2379"
+			INITIAL_CLUSTER="kubernetes-etcd$i=http://${NETWORK}.$value:2380"
+		else
+			ETCD_ENDPOINTS="${ETCD_ENDPOINTS},http://${NETWORK}.$value:2379"
+			INITIAL_CLUSTER="$INITIAL_CLUSTER,kubernetes-etcd$i=http://${NETWORK}.$value:2380"
+		fi
 	done
 
 	create_node "master" "master" "10"
 	create_node "storage" "storage" "9"
+	for ((i=0; i < ETCD_AMOUNT; i++)) do
+		value=$((15 + $i))
+		create_node "etcd" "etcd$i" "$value"
+	done
 	for ((i=0; i < WORKER_AMOUNT; i++)) do
 		value=$((20 + $i))
 		create_node "worker" "worker$i" "$value"
