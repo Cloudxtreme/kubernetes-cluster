@@ -8,9 +8,9 @@ set -o errtrace
 function generate_configs {
 	echo "generate_configs started"
 
-  # Avaiable Version:
-  # https://gcr.io/v2/google-containers/hyperkube-amd64/tags/list
-  # https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md
+	# Avaiable Version:
+	# https://gcr.io/v2/google-containers/hyperkube-amd64/tags/list
+	# https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md
 	K8S_VERSION="1.2.2"
 
 	K8S_SERVICE_IP="10.103.0.1"
