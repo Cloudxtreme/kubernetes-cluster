@@ -47,6 +47,9 @@ coreos:
         What=/dev/vdb
         Where=/data
         Type=ext4
+    - name: rpc-statd.service
+      command: start
+      enable: true
     - name: etcd2.service
       command: start
     - name: rpc-mountd.service

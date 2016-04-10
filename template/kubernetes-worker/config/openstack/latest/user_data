@@ -47,6 +47,9 @@ coreos:
         What=/dev/vdb
         Where=/storage
         Type=xfs
+    - name: rpc-statd.service
+      command: start
+      enable: true
     - name: etcd2.service
       command: start
     - name: fleet.service

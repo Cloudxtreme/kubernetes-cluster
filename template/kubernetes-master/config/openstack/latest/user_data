@@ -38,6 +38,9 @@ coreos:
         Address=${NODEIP}/24
         Gateway=${NETWORK}.1
         DNS=${NETWORK}.1
+    - name: rpc-statd.service
+      command: start
+      enable: true
     - name: etcd2.service
       command: start
     - name: fleet.service
