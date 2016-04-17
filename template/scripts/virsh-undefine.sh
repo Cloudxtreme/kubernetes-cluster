@@ -1,13 +1,14 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
 SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
 
 echo \"undefine machines ...\"
-virsh undefine ${VM_PREFIX}kubernetes-master
-virsh undefine ${VM_PREFIX}kubernetes-storage
-for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
-	virsh undefine ${VM_PREFIX}kubernetes-etcd\${i}
-done
-for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
-	virsh undefine ${VM_PREFIX}kubernetes-worker\${i}
-done
+\${SCRIPT_ROOT}/virsh-undefine-etcd.sh
+\${SCRIPT_ROOT}/virsh-undefine-storage.sh
+\${SCRIPT_ROOT}/virsh-undefine-master.sh
+\${SCRIPT_ROOT}/virsh-undefine-worker.sh

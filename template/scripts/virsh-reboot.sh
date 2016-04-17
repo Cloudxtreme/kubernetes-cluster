@@ -8,13 +8,7 @@ set -o errtrace
 SCRIPT_ROOT=\$(dirname "\${BASH_SOURCE}")
 
 echo \"reboot machines ...\"
-virsh reboot ${VM_PREFIX}kubernetes-master
-virsh reboot ${VM_PREFIX}kubernetes-storage
-for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
-	virsh reboot ${VM_PREFIX}kubernetes-etcd\${i}
-done
-for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
-	virsh reboot ${VM_PREFIX}kubernetes-worker\${i}
-done
-
-echo \"done\"
+\${SCRIPT_ROOT}/virsh-reboot-etcd.sh
+\${SCRIPT_ROOT}/virsh-reboot-storage.sh
+\${SCRIPT_ROOT}/virsh-reboot-master.sh
+\${SCRIPT_ROOT}/virsh-reboot-worker.sh
