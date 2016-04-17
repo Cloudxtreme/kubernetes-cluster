@@ -20,7 +20,7 @@ for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	--serial pty \\
 	--accelerate \\
 	--ram ${WORKER_MEMORY} \\
-	--vcpus ${CPU_CORES} \\
+	--vcpus ${WORKER_CPU_CORES} \\
 	--cpu=host \\
 	--os-type linux \\
 	--os-variant virtio26 \\

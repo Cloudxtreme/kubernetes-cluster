@@ -19,7 +19,7 @@ virt-install \\
 --serial pty \\
 --accelerate \\
 --ram ${MASTER_MEMORY} \\
---vcpus ${CPU_CORES} \\
+--vcpus ${MASTER_CPU_CORES} \\
 --cpu=host \\
 --os-type linux \\
 --os-variant virtio26 \\

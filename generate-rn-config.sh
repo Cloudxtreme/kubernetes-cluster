@@ -20,6 +20,7 @@ DISK_PREFIX="bb_"
 VM_PREFIX="bb_"
 HOST=host.rocketsource.de
 BRIDGE=br0
+WORKER_CPU_CORES="4"
 
 ################################################################################
 

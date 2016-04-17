@@ -46,7 +46,10 @@ function generate_configs {
 
 	BRIDGE=${BRIDGE:="privatebr0"}
 
-	CPU_CORES=${CPU_CORES:="2"}
+	WORKER_CPU_CORES=${WORKER_CPU_CORES:="2"}
+	STORAGE_CPU_CORES=${STORAGE_CPU_CORES:="2"}
+	MASTER_CPU_CORES=${MASTER_CPU_CORES:="2"}
+	ETCD_CPU_CORES=${ETCD_CPU_CORES:="2"}
 
 	create_nodes
 	copy_scripts

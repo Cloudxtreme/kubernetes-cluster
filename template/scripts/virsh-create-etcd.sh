@@ -20,7 +20,7 @@ for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 	--serial pty \\
 	--accelerate \\
 	--ram ${ETCD_MEMORY} \\
-	--vcpus ${CPU_CORES} \\
+	--vcpus ${ETCD_CPU_CORES} \\
 	--cpu=host \\
 	--os-type linux \\
 	--os-variant virtio26 \\
