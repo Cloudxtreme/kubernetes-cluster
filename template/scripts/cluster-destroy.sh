@@ -18,6 +18,7 @@ for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 done
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	lvremove /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i}
+	lvremove /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-worker\${i}-docker
 done
 
 echo \"done\"
