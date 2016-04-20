@@ -27,6 +27,7 @@ virt-install \\
 --nographics \\
 --name ${VM_PREFIX}kubernetes-storage \\
 --disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
+--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-docker,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
 --disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-data,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \\
