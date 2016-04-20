@@ -26,7 +26,7 @@ virt-install \\
 --noautoconsole \\
 --nographics \\
 --name ${VM_PREFIX}kubernetes-master \\
---disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-master,bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
+--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-master,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-master/ssl/,kubernetes-ssl,type=mount,mode=squash \\
 --network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge,model=virtio

@@ -27,7 +27,7 @@ for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 	--noautoconsole \\
 	--nographics \\
 	--name ${VM_PREFIX}kubernetes-etcd\${i} \\
-	--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-etcd\${i},bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
+	--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-etcd\${i},bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd\${i}/config/,config-2,type=mount,mode=squash \\
 	--filesystem /var/lib/libvirt/images/kubernetes/kubernetes-etcd\${i}/ssl/,kubernetes-ssl,type=mount,mode=squash \\
 	--network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge,model=virtio

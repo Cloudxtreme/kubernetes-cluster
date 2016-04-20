@@ -26,8 +26,8 @@ virt-install \\
 --noautoconsole \\
 --nographics \\
 --name ${VM_PREFIX}kubernetes-storage \\
---disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage,bus=virtio,cache=${NODE_DISK_CACHE},io=${NODE_DISK_IO} \\
---disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-data,bus=virtio,cache=${STORAGE_DISK_CACHE},io=${STORAGE_DISK_IO} \\
+--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
+--disk /dev/${LVM_VG}/${DISK_PREFIX}kubernetes-storage-data,bus=virtio,cache=${DISK_CACHE},io=${DISK_IO} \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/config/,config-2,type=mount,mode=squash \\
 --filesystem /var/lib/libvirt/images/kubernetes/kubernetes-storage/ssl/,kubernetes-ssl,type=mount,mode=squash \\
 --network bridge=${BRIDGE},mac=\${NODEMAC},type=bridge,model=virtio

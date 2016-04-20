@@ -23,6 +23,7 @@ for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 done
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	lvcreate -L ${WORKER_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}\" ${LVM_VG}
+	lvcreate -L ${DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}-docker\" ${LVM_VG}
 done
 
 echo \"writing images ...\"
