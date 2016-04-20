@@ -16,14 +16,21 @@ echo \"converting image ...\"
 qemu-img convert /var/lib/libvirt/images/coreos_production_qemu_image.img -O raw /var/lib/libvirt/images/coreos_production_qemu_image.raw
 
 echo \"create lvm volumes ...\"
+
 lvcreate -L ${NODE_SIZE} -n ${DISK_PREFIX}kubernetes-master ${LVM_VG}
+lvcreate -L ${DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-master\${i}-docker\" ${LVM_VG}
+
 lvcreate -L ${NODE_SIZE} -n ${DISK_PREFIX}kubernetes-storage ${LVM_VG}
+lvcreate -L ${DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-storage\${i}-docker\" ${LVM_VG}
+
 for ((i=0; i < ${ETCD_AMOUNT}; i++)) do
 	lvcreate -L ${NODE_SIZE} -n \"${DISK_PREFIX}kubernetes-etcd\${i}\" ${LVM_VG}
+	lvcreate -L ${DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-etcd\${i}-docker\" ${LVM_VG}
 done
+
 for ((i=0; i < ${WORKER_AMOUNT}; i++)) do
 	lvcreate -L ${WORKER_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}\" ${LVM_VG}
-	lvcreate -L ${DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}-docker\" ${LVM_VG}
+	lvcreate -L ${WORKER_DOCKER_SIZE} -n \"${DISK_PREFIX}kubernetes-worker\${i}-docker\" ${LVM_VG}
 done
 
 echo \"writing images ...\"
