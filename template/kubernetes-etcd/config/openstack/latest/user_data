@@ -96,8 +96,8 @@ coreos:
         After=docker.service
         [Service]
         Type=oneshot
-        ExecStart=-/usr/bin/docker rm -v \$(/usr/bin/docker ps -a -q -f status=exited)
-        ExecStart=-/usr/bin/docker rmi \$(/usr/bin/docker images -f dangling=true -q)
+        ExecStart=-/bin/bash -c '/usr/bin/docker rm -v \$(/usr/bin/docker ps -a -q -f status=exited)'
+        ExecStart=-/bin/bash -c '/usr/bin/docker rmi \$(/usr/bin/docker images -f dangling=true -q)'
     - name: docker-cleanup.timer
       command: start
       content: |
