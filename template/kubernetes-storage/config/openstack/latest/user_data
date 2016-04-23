@@ -109,11 +109,15 @@ coreos:
         ExecStart=/usr/bin/docker rm -v $(/usr/bin/docker ps -a -q -f status=exited)
         ExecStart=/usr/bin/docker rmi $(/usr/bin/docker images -f "dangling=true" -q)
     - name: docker-cleanup.timer
+      command: start
       content: |
         [Unit]
         Description=Docker Cleanup every 8 hours
         [Timer]
+        Unit=docker-cleanup.service
         OnCalendar=0/8:00:00
+        [Install]
+        WantedBy=multi-user.target
     - name: kubelet.service
       command: start
       content: |
