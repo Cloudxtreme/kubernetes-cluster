@@ -52,7 +52,7 @@ coreos:
         Type=oneshot
         RemainAfterExit=yes
         ExecStart=/usr/sbin/wipefs -f /dev/vdb
-        ExecStart=/usr/sbin/mkfs.ext4 -F /dev/vdb
+        ExecStart=/usr/sbin/mkfs.ext4 -i 4096 -F /dev/vdb
     - name: var-lib-docker.mount
       command: start
       content: |
